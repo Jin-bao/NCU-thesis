@@ -20,7 +20,7 @@
 3. 因上级需求不同而引起的任何问题均与模板作者无关。
 
 ### 贡献
-如果您有任何改进意见或者功能需求，欢迎提交 [issues](https://github.com/Jin-bao/NCU-thesis/issues)、[pull requests](https://github.com/Jin-bao/NCU-thesis/issues)，或者与模板作者联系（邮箱：yyyyyyhdd@outlook.com）。
+如果您有任何改进意见或者功能需求，欢迎提交 [issues](https://github.com/Jin-bao/NCU-thesis/issues)、[pull requests](https://github.com/Jin-bao/NCU-thesis/pulls)，或者与模板作者联系（邮箱：yyyyyyhdd@outlook.com）。
 
 ### 许可证
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)（版本 1.3c 或更高）。
