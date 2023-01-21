@@ -1,7 +1,7 @@
 # NCU-thesis
 适用于南昌大学学术型研究生、专业型研究生、本科生毕业（学位）论文撰写的模板。
 
-在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf]()。
+在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf](https://github.com/Jin-bao/NCU-thesis/releases/download/v0.1/NCU-thesis-guide.pdf)。
 
 ### 模板组成
 - 核心文档类：
