@@ -184,9 +184,9 @@
   AutoFakeSlant
 ]{方正书宋简体}
 \setCJKsansfont[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 3,
+  Path      = ./fonts/,
+  Extension = .ttf,
+  AutoFakeBold,
   AutoFakeSlant
 ]{方正黑体简体}
 \setCJKmonofont[
@@ -210,9 +210,9 @@
   AutoFakeSlant
 ]
 \newCJKfontfamily[heiti]\heiti{方正黑体简体}[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 3,
+  Path      = ./fonts/,
+  Extension = .ttf,
+  AutoFakeBold,
   AutoFakeSlant
 ]
 %%
