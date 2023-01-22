@@ -1,7 +1,7 @@
 %%
 %% 这是 `ncuthesis.cls' 文件
 %% 
-%% 南昌大学非官方的学位论文 LaTeX 模板
+%% 南昌大学非官方的学位 (毕业) 论文 LaTeX 模板
 %%
 %% 仓库在 https://github.com/Jin-bao/NCU-thesis
 %%
