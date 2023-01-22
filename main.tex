@@ -1,0 +1,350 @@
+%%
+%% 这是 `main.tex' 文件
+%% `main.tex' 所含信息无任何实际意义, 只起演示作用
+%%
+%% 经 xelatex -> bibtex -> xelatex -> xelatex 编译后可得正确结果
+%%
+%% 调用 `ncuthesis' 文档类
+\documentclass[final]{ncuthesis}
+%%
+%% 论文信息
+\CLC{O}
+\secretlevel*{公开}
+\UDC{123.123.1}
+\studentid{402200220047}
+\degree{硕士}
+\title{南昌大学学位论文模板使用演示}
+\title*{Demonstration\\of\\Nanchang University Thesis Template}
+\author{朱金宝}
+\department{物理与材料学院}
+\supervisor{舒富文教授}
+\field{理学}
+\major{天体物理}
+\defensedate{2022 年 12 月 31 日}
+\tdcchairman{主席}
+\reviewer{评阅人 1}{评阅人 2}
+\completiondate{2022 年 12 月 31 日}
+%%
+%%
+\begin{document}
+\maketitle
+%%
+\frontmatter
+\makedecaut
+\begin{abstract}
+\TeX\ 是高德纳  (Donald E. Knuth) 为排版文字和数学公式而开发的软件. 1977 年, 正在编写《计算机程序设计艺术》的高德纳意识到每况愈下的排版质量将影响其著作的发行, 为扭转这种状况, 他着手开发 \TeX, 发掘当时刚刚用于出版工业的数字印刷设备的潜力. 1982 年, 高德纳发布 \TeX\ 排版引擎, 而后在 1989 年又为更好地支持 8-bit 字符和多语言排版而予以改进. \TeX\ 以其卓越的稳定性、跨平台能力和几乎没有 bug 的特性而著称. 它的版本号不断趋近于 π, 当前为 3.141592653. 
+
+\TeX\ 读作 ``Tech'', 与汉字 ``泰赫'' 的发音相近, 其中 ``ch'' 的发音类似于 ``h''. \TeX\ 的拼写来自希腊词语 τεχνική (technique, 技术) 开头的几个字母, 在 ASCII 字符环境中写作 \texttt{TeX}. 
+
+\LaTeX\ 是一种使用 \TeX\ 程序作为排版引擎的格式 (format) , 可以粗略地将它理解成是对 \TeX\ 的一层封装. \LaTeX\ 最初的设计目标是分离内容与格式, 以便作者能够专注于内容创作而非版式设计, 并能以此得到高质量排版的作品. \LaTeX\ 起初由 Leslie Lamport 博士开发, 目前由 \LaTeX\ 工作组进行维护. 
+
+\LaTeX\ 读作 ``Lah-tech'' 或者 ``Lay-tech'', 与汉字 ``拉泰赫'' 或者 ``雷泰赫'' 的发音相近, 在ASCII 字符环境中写作 \texttt{LaTeX}. \LaTeXe\ 是 \LaTeX\ 的当前版本, 意思是超出了第二版, 但是还远未达到第三版, 在 ASCII 字符环境中写作 \texttt{LaTeX2e}. 
+\keywords{排版, 泰赫, 拉泰赫}
+\end{abstract}
+\begin{abstract*}
+\TeX\ is a computer program created by Donald E. Knuth. It is aimed at typesetting text and mathematical formulae. Knuth started writing the \TeX\ typesetting engine in 1977 to explore the potential of the digital printing equipment that was beginning to infiltrate the publishing industry at that time, especially in the hope that he could reverse the trend of deteriorating typographical quality that he saw affecting his own books and articles. \TeX\ as we use it today was released in 1982, with some slight enhancements added in 1989 to better support 8-bit characters and multiple languages. \TeX\ is renowned for being extremely stable, for running on many different kinds of computers, and for being virtually bug free. The version number of \TeX\ is converging to π and is now at 3.14159265.
+
+\TeX\ is pronounced ``Tech,'' with a ``ch'' as in the German word ``Ach'' or
+in the Scottish ``Loch.'' The ``ch'' originates from the Greek alphabet where
+X is the letter ``ch'' or ``chi''. \TeX\ is also the first syllable of the Greek word technique. In an ASCII environment, \TeX\ becomes \texttt{TeX}.
+
+\LaTeX\ enables authors to typeset and print their work at the highest typographical quality, using a predefined, professional layout. \LaTeX\ was originally written by Leslie Lamport. It uses the \TeX\ formatter as its typesetting engine. These days \LaTeX\ is maintained by the \LaTeX\ Project.
+
+\LaTeX\ is pronounced ``Lay-tech'' or ``Lah-tech.''  If you refer to \LaTeX\ in
+an ASCII environment, you type \texttt{LaTeX}. \LaTeXe\ is pronounced ``Lay-tech
+two e'' and typed \texttt{LaTeX2e}.
+\keywords{typesetting, \TeX, \LaTeX}
+\end{abstract*}
+\tableofcontents
+%%
+\mainmatter
+\chapter{数学公式}
+\LaTeX\ 的特长之一就是数学式排版, 其方法简单直观, 排版效果精致细腻, 而且数学式越是复杂这一优点就越是明显. \cite{HuWei} 本章演示 NCU-thesis 模板中一些数学符号和数学环境的排版方法. \cite{lshortcn,LiuHaiyang}
+\section{字符}
+希腊字母的排版按照希腊字母的发音即可, 但是本模板做了一些小小的改动: 
+\[
+\alpha\beta\gamma\delta \quad \pi\itpi\dif y + \dif x^{a\dif x}
+\]
+看到上面的 $\pi$ 了吗? 本模板中, 基本上常量和算符用直立体, 变量用斜体, 矢量加粗. $\pi$ 是一个常量, 因此默认用直立体, 但是可以用 \verb|\itpi| 命令得到 $\itpi$. 可以用 \verb|\it...| 或 \verb|\up...| 指定希腊字母斜体或直立体, 例如
+\[
+\Alpha A \Gamma\itGamma \Lambda\itLambda \quad \alpha\upalpha \beta\upbeta \gamma\upgamma.
+\]
+
+加粗、花体、黑板体等可以用 \verb|\symbf{}|、\verb|\symcal{}|、\verb|\symbb{}| 等命令得到, 
+\begin{gather*}
+\symbf{abcABC\alpha\Alpha123}, \quad \symbfit{abcABC\alpha\Alpha123},\\
+\symcal{abcABC\alpha\Alpha123},\\
+\symbb{abcABC\alpha\Alpha123},\\
+\symfrak{abcABC\alpha\Alpha123}.
+\end{gather*}
+
+一些常用的 opening symbol、closing symbol、fence symbol、punctuation symbol、over symbol、under symbol: 
+\begin{gather*}
+(\; [\; \{\; \sqrt{}\; \lceil\; \lfloor\; \lBrack\; \langle,\\
+)\; ]\; \}\; \rceil\; \rfloor\; \rBrack\; \rangle,\\
+\vert\; \Vert\; \lvert\; \rvert\; \lVert\; \rVert,\\
+,\; a:b\; a\colon b\; ;,\displaybreak\\
+\overbracket{x+y}\; \overparen{x+y}\; \overbrace{x+y}\; \overline{x+y},\\
+\underbracket{x+y}\; \underparen{x+y}\; \underbrace{x+y}\; \underline{x+y}.
+\end{gather*}
+
+一些常见的 accent: 
+\[
+\hat{x}\; \tilde{x}\; \bar{x}\; \dot{x}\; \ddot{x}\; \ocirc{x}\; \vec{x}.
+\]
+
+一些常用的 big operator: 
+\[
+\prod\; \sum\; \int\; \iint\; \iiint\; \iiiint\; \oint\; \oiint\; \oiiint\; \varointclockwise\; \ointctrclockwise\; \bigcap\; \bigcup\; \bigoplus\; \bigotimes.
+\]
+
+一些常用的 binary symbol: 
+\[
++ - \times \cdot / \pm \mp \wedge \vee \cap \cup \oplus \otimes.
+\]
+
+一些常见的 ordinary symbol: 
+\[
+x' x^\prime \infty \cdots \ldots (\text{另外}\colon \vdots \ddots \adots).
+\]
+
+一些常用的 relation symbol: 
+\[
+< = > \to \mapsto \Rightarrow \nRightarrow \Leftrightarrow \leq \geq \in \subset \subseteq \mid \sim \simeq \approx \fallingdotseq \risingdotseq \coloneq \ne \equiv \leq \geq \ll \gg.
+\]
+
+上述的符号基本上遵循传统的 \LaTeX\ 命令, 更多符号可以在命令行中输入 \verb|texdoc unimath-symbols|, 调出文档查看\footnote{或者去 CTAN 网站上查找. }. 
+\section{数学环境}
+\textsf{amsmath} 包提供了各种各样的数学环境, 可以调出其文档详细查看, 这里只是演示部分环境的使用. 
+
+\verb|equation| 是带编号的行间公式, \verb|equation*| 不带编号, 
+\begin{equation}
+\int_{\itOmega}\dif\omega = \int_{\partial\itOmega}\omega.
+\end{equation}
+\verb|gather| 是带编号的多行公式, \verb|gather*| 不带编号, 
+\begin{subequations}
+\begin{gather}
+\nabla\cdot\symbfit D   = \rho_{\symup{f}},\\
+\nabla\cdot\symbfit B   = 0,\displaybreak\\
+\nabla\times\symbfit{E} = -\frac{\partial\symbfit B}{\partial t},\\
+\nabla\times\symbfit{H} = \symbfit{J}_{\symup{f}} + \frac{\partial\symbfit{D}}{\partial t}.
+\end{gather}
+\end{subequations}
+\verb|align| 有特别的对齐功能, 同样的, \verb|align*|  不带编号, 
+\begin{align}
+& \rho\biggl[\frac{\partial\symbfit{v}}{\partial t} + (\symbfit v\cdot\nabla)\symbfit v\biggr] =\nonumber\\
+& \qquad\qquad\qquad -\nabla p + \eta\Delta\symbfit{v} + \biggl(\zeta + \frac{\eta}{3}\biggr)\nabla(\nabla\cdot\symbfit v).
+\end{align}
+请查看 \textsf{amsmath} 包的文档了解更多功能. 
+
+模板加载了 \textsf{array} 包和 \textsf{nicematrix} 包, 用于排版阵列, 
+\begin{gather}
+f(x) = \left\{\begin{array}{ll}
+1, & x > 0,\\
+0, & x = 0,\\
+-1,& x < 0,
+\end{array}\right.\quad
+f(x) = \left\{\begin{NiceArray}{ll}
+1, & x > 0,\\
+0, & x = 0,\\
+-1,& x < 0.
+\end{NiceArray}\right.\\
+\begin{pNiceMatrix}
+a & b & c\\
+d & e & f
+\end{pNiceMatrix}\quad
+\begin{bNiceMatrix}
+a & b & c\\
+d & e & f
+\end{bNiceMatrix}\quad
+\begin{vNiceMatrix}
+a & b & c\\
+d & e & f
+\end{vNiceMatrix}
+\end{gather}
+这两个包的功能十分丰富, 请自行查看. 
+\chapter{图和表}
+\section{图和子图}
+排版图片一般用 \verb|figure| 环境, 例如图 \ref{fig:figexp} 是插图示例. 排版图片一般用 \verb|figure| 环境, 例如图 \ref{fig:figexp} 是插图示例. 
+
+\begin{figure}[htb]%
+\centering
+\includegraphics{figures/test.pdf}%
+\caption{插图示例}%
+\label{fig:figexp}%
+\end{figure}
+
+本模板加载了 \textsf{subcaption} 宏包, 排版子图可以用其提供的 \verb|subfigure| 环境, 例如 \ref{fig:subfigexp-a}、\ref{fig:subfigexp-b} 和 \ref{fig:subfigexp-c} 所示. 更多详细用法请查看 \textsf{subcaption} 包的说明文档. 
+\begin{figure}[b]%
+\centering
+\begin{subfigure}{.45\textwidth}%
+\centering
+\includegraphics[width=5cm]{figures/test.pdf}%
+\subcaption{这是子图}%
+\label{fig:subfigexp-a}%
+\end{subfigure}
+\subcaptionpatch
+\begin{subfigure}{.45\textwidth}%
+\centering
+\includegraphics[width=5cm]{figures/test.pdf}%
+\subcaption{这又是子图}%
+\label{fig:subfigexp-b}%
+\end{subfigure}%
+\begin{subfigure}{.45\textwidth}%
+\centering
+\includegraphics[width=5cm]{figures/test.pdf}%
+\subcaption{这还是子图}%
+\label{fig:subfigexp-c}%
+\end{subfigure}%
+\caption{子图排版示例}%
+\label{fig:subfig}%
+\end{figure}
+\section{表、子表、长表格}
+模板加载了 \textsf{array}、\textsf{tabularx}、\textsf{booktabs}、\textsf{longtable}、\textsf{nicematrix} 五个表格相关的宏包, 如表 \ref{tab:pkgs} 所列. 
+
+\begin{table}[htb]%
+\centering
+\caption{一个普通的三线表}%
+\label{tab:pkgs}%
+\begin{tabular}{ll}
+\toprule
+宏包 & 功能\\
+\midrule
+\textsf{array}      & 对表格环境的扩展, 增强列格式\\
+\textsf{tabularx}   & 定宽表格支持\\
+\textsf{booktabs}   & 支持调整表格线\\
+\textsf{longtable}  & 长表格跨页支持\\
+\textsf{nicematrix} & 相对很新, 表格问题的一揽子解决方案\\
+\bottomrule
+\end{tabular}%
+\end{table}
+
+子表与子图的排版类似, 只作简单的修改即可, 子表可放在 \verb|subtable| 环境中排版. 
+
+\begin{table}[htb]%
+\centering
+\caption{子表的排版, 很少用到子表}%
+\begin{subtable}{.45\textwidth}%
+\centering
+\subcaption{这是子表}%
+\begin{tabular}{ccc}
+\toprule
+表头 1 & 表头 2 & 表头 3\\
+\midrule
+数据   & 数据 & 数据\\
+数据   & 数据 & 数据\\
+\bottomrule
+\end{tabular}%
+\end{subtable}%
+\begin{subtable}{.45\textwidth}%
+\centering
+\subcaption{这又是子表}%
+\begin{tabular}{ccc}
+\toprule
+表头 1 & 表头 2 & 表头 3\\
+\midrule
+数据   & 数据 & 数据\\
+数据   & 数据 & 数据\\
+\bottomrule
+\end{tabular}%
+\end{subtable}
+\end{table}
+
+当表格长度超过一页, 或者要让表格跨页, 则可以使用 \textsf{longtable} 宏包提供的 \verb|longtable| 环境, 比如这里就排版一个跨页的表格. 
+
+\begin{longtable}{lcccr}
+\caption{这是长表格的标题}\label{tab:longtab}\\
+\toprule
+表头 1 & 表头 2 & 表头 3 & 表头 5 & \multicolumn{1}{c}{表头 5}\\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small 表 \ref{tab:longtab} 续}\\
+\toprule
+表头 1 & 表头 2 & 表头 3 & 表头 5 & \multicolumn{1}{c}{表头 5}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\multicolumn{5}{l}{\small 注: 这是长表格测试. }\\
+\endlastfoot
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+数据 & 数据 & 数据 & 数据 & 数据\\
+\end{longtable}
+
+表格排版虽是 \LaTeX\ 的优势, 但是想要轻松控制表格的各个项目却并不简单, 请多多查看上述表格宏包的手册. 
+\subsection{小节示例}
+这是小节. 
+\chapter{其他}
+\section{列表}
+\begin{itemize}
+\item 项目 1
+\item 橡木 2
+\begin{itemize}
+  \item 小项目 1
+  \item 小橡木 2
+\end{itemize}
+\item 香木 3
+\end{itemize}
+\section{源代码}
+为了尽可能保证模板的可扩展性, 模板不打算配置源代码环境, 请自行查看 \textsf{minted} 或 \textsf{listings} 包的使用方法. 
+\section{算法}
+为了尽可能保证模板的可扩展性, 模板不打算配置算法环境, 请自行查看 \textsf{algorithmic}、\textsf{algorithmicx}、\textsf{algorithm2e} 等宏包的使用方法. 
+\section{基本文类定义的环境}
+模板基于 \textsf{book} 文类编写, 重定义了 \textsf{book} 文类的 \verb|quote| 等环境以使其风格与本模板更搭: 
+\begin{quotation}[《飘》节选]
+斯嘉丽·奥哈拉长得并不漂亮, 但是男人们一旦像塔尔顿家那对孪生兄弟那样为她的魅力所迷住时, 就不会这样想了. 
+\end{quotation}
+其他如 \verb|verse|、\verb|quote| 等环境, 请自行排版以查看效果. 
+\section{新环境}
+模板定义了很多定理类环境供大家使用, 这些定理类环境的使用方式都是一样的. 下面是一个示例: 
+\begin{theorem}[勾股定理]\label{thm:gougu}
+在平面上的一个直角三角形中, 两个直角边边长的平方加起来等于斜边长的平方. 如果设直角三角形的两条直角边长度分别是 $a$ 和 $b$, 斜边长度是 $c$, 那么可以用数学语言表达为
+\begin{equation}
+  a^2 +b^2 = c^2.
+\end{equation}
+\end{theorem}
+模板定义的定理类环境名称请查看本模板的使用指南. 
+\appendix
+\chapter{附录示例}
+附录的排版与正文没有什么两样, 除了章的编号不一样, 像正文那样排版就好了. 
+\section{例子}
+例如这里是一节. 
+\backmatter
+\bibliography{thesis.bib}
+\begin{acknowledgements}
+谢谢你! 
+\signoff{朱金宝}{2022 年 12 月 31 日}
+\end{acknowledgements}
+\begin{researchresults}
+\begin{published}
+  \item OETIKER T, PARTL H, HYNA I, 等. 一份 (不太) 简短的 \LaTeXe\ 介绍 [EB/OL]. 2021. 
+\end{published}
+\begin{tobepublished}
+  \item 即将发表
+  \item 马上发表
+\end{tobepublished}
+\begin{reports}
+  \item 研究报告
+\end{reports}
+\begin{others}[另外还有]
+  \item 等等
+\end{others}
+
+不论如何, 还可以在 \textsf{researchresults} 环境内使用 \texttt{papers} 列表环境, 这个环境最多支持到第二级. 
+\begin{papers}
+  \item 论文
+  \item 报告
+\end{papers}
+\end{researchresults}
+\end{document}
+%% `main.tex' 文件结束
+%%
