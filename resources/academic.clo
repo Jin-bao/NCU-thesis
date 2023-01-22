@@ -81,7 +81,6 @@
     \RequirePackage{hyperref}%
   \fi
 }
-% \RequirePackage[final]{listings}
 %%
 %% 中文支持, 字体设置, 字符微调
 \xeCJKsetup{
