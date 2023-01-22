@@ -1,0 +1,899 @@
+%%
+%% 这是 `academic.clo' 选项执行文件
+%% 学术研究生学位论文相关设置
+%%
+\ProvidesFile{academic.clo}
+%%
+%% 导入基础文类和宏包, 写死参数
+\LoadClass[
+  a4paper,
+  12pt,
+  twoside,
+  onecolumn,
+  openany
+]{book}
+\RequirePackage[
+  fontset    = none,
+  heading    = true,
+  linespread = 1,
+  sub3section
+]{ctex}
+%%
+%% 先对 book 文档类进行一些调整
+%% 重定义字体大小
+\renewrobustcmd*\normalsize{%
+  \@setfontsize\normalsize\@xiipt{20}%
+  \abovedisplayskip      9.9 \p@ \@plus2.5\p@ \@minus2.5\p@
+  \abovedisplayshortskip \z@ \@plus2.5\p@
+  \belowdisplayshortskip 13.2\p@ \@plus3.3\p@ \@minus3.3\p@
+  \belowdisplayskip      13.2\p@ \@plus3.3\p@ \@minus3.3\p@
+  \let\@listi\@listI
+}
+\normalsize
+\renewrobustcmd*\small{%
+  \@setfontsize\small{10.5}{17.5}%
+  \abovedisplayskip      8.5 \p@ \@plus2.1 \p@ \@minus2.1 \p@
+  \abovedisplayshortskip \z@ \@plus2.1\p@
+  \belowdisplayshortskip 11.4\p@ \@plus2.85\p@ \@minus2.85\p@
+  \def\@listi{\leftmargin\leftmargini
+              \topsep    2\p@ \@plus1 \p@ \@minus1 \p@
+              \parsep    1\p@ \@plus  \p@ \@minus  \p@
+              \itemsep   \parsep}%
+  \belowdisplayskip      11.4\p@ \@plus2.85\p@ \@minus2.85\p@
+}
+\renewrobustcmd*\footnotesize{%
+  \@setfontsize\footnotesize\@ixpt{15}%
+  \abovedisplayskip      5.9\p@ \@plus1.48\p@ \@minus1.48\p@
+  \abovedisplayshortskip \z@ \@plus1.48\p@
+  \belowdisplayshortskip 8  \p@ \@plus2   \p@ \@minus2   \p@
+  \def\@listi{\leftmargin\leftmargini
+              \topsep    1\p@ \@plus.5\p@ \@minus.5\p@
+              \parsep   .5\p@ \@plus  \p@ \@minus  \p@
+              \itemsep   \parsep}%
+  \belowdisplayskip      8  \p@ \@plus2   \p@ \@minus2   \p@
+}
+\renewrobustcmd*\scriptsize{\@setfontsize\scriptsize\@viiipt{13.3}}
+\renewrobustcmd*\tiny{\@setfontsize\tiny\@vipt\@xpt}
+\renewrobustcmd*\large{\@setfontsize\large{14}{23}}
+\renewrobustcmd*\Large{\@setfontsize\Large{16}{26}}
+\renewrobustcmd*\LARGE{\@setfontsize\LARGE{18}{30}}
+\renewrobustcmd*\huge{\@setfontsize\huge{24}{40}}
+\let\Huge\huge
+%%
+%% 载入宏包
+\RequirePackage{ifthen}
+\RequirePackage{environ}
+\RequirePackage{xeCJKfntef}
+\RequirePackage{unicode-math}
+\RequirePackage{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+\RequirePackage[titles]{tocloft}
+\RequirePackage{enumitem}
+\RequirePackage{caption,subcaption}
+\RequirePackage{footnpag}
+\RequirePackage[nottoc,notlof,notlot]{tocbibind}
+\RequirePackage{array,tabularx,booktabs,longtable}
+\RequirePackage{nicematrix}
+\AtEndPreamble{%
+  \ifncu@hyp
+    \RequirePackage{hyperref}%
+  \fi
+}
+% \RequirePackage[final]{listings}
+%%
+%% 中文支持, 字体设置, 字符微调
+\xeCJKsetup{
+  PunctStyle     = quanjiao,
+  EmboldenFactor = 2.6,
+  SlantFactor    = 0.167
+}
+\ctexset{
+  autoindent     = 2,
+  contentsname   = {目\quad 录},
+  listfigurename = {插图清单},
+  listtablename  = {表格清单},
+  secnumdepth    = 3,
+  tocdepth       = 5,
+  part           = {
+    format    = \heiti\bfseries\LARGE\centering,
+    number    = \Roman{part},
+    aftername = \par\vskip16\p@,
+    tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
+  },
+  chapter        = {
+    format       = \heiti\bfseries\Large\centering,
+    number       = \arabic{chapter},
+    % fixskip      = true,
+    % LaTeX 的行距控制机制与 Word 不同
+    beforeskip   = 8\p@\@plus2\p@\@minus4\p@,
+    afterskip    = 18\p@\@plus2\p@\@minus2\p@,
+    tocline      = \CTEXifname{\CTEXthechapter\hspace{.8em}}{}#2
+  },
+  section        = {
+    format     = \heiti\bfseries\large,
+    beforeskip = 15\p@\@plus3\p@\@minus3\p@,
+    afterskip  = 6\p@\@plus1\p@\@minus1\p@,
+    tocline    = \CTEXthesection\hspace{.8em}#2
+  },
+  subsection     = {
+    format     = \heiti\bfseries,
+    beforeskip = 8\p@\@plus1.6\p@\@minus1.6\p@,
+    afterskip  = 6\p@\@plus1\p@\@minus1\p@,
+    tocline    = \CTEXthesubsection\hspace{.8em}#2
+  },
+  subsubsection  = {
+    format     = \heiti\bfseries,
+    beforeskip = 8\p@\@plus1.6\p@\@minus1.6\p@,
+    afterskip  = 6\p@\@plus1\p@\@minus1\p@,
+    tocline    = \CTEXthesubsubsection\hspace{.8em}#2
+  },
+  paragraph      = {
+    format     = \heiti\bfseries\indent,
+    beforeskip = \z@,
+    afterskip  = \z@
+  },
+  subparagraph   = {
+    format     = \heiti\bfseries\indent,
+    beforeskip = \z@
+  }
+}
+%%
+%% 字符间距微调
+\ziju{0.08}
+\newrobustcmd{\ncu@spacing}{%
+  \sfcode`\.3000
+  \sfcode`\?3000
+  \sfcode`\!3000
+  \sfcode`\:2500
+  \sfcode`\;2500
+  \sfcode`\,2400
+}
+\ncu@spacing
+%%
+%% 设置西文字体
+\setmainfont[
+  Path             = ./fonts/,
+  Extension        = .otf,
+  BoldFont         = XITS-Bold,
+  ItalicFont       = XITS-Italic,
+  BoldItalicFont   = XITS-BoldItalic,
+  PunctuationSpace = 4
+]{XITS-Regular}
+\setsansfont[
+  Path            = ./fonts/,
+  Extension       = .ttf,
+  BoldFont        = FiraSans-SemiBold,
+  ItalicFont      = FiraSans-Italic,
+  BoldItalicFont  = FiraSans-SemiBoldItalic,
+  PunctuationSpace = 4
+]{FiraSans-Regular}
+\setmonofont[
+  Path            = ./fonts/,
+  Extension       = .otf,
+  BoldFont        = SourceCodePro-Bold,
+  ItalicFont      = SourceCodePro-It,
+  BoldItalicFont  = SourceCodePro-BoldIt
+]{SourceCodePro-Regular}
+%%
+%% 设置 CJK 字体
+\setCJKmainfont[
+  Path      = ./fonts/,
+  Extension = .ttf,
+  AutoFakeBold,
+  AutoFakeSlant
+]{方正书宋简体}
+\setCJKsansfont[
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 3,
+  AutoFakeSlant
+]{方正黑体简体}
+\setCJKmonofont[
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 4,
+  AutoFakeSlant
+]{方正仿宋简体}
+%%
+%% 新建字体族
+\newCJKfontfamily[kaiti]\kaiti{方正楷体简体}[
+  Path      = ./fonts/,
+  Extension = .ttf,
+  AutoFakeBold,
+  AutoFakeSlant
+]
+\newCJKfontfamily[fangsong]\fangsong{方正仿宋简体}[
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 4,
+  AutoFakeSlant
+]
+\newCJKfontfamily[heiti]\heiti{方正黑体简体}[
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 3,
+  AutoFakeSlant
+]
+%%
+%% 设置数学字体
+\unimathsetup{
+  math-style = TeX,
+  mathrm     = sym,
+  mathit     = sym,
+  mathsf     = sym,
+  mathbf     = sym,
+  mathtt     = sym
+}
+\setmathfont[
+  Path      = ./fonts/,
+  Extension = .otf
+]{XITSMath-Regular}
+\setmathfont[
+  Path      = ./fonts/,
+  Extension = .otf,
+  range     = {bfup->up,bfit->it}
+]{XITSMath-Bold}
+\setmathfont{NewCMMath-Book}[
+  Path      = ./fonts/,
+  Extension = .otf,
+  range     = {
+    "220F-"2211,
+    "222B-"2233,
+    "2A0A-"2A1C
+  }
+]
+\AtBeginDocument{%
+  \let\nabla\mbfnabla
+  \let\muppi\uppi
+  \edef\pi{\uppi}%
+  \let\itpi\mitpi
+  \let\leq\leqslant
+  \let\geq\geqslant
+}
+%%
+%% 页面布局
+%% 直接通过 geometry 包设置
+\geometry{
+  papersize      = {210mm,297mm},
+  headheight     = 20pt,
+  headsep        = 20pt,
+  footskip       = 32pt,
+  top            = 32mm,
+  bottom         = 38mm,
+  inner          = 32mm,
+  outer          = 32mm,
+  marginparsep   = 3mm,
+  marginparwidth = 22mm
+}
+%%
+%% 版式设置
+\renewcommand\chaptermark[1]{%
+  \markboth{\CTEXifname{\CTEXthechapter\hspace{0.8em}}{}#1}{}%
+}
+\renewcommand\sectionmark[1]{%
+  \markright{\CTEXthesection\hspace{0.8em}#1}%
+}
+\def\@ajd@ps{%
+  \fancypagestyle{plain}{%
+    \fancyhf{}%
+    \chead{\fangsong\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \fancypagestyle{fancy}{%
+    \fancyhf{}%
+    \chead{\fangsong\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \fancypagestyle{@ajd@ps}{%
+    \fancyhf{}%
+    \chead{\fangsong\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \pagestyle{@ajd@ps}%
+}
+\def\@ncu@ps{%
+  \fancypagestyle{plain}{%
+    \fancyhf{}%
+    \chead{\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \fancypagestyle{fancy}{%
+    \fancyhf{}%
+    \chead{\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \fancypagestyle{@ncu@ps}{%
+    \fancyhf{}%
+    \chead{\small\leftmark}%
+    \cfoot{\small\thepage}%
+    \renewcommand\headrulewidth{0.5\p@}}%
+  \pagestyle{@ncu@ps}%
+}
+\ifdefstring{\ncu@format}{ncu}{\@ncu@ps}{\@ajd@ps}
+%%
+%% 目录格式
+\cftsetrmarg{3em}
+\cftsetpnumwidth{2em}
+\def\@ajd@toc{%
+  \renewcommand\cftpartfont{\heiti}%%
+  \renewcommand\cftpartpagefont{\normalfont\normalsize}%
+  \setlength\cftbeforepartskip{9\p@ \@plus4\p@ \@minus2\p@}%
+  \renewcommand\cftchapfont{\heiti}%%
+  \renewcommand\cftchappagefont{\normalfont\normalsize}%
+  \setlength\cftbeforechapskip{4\p@ \@plus2\p@ \@minus1\p@}%
+  \setlength\cftsecnumwidth{1.5em}%%
+  \setlength\cftbeforesecskip{1.6\p@ \@plus.8\p@ \@minus.4\p@}%
+  \renewcommand\cftsubsecfont{\kaiti}%%
+  \setlength\cftsubsecindent{3em}%
+  \setlength\cftsubsecnumwidth{1.5em}%
+  \setlength\cftbeforesubsecskip{\z@ \@plus.8\p@}%
+  \renewcommand\cftsubsubsecfont{\kaiti}%%
+  \setlength\cftsubsubsecindent{4.5em}%
+  \setlength\cftsubsubsecnumwidth{1.5em}%
+  \setlength\cftbeforesubsubsecskip{\z@}%
+  \renewcommand\cftparafont{\kaiti}%%
+  \setlength\cftparaindent{6em}%
+  \setlength\cftparanumwidth{1.5em}%
+  \setlength\cftbeforeparaskip{\z@}%
+  \renewcommand\cftsubparafont{\kaiti}%%
+  \setlength\cftsubparaindent{7.5em}%
+  \setlength\cftsubparanumwidth{1.5em}%
+  \setlength\cftbeforesubparaskip{\z@}%
+  \renewcommand\cftfigindent{\z@}%%
+  \setlength\cftfignumwidth{1.5em}%
+  \setlength\cftbeforefigskip{1.6\p@ \@plus.8\p@}%
+  \renewcommand\cfttabindent{\z@}%%
+  \setlength\cfttabnumwidth{1.5em}%
+  \setlength\cftbeforetabskip{1.6\p@ \@plus.8\p@}%
+}
+%%
+\def\@ncu@toc{%
+  \renewcommand\cftpartfont{\normalfont\normalsize}%%
+  \renewcommand\cftpartleader{\cftdotfill{\cftdotsep}}%
+  \renewcommand\cftpartpagefont{\normalfont\normalsize}%
+  \setlength\cftbeforepartskip{9\p@ \@plus4\p@ \@minus2\p@}%
+  \renewcommand\cftchapfont{\normalfont\normalsize}%%
+  \renewcommand\cftchapleader{\cftdotfill{\cftdotsep}}%
+  \renewcommand\cftchappagefont{\normalfont\normalsize}%
+  \setlength\cftchapnumwidth{2em}%
+  \setlength\cftbeforechapskip{4\p@ \@plus2\p@ \@minus1\p@}%
+  \setlength\cftsecindent{2em}%%
+  \setlength\cftsecnumwidth{2em}%
+  \setlength\cftbeforesecskip{1.6\p@ \@plus.8\p@ \@minus.4\p@}%
+  \setlength\cftsubsecindent{4em}%%
+  \setlength\cftsubsecnumwidth{2em}%
+  \setlength\cftbeforesubsecskip{\z@ \@plus.8\p@}%
+  \setlength\cftsubsubsecindent{6em}%%
+  \setlength\cftsubsubsecnumwidth{2em}%
+  \setlength\cftbeforesubsubsecskip{\z@}%
+  \setlength\cftparaindent{8em}%%
+  \setlength\cftparanumwidth{2em}%
+  \setlength\cftbeforeparaskip{\z@}%
+  \setlength\cftsubparaindent{10em}%%
+  \setlength\cftsubparanumwidth{2em}%
+  \setlength\cftbeforesubparaskip{\z@}%
+  \renewcommand\cftfigindent{\z@}%%
+  \setlength\cftfignumwidth{2em}%
+  \setlength\cftbeforefigskip{1.6\p@ \@plus.8\p@}%
+  \renewcommand\cfttabindent{\z@}%%
+  \setlength\cfttabnumwidth{2em}%
+  \setlength\cftbeforetabskip{1.6\p@ \@plus.8\p@}%
+}
+\ifdefstring{\ncu@format}{ncu}{\@ncu@toc}{\@ajd@toc}
+%%
+%% 重定义文档结构命令
+\renewcommand\frontmatter{%
+  \clearpage
+  \@mainmatterfalse
+  \pagenumbering{Roman}}
+\renewcommand\mainmatter{%
+  \clearpage
+  \@mainmattertrue
+  \pagenumbering{arabic}}
+\renewcommand\backmatter{%
+  \clearpage
+  \@mainmatterfalse}
+%%
+%% 列表设置
+\setlist{
+  topsep      = 2pt plus1pt minus1pt,
+  parsep      = 1pt,
+  partopsep   = 0pt,
+  itemsep     = 1pt,
+  leftmargin  = 2\ccwd,
+  rightmargin = 0pt
+}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\normalfont\bfseries\textendash}
+\setlist[itemize,3]{label=\textasteriskcentered}
+\setlist[itemize,4]{label=\textperiodcentered}
+\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\relax}
+\setlist[enumerate,2]{label=(\arabic*)}
+\setlist[enumerate,3]{label=\alph*.\hskip-.1em\relax}
+\setlist[enumerate,4]{label=(\alph*)}
+\setlist[description]{font=\normalfont\heiti}
+%%
+%% 重设某些长度和比例以及图表设置
+\setlength\lineskiplimit{\z@}
+\setlength\lineskip{2\p@}
+\setlength\normallineskip{2\p@}
+\renewcommand\topfraction{.5}
+\renewcommand\bottomfraction{.5}
+\renewcommand{\textfraction}{.14}
+\floatsep     = 17\p@ \@plus2.5\p@ \@minus1.5\p@\relax
+\textfloatsep = 18\p@ \@plus4.5\p@ \@minus1.5\p@\relax
+\intextsep    = 12\p@ \@plus3.5\p@ \@minus1.5\p@\relax
+\DeclareCaptionFont{heiti}{\heiti}
+\def\@ajd@fcap{%
+  \captionsetup[figure]{
+    labelfont     = {small,heiti},
+    font          = small,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    aboveskip     = 9pt,
+    belowskip     = -4.5pt
+  }
+  \captionsetup[table]{
+    labelfont     = {small,heiti},
+    font          = small,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    belowskip     = 0pt,
+    aboveskip     = 8pt
+  }
+  \captionsetup[subfigure]{
+    labelfont     = heiti,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    aboveskip     = 6.5pt,
+    belowskip     = -4.5pt
+  }
+  \captionsetup[subtable]{
+    labelfont     = heiti,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    belowskip     = -4.5pt,
+    aboveskip     = 6.5pt
+  }
+}
+\def\@ncu@fcap{%
+  \captionsetup[figure]{
+    font          = small,
+    labelsep      = quad,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    aboveskip     = 9pt,
+    belowskip     = -4.5pt
+  }
+  \captionsetup[table]{
+    font          = small,
+    labelsep      = quad,
+    justification = centerlast,
+    margin        = 1\ccwd,
+    belowskip     = 0pt,
+    aboveskip     = 8pt
+  }
+  \captionsetup[subfigure]{
+    justification = centerlast,
+    margin        = 1\ccwd,
+    aboveskip     = 6.5pt,
+    belowskip     = -4.5pt
+  }
+  \captionsetup[subtable]{
+    justification = centerlast,
+    margin        = 1\ccwd,
+    belowskip     = -4.5pt,
+    aboveskip     = 6.5pt
+  }
+}
+\captionsetup[sub]{labelformat=simple,font=small}
+\ifdefstring{\ncu@format}{ncu}{\@ncu@fcap}{\@ajd@fcap}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\renewcommand{\thesubtable}{(\alph{subtable})}
+\AtBeginEnvironment{figure}{%
+  \newcommand\subcaptionpatch{\par\vskip10.5\p@\leavevmode}}
+\AtBeginEnvironment{table}{%
+  \newcommand\subcaptionpatch{\par\vskip10.5\p@\leavevmode}}
+\NiceMatrixOptions{
+  cell-space-limits = 1pt,
+  extra-margin      = 1pt
+}
+%%
+%% 脚注设置
+\setlength{\footnotesep}{9\p@}
+\setlength{\skip\footins}{13\p@\@plus4\p@\@minus2\p@}
+\def\ncu@makefnmark{\hbox{\normalfont\@thefnmark\space}}
+\patchcmd\@makefntext{\hb@xt@1.8em}{\hb@xt@2em}{}{}
+\patchcmd\@makefntext{\@makefnmark}{\ncu@makefnmark}{}{}
+\renewcommand\footnoterule{%
+  \kern-1\p@\hrule\@height.5\p@\@width.25\columnwidth\kern3\p@}
+\RequirePackage{pifont}
+\renewcommand\thefootnote{\ding{\numexpr171+\value{footnote}}}
+%%
+%% 附录
+%% 附录不需要进行设置
+%%
+%% 参考文献
+\def\@bibtex{%
+  \RequirePackage[sort&compress]{gbt7714}%
+  \bibliographystyle{gbt7714-numerical}%
+  \renewcommand\bibfont{\small}%
+  \bibsep\z@\@plus1\p@\relax
+}
+\def\@biblatex{%
+  \RequirePackage[backend=biber,style=gb7714-2015]{biblatex}%
+  \renewcommand\bibfont{\small}%
+  \bibitemsep\z@\@plus1\p@\relax
+}
+\ifdefstring{\ncu@bib}{biblatex}{\@biblatex}{\@bibtex}
+%%
+%% 索引设置
+%% 注意, 南昌大学毕业论文并不需要索引
+% \RequirePackage{imakeidx}
+% \indexsetup{othercode={\renewcommand\indexspace{}}}
+%%
+%% 对 book 文档类进行另外的调整
+\RenewEnviron{verse}{%
+  \let\\\@centercr
+  \list{}{%
+    \topsep       2\p@\@plus\p@
+    \itemsep      \z@
+    \parsep       2\p@\@plus\p@
+    \itemindent   -2\ccwd
+    \listparindent\itemindent
+    \leftmargin   4\ccwd
+    \rightmargin  2\ccwd}%
+    \item\relax\kaiti\BODY
+  \endlist}
+\RenewEnviron{quotation}[1][{}]{%
+  \list{}{%
+    \topsep        2\p@\@plus\p@
+    \itemsep       \z@
+    \parsep        2\p@\@plus\p@
+    \listparindent 2\ccwd
+    \itemindent    \listparindent
+    \leftmargin    2\ccwd
+    \rightmargin   \leftmargin}%
+    \item\relax\kaiti\BODY
+    \ifstrempty{#1}{}{\par\vskip\parsep\relax\rightline{——#1}}%
+  \endlist}
+\RenewEnviron{quote}{%
+  \list{}{%
+    \topsep        2\p@\@plus\p@
+    \itemsep       \z@
+    \parsep        2\p@\@plus\p@
+    \listparindent \z@
+    \itemindent    \listparindent
+    \leftmargin    2\ccwd
+    \rightmargin   \leftmargin}%
+    \item\relax\kaiti\BODY
+  \endlist}
+%%
+%% 源代码环境设置
+% \definecolor{@purple}   {cmyk}{0.65,0.95,0,0}
+% \definecolor{@gray}     {cmyk}{0,0,0,0.6}
+% \definecolor{@brown}    {cmyk}{0.45,0.65,1,0}
+% \definecolor{@blue}     {cmyk}{0.9,0.6,0.3,0}
+% \definecolor{@lightgray}{cmyk}{0,0,0,0.02}
+% \lstset{
+%   basicstyle       = \ttfamily\small,
+%   keywordstyle     = \color{@purple},
+%   stringstyle      = \color{@brown},
+%   commentstyle     = \itshape\color{@gray},
+%   numbers          = left,
+%   numberstyle      = \ttfamily\color{@gray},
+%   lineskip         = -3pt,
+%   numbersep        = 3.6pt,
+%   frame            = leftline,
+%   framerule        = 1.2pt,
+%   framesep         = 2.4pt,
+%   framexleftmargin = -1.2pt,
+%   xleftmargin      = 2.4pt,
+%   rulecolor        = \color{@blue},
+%   backgroundcolor  = \color{@lightgray}
+% }
+% \lstnewenvironment{code}[1][]{\lstset{#1}}{}
+%%
+%% (重) 定义写作规范依赖的环境和命令
+\def\@CLC{\ncu@warning{No \noexpand\CLC (分类号) given}}
+\def\@UDC{\@empty}
+\def\@secretlevel{\@empty}
+\def\@studentid{\ncu@warning{No \noexpand\studentid (学号) given}}
+\def\@degree{\ncu@warning{No \noexpand\degree (学位) given}}
+\let\@title\@undefined
+\def\@cntitle{标题\ncu@warning{No \noexpand\title (中文标题) given}}
+\def\@entitle{Title\ncu@warning{No \noexpand\title* (英文标题) given}}
+\def\@renew@cntitle#1{\gdef\@cntitle{#1}}
+\def\@renew@entitle#1{\gdef\@entitle{#1}}
+\def\@author{姓名\ncu@warning{No \noexpand\author (作、者) given}}
+\def\@department{\ncu@warning{No \noexpand\department (院、系) given}}
+\def\@supervisor{\ncu@warning{No \noexpand\supervisor (指导教师) given}}
+\def\@field{\ncu@warning{No \noexpand\field (学科门类) given}}
+\def\@major{\ncu@warning{No \noexpand\major (专业) given}}
+\def\@defensedate{\ncu@warning{No \noexpand\defensedate (答辩日期) given}}
+\let\@tdcchairman\@empty
+\let\@reviewer@\@empty
+\let\@reviewer@@\@empty
+\def\@completiondate{年~~~~~~~~月~~~~~~~~日}
+%%
+\def\CLC#1{\gdef\@CLC{#1}}
+\def\UDC#1{\gdef\@UDC{#1}}
+\def\@secretlevel@#1{\gdef\@secretlevel{#1}}
+\def\@secretlevel@@#1{\gdef\@secretlevel{保密\space\ding{72}#1年}}
+\def\secretlevel{\@ifstar{\@secretlevel@}{\@secretlevel@@}}
+\def\studentid#1{\gdef\@studentid{#1}}
+\def\degree#1{\gdef\@degree{#1}}
+\def\title{\@ifstar{\@renew@entitle}{\@renew@cntitle}}
+\def\author#1{\gdef\@author{#1}}
+\def\department#1{\gdef\@department{#1}}
+\def\supervisor#1{\gdef\@supervisor{#1}}
+\def\field#1{\gdef\@field{#1}}
+\def\major#1{\gdef\@major{#1}}
+\def\defensedate#1{\gdef\@defensedate{#1}}
+\def\tdcchairman#1{\gdef\@tdcchairman{#1}}
+\def\rs@rvr@#1{\gdef\@reviewer@{#1}}
+\def\rs@rvr@@#1#2{\gdef\@reviewer@{#1}\gdef\@reviewer@@{#2}}
+\def\reviewer#1{\@ifnextchar\bgroup{\rs@rvr@@{#1}}{\rs@rvr@{#1}}}
+\def\completiondate#1{\gdef\@completiondate{#1}}
+%%
+%% 标题页
+\renewcommand\maketitle{\begin{titlepage}%
+  \parindent\z@
+  \heiti
+  \begingroup
+    \let\\\@empty
+    \def\@@clc{分\hss{}类\hss{}号}%
+    \def\@@sll{密\hss{}级}%
+    \def\@@udc{U\hss{}D\hss{}C\hskip\p@}%
+    \def\@@sid{学\hss{}号}%
+    \makebox[.38\columnwidth][l]{\hb@xt@3\ccwd{\@@clc}：\@CLC}\hfill
+    \makebox[.38\columnwidth][l]{\hb@xt@2\ccwd{\@@sll}：\@secretlevel}\par
+    \makebox[.38\columnwidth][l]{\hb@xt@3\ccwd{\@@udc}：\@UDC}\hfill
+    \makebox[.38\columnwidth][l]{\hb@xt@2\ccwd{\@@sid}：\@studentid}%
+  \endgroup
+  \par\vskip42\p@\@minus6\p@\relax
+  \begin{center}%
+    \def\@@cti{南昌大学\@degree{研究生}}%
+    \def\@@ctii{学位论文}%
+    \begingroup
+      \let\\\@empty
+      \newlength{\@@deg}\settowidth{\@@deg}{\@degree}%
+      \ifthenelse{\lengthtest{\@@deg>5\ccwd}}{}{\ziju{.4}}%
+      \Large\@@cti
+    \endgroup
+    \par\vskip16\p@\relax
+    \begingroup
+      \ziju{.4}\huge\@@ctii
+    \endgroup
+    \par\vskip42\p@\@minus8\p@\relax
+    \begingroup
+      \bfseries\LARGE
+      \begin{minipage}{.8\columnwidth}%
+        \centering\@cntitle
+      \end{minipage}%
+    \endgroup
+    \par\vskip16\p@\relax
+    \begingroup
+      \bfseries\large
+      \begin{minipage}{.8\columnwidth}%
+        \centering\@entitle
+      \end{minipage}%
+    \endgroup
+    \par\vskip42\p@\@minus18\p@\relax
+    \begingroup
+      \let\\\@empty
+      \rmfamily\large\@author
+    \endgroup
+  \end{center}%
+  \let\\\@empty
+  \vskip50\p@\@minus25\p@\relax
+  \rmfamily
+  \begingroup
+    \def\@@dpt{\makebox[9\ccwd][s]{培养单位（\hss{}院、\hss{}系\hss{}）}}%
+    \def\@@spv{\makebox[9\ccwd][s]{指导教师姓\hss{}名、\hss{}职\hss{}称}}%
+    \def\@@fld{\makebox[9\ccwd][s]{申请学位的\hss{}学科\hss{}门\hss{}类}}%
+    \def\@@mjr{学科专业名称}%
+    \def\@@dfd{论文答辩日期}%
+    \@@dpt{：}\mbox{\@department}\par\vskip3\p@
+    \@@spv{：}\mbox{\@supervisor}\par\vskip3\p@
+    \@@fld{：}\mbox{\@field}\par\vskip3\p@
+    \@@mjr{：}\mbox{\@major}\par\vskip3\p@
+    \@@dfd{：}\mbox{\@defensedate}
+  \endgroup
+  \par\vskip28\p@\@minus18\p@\relax
+  \begingroup
+    \def\@@dcc{答辩委员会主席}%
+    \def\@@rvr{评阅人}%
+    \rightline{\@@dcc{：}\CJKunderline{\makebox[8\ccwd][c]{\@tdcchairman}}}\par\vskip6\p@
+    \rightline{\@@rvr{：}\CJKunderline{\makebox[8\ccwd][c]{\@reviewer@}}}\par\vskip6\p@
+    \rightline{\CJKunderline{\makebox[8\ccwd][c]{\@reviewer@@}}}%
+  \endgroup
+  \vfill
+  \centering\@completiondate
+  \end{titlepage}%
+  \global\let\maketitle\relax
+  \global\let\@CLC\@empty
+  \global\let\@UDC\@empty
+  \global\let\@secretlevel\@empty
+  \global\let\@studentid\@empty
+  \global\let\@degree\@empty
+  \global\let\@cntitle\@empty
+  \global\let\@entitle\@empty
+  \global\let\@author\@empty
+  \global\let\@department\@empty
+  \global\let\@supervisor\@empty
+  \global\let\@field\@empty
+  \global\let\@major\@empty
+  \global\let\@defensedate\@empty
+  \global\let\@tdcchairman\@empty
+  \global\let\@reviewer@\@empty
+  \global\let\@reviewer@@\@empty
+  \global\let\@completiondate\@empty
+  \global\let\CLC\relax
+  \global\let\UDC\relax
+  \global\let\secretlevel\relax
+  \global\let\studentid\relax
+  \global\let\degree\relax
+  \global\let\cntitle\relax
+  \global\let\entitle\relax
+  \global\let\author\relax
+  \global\let\department\relax
+  \global\let\supervisor\relax
+  \global\let\field\relax
+  \global\let\major\relax
+  \global\let\defensedate\relax
+  \global\let\tdcchairman\relax
+  \global\let\reviewer\relax
+  \global\let\completiondate\relax
+}
+%%
+%% 声明和授权书
+\newcommand\makedecaut{%
+  \def\@@dec{本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。据我所知，除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为获得南昌大学或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。}%
+  \def\@@aut{本学位论文作者完全了解南昌大学有关保留、使用学位论文的规定，同意学校有权保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权南昌大学可以将学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编本学位论文。同时授权北京万方数据股份有限公司和中国学术期刊（光盘版）电子杂志社将本学位论文收录到《中国学位论文全文数据库》和《中国优秀博硕士学位论文全文数据库》中全文发表，并通过网络向社会公众提供信息服务，同意按“章程”规定享受相关权益。}%
+  \def\@@asi{学位论文作者签名（手写）}%
+  \def\@@ssi{导师签名（手写）}%
+  \def\@@sdt{签字日期：~~~~~~~~年~~~~~~月~~~~~~日}%
+  \def\@@square{\raisebox{\p@}{□}}%
+  \def\@@tfn{\@@square{公开}\hfill\@@square{保密}（向校学位办申请获批准为“保密”，\CJKunderline{\makebox[2.5\ccwd][c]{}}年\CJKunderline{\makebox[1.4\ccwd][c]{}}月后公开）}%
+  \newlength\@@mbl\setlength\@@mbl{.45\columnwidth}%
+  \setlength\arrayrulewidth{.5\p@}%
+  \clearpage
+  \chaptermark{声明和授权书}%
+  \hrule\@height\z@\nobreak
+  \begin{center}%
+    \fangsong\bfseries\LARGE{一、学位论文独创性声明}%
+  \end{center}\par
+  \@@dec\\[12\p@]%
+  \makebox[\@@mbl][l]{\@@asi{：}}\hfill\makebox[\@@mbl][l]{\@@sdt}%
+  \par\vskip30\p@
+  \begin{center}%
+    \fangsong\bfseries\LARGE{二、学位论文版权使用授权书}%
+  \end{center}\par
+  \@@aut\\[12\p@]%
+  \makebox[\@@mbl][l]{\@@asi{：}}\hfill\makebox[\@@mbl][l]{\@@ssi{：}}\\[12\p@]%
+  \makebox[\@@mbl][l]{\@@sdt}\hfill\makebox[\@@mbl][l]{\@@sdt}%
+  \par\vskip24\p@
+  \begingroup
+    \parindent\z@
+    \begin{tabularx}{\textwidth}{|c|X|c|p{6em}|c|p{8em}|}
+      \hline
+      论文题目 & \multicolumn{5}{c|}{}\\
+      \hline
+      姓名 & & 学号 & & 论文级别 & 硕士\@@square\quad{博士}\@@square\\
+      \hline
+      院/系/所 & \multicolumn{2}{c|}{} & \centering{专业} & \multicolumn{2}{c|}{}\\
+      \hline
+      E\_mail & \multicolumn{5}{c|}{}\\
+      \hline
+      \multicolumn{6}{|l|}{备注：}\\
+      \hline
+    \end{tabularx}%
+    \par\vskip8\p@
+    \@@tfn
+  \endgroup
+  \clearpage
+}
+%%
+%% 中文摘要
+\newcommand\@cnkeywords[1]{%
+  \newcounter{@cnkwitem}\newcounter{@cnkwtotal}%
+  \setcounter{@cnkwitem}{0}\setcounter{@cnkwtotal}{0}%
+  \renewcommand*{\do}[1]{\stepcounter{@cnkwtotal}}%
+  \docsvlist{#1}%
+  \renewcommand*{\do}[1]{%
+    \stepcounter{@cnkwitem}%
+    ##1\ifnum\value{@cnkwitem}<\value{@cnkwtotal}；\fi}%
+  \par\vskip12\p@\noindent
+  \ifdefstring{\ncu@format}{ncu}
+    {\textbf{关键词：}}
+    {{\heiti{关键词：}}}%
+  \docsvlist{#1}}
+\NewEnviron{abstract}{%
+  \let\keywords\@cnkeywords
+  \chapter*{摘要}\chaptermark{摘要}%
+  \BODY
+  \clearpage
+}
+%%
+%% 英文摘要
+\newcommand\@enkeywords[1]{%
+  \newcounter{@enkwitem}\newcounter{@enkwtotal}%
+  \setcounter{@enkwitem}{0}\setcounter{@enkwtotal}{0}%
+  \renewcommand*{\do}[1]{\stepcounter{@enkwtotal}}%
+  \docsvlist{#1}%
+  \renewcommand*{\do}[1]{%
+    \stepcounter{@enkwitem}%
+    ##1\ifnum\value{@enkwitem}<\value{@enkwtotal}; \fi}%
+  \par\vskip12\p@
+  \noindent\textbf{Keywords: }\docsvlist{#1}}
+\NewEnviron{abstract*}{%
+  \let\keywords\@enkeywords
+  \chapter*{Abstract}\chaptermark{Abstract}%
+  \BODY
+  \clearpage
+}
+%%
+%% 致谢
+\NewEnviron{acknowledgements}{%
+  \newcommand\signoff[2]{%
+    \par\vskip12\p@
+    \rightline{##1}\par
+    \rightline{##2}}%
+  \chapter*{致谢}\chaptermark{致谢}%
+  \addcontentsline{toc}{chapter}{致谢}%
+  \fangsong\BODY
+  \clearpage
+}
+%%
+%% 攻读学位期间的研究成果
+\NewEnviron{researchresults}{%
+  \newlist{papers}{enumerate}{2}%
+  \setlist[papers]{
+    topsep     = 0pt plus1pt,
+    parsep     = 0pt plus1pt,
+    leftmargin = 1.3em,
+    labelwidth = 1.3em,
+    labelsep   = 0pt,
+    align      = left
+  }%
+  \setlist[papers,1]{label=\arabic*.}%
+  \setlist[papers,2]{leftmargin=1.5em,label=(\arabic*),labelwidth=1.5em}%
+  \NewEnviron{published}{%
+    \parindent\z@\par
+    \textbf{已发表论文：}%
+    \begin{papers}\BODY\end{papers}%
+    \addvspace{10.5\p@}%
+  }%
+  \NewEnviron{tobepublished}{%
+    \parindent\z@\par
+    \textbf{待发表论文：}%
+    \begin{papers}\BODY\end{papers}%
+    \addvspace{10.5\p@}%
+  }%
+  \NewEnviron{reports}{%
+    \parindent\z@\par
+    \textbf{研究报告：}%
+    \begin{papers}\BODY\end{papers}%
+    \addvspace{10.5\p@}%
+  }%
+  \NewEnviron{others}[1][{}]{%
+    \parindent\z@\par
+    \ifstrempty{##1}{}{\textbf{##1：}}%
+    \begin{papers}\BODY\end{papers}%
+    \addvspace{10.5\p@}%
+  }%
+  \chapter*{攻读学位期间的研究成果}\chaptermark{攻读学位期间的研究成果}%
+  \addcontentsline{toc}{chapter}{攻读学位期间的研究成果}%
+  \small\BODY
+  \clearpage
+}
+%%
+%% 导入新定义的命令和环境
+\input{./resources/newcmdenvs.def}
+%%
+\endinput
+%% `academic.clo' 文件结束
+%%
