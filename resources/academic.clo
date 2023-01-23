@@ -76,11 +76,6 @@
 \RequirePackage[nottoc,notlof,notlot]{tocbibind}
 \RequirePackage{array,tabularx,booktabs,longtable}
 \RequirePackage{nicematrix}
-\AtEndPreamble{%
-  \ifncu@hyp
-    \RequirePackage{hyperref}%
-  \fi
-}
 %%
 %% 中文支持, 字体设置, 字符微调
 \xeCJKsetup{
@@ -182,34 +177,34 @@
   Extension = .ttf,
   AutoFakeBold,
   AutoFakeSlant
-]{方正书宋简体}
+]{FZSS}
 \setCJKsansfont[
   Path      = ./fonts/,
   Extension = .ttf,
   AutoFakeBold,
   AutoFakeSlant
-]{方正黑体简体}
+]{FZHT}
 \setCJKmonofont[
   Path         = ./fonts/,
   Extension    = .ttf,
   AutoFakeBold = 4,
   AutoFakeSlant
-]{方正仿宋简体}
+]{FZSS}
 %%
 %% 新建字体族
-\newCJKfontfamily[kaiti]\kaiti{方正楷体简体}[
+\newCJKfontfamily[kaiti]\kaiti{FZKT}[
   Path      = ./fonts/,
   Extension = .ttf,
   AutoFakeBold,
   AutoFakeSlant
 ]
-\newCJKfontfamily[fangsong]\fangsong{方正仿宋简体}[
+\newCJKfontfamily[fangsong]\fangsong{FZFS}[
   Path         = ./fonts/,
   Extension    = .ttf,
   AutoFakeBold = 4,
   AutoFakeSlant
 ]
-\newCJKfontfamily[heiti]\heiti{方正黑体简体}[
+\newCJKfontfamily[heiti]\heiti{FZHT}[
   Path      = ./fonts/,
   Extension = .ttf,
   AutoFakeBold,
