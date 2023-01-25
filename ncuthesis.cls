@@ -17,7 +17,7 @@
 %%
 %%
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{ncuthesis}[2022/12/31 v0.1 Nanchang University LaTeX thesis template]
+\ProvidesClass{ncuthesis}[2023/1/25 v0.1a Nanchang University LaTeX thesis template]
 %%
 %% 必要的开发包
 \RequirePackage{iftex}
@@ -36,7 +36,6 @@
 \DeclareStringOption[adjusted]{format}
 \DeclareStringOption[draft]{doc}
 \DeclareStringOption[bibtex]{bib}
-\DeclareBoolOption[true]{hyp}
 \DeclareVoidOption{bachelor}{\ncu@kv{type=bachelor}}
 \DeclareVoidOption{academic}{\ncu@kv{type=academic}}
 \DeclareVoidOption{professional}{\ncu@kv{type=professional}}
