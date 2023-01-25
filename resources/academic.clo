@@ -150,26 +150,29 @@
 \setmainfont[
   Path             = ./fonts/,
   Extension        = .otf,
-  BoldFont         = XITS-Bold,
-  ItalicFont       = XITS-Italic,
-  BoldItalicFont   = XITS-BoldItalic,
+  UprightFont      = *-Regular,
+  BoldFont         = *-Bold,
+  ItalicFont       = *-Italic,
+  BoldItalicFont   = *-BoldItalic,
   PunctuationSpace = 4
-]{XITS-Regular}
+]{XITS}
 \setsansfont[
   Path            = ./fonts/,
   Extension       = .ttf,
-  BoldFont        = FiraSans-SemiBold,
-  ItalicFont      = FiraSans-Italic,
-  BoldItalicFont  = FiraSans-SemiBoldItalic,
+  UprightFont     = *-Regular,
+  BoldFont        = *-SemiBold,
+  ItalicFont      = *-Italic,
+  BoldItalicFont  = *-SemiBoldItalic,
   PunctuationSpace = 4
-]{FiraSans-Regular}
+]{FiraSans}
 \setmonofont[
   Path            = ./fonts/,
   Extension       = .otf,
-  BoldFont        = SourceCodePro-Bold,
-  ItalicFont      = SourceCodePro-It,
-  BoldItalicFont  = SourceCodePro-BoldIt
-]{SourceCodePro-Regular}
+  UprightFont     = *-Regular,
+  BoldFont        = *-Bold,
+  ItalicFont      = *-It,
+  BoldItalicFont  = *-BoldIt
+]{SourceCodePro}
 %%
 %% 设置 CJK 字体
 \setCJKmainfont[
@@ -791,44 +794,39 @@
   \clearpage
 }
 %%
-%% 中文摘要
-\newcommand\@cnkeywords[1]{%
-  \newcounter{@cnkwitem}\newcounter{@cnkwtotal}%
-  \setcounter{@cnkwitem}{0}\setcounter{@cnkwtotal}{0}%
-  \renewcommand*{\do}[1]{\stepcounter{@cnkwtotal}}%
-  \docsvlist{#1}%
-  \renewcommand*{\do}[1]{%
-    \stepcounter{@cnkwitem}%
-    ##1\ifnum\value{@cnkwitem}<\value{@cnkwtotal}；\fi}%
+%% 中英文摘要
+\ExplSyntaxOn
+\NewDocumentEnvironment{abstract}{}{
+  \str_new:N \l_cnKeywords
+  \seq_new:N \l_cnkeywords_seq
+  \NewDocumentCommand \keywords {m} {
+    \str_set:Nn \l_cnKeywords {关键词：}
+    \seq_set_split:Nnn \l_cnkeywords_seq {,} {##1}}
+  \chapter*{摘要}\chaptermark{摘要}
+}{
   \par\vskip12\p@\noindent
-  \ifdefstring{\ncu@format}{ncu}
-    {\textbf{关键词：}}
-    {{\heiti{关键词：}}}%
-  \docsvlist{#1}}
-\NewEnviron{abstract}{%
-  \let\keywords\@cnkeywords
-  \chapter*{摘要}\chaptermark{摘要}%
-  \BODY
+  \str_if_empty:NTF {\l_cnKeywords} {} {
+    \ifdefstring{\ncu@format}{ncu}
+      {\textbf{\l_cnKeywords}}
+      {{\heiti{\l_cnKeywords}}}}
+  \seq_use:Nn \l_cnkeywords_seq {；}
   \clearpage
 }
 %%
-%% 英文摘要
-\newcommand\@enkeywords[1]{%
-  \newcounter{@enkwitem}\newcounter{@enkwtotal}%
-  \setcounter{@enkwitem}{0}\setcounter{@enkwtotal}{0}%
-  \renewcommand*{\do}[1]{\stepcounter{@enkwtotal}}%
-  \docsvlist{#1}%
-  \renewcommand*{\do}[1]{%
-    \stepcounter{@enkwitem}%
-    ##1\ifnum\value{@enkwitem}<\value{@enkwtotal}; \fi}%
-  \par\vskip12\p@
-  \noindent\textbf{Keywords: }\docsvlist{#1}}
-\NewEnviron{abstract*}{%
-  \let\keywords\@enkeywords
-  \chapter*{Abstract}\chaptermark{Abstract}%
-  \BODY
+\NewDocumentEnvironment{abstract*}{}{
+  \str_new:N \l_enKeywords
+  \seq_new:N \l_enkeywords_seq
+  \NewDocumentCommand \keywords {m} {
+    \str_set:Nn \l_enKeywords {Keywords:}
+    \seq_set_split:Nnn \l_enkeywords_seq {,} {##1}}
+  \chapter*{Abstract}\chaptermark{Abstract}
+}{
+  \par\vskip12\p@\noindent
+  \str_if_empty:NTF \l_enKeywords {} {\textbf{\l_enKeywords}\space}
+  \seq_use:Nn \l_enkeywords_seq {;\space}
   \clearpage
 }
+\ExplSyntaxOff
 %%
 %% 致谢
 \NewEnviron{acknowledgements}{%
