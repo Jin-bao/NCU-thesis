@@ -1,7 +1,7 @@
 # NCU-thesis
 <img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v0.1-orange" alt="Author" /> <img src="https://img.shields.io/badge/size-about%2011M-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
 
-适用于南昌大学学术型研究生、专业型研究生、本科生毕业（学位）论文撰写的模板（暂时只适配了学术型的）。
+适用于南昌大学学术型研究生、专业型研究生、本科生毕业（学位）论文撰写的模板（暂时只适配了学术型的，专业型的本科生的正在制作中）。
 
 本模板开发时所用操作系统是 Windows 11，TeX 发行版是 TeX Live 2022。若使用其他系统和发行版，可能出现意料之外的问题。强烈建议使用最新版本的 TeX 发行版，并更新到最新。
 
