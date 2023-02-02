@@ -78,18 +78,14 @@
 \RequirePackage{nicematrix}
 %%
 %% 中文支持, 字体设置, 字符微调
-\xeCJKsetup{
-  PunctStyle     = quanjiao,
-  EmboldenFactor = 2.6,
-  SlantFactor    = 0.167
-}
 \ctexset{
+  punct          = quanjiao,
   autoindent     = 2,
   contentsname   = {目\quad 录},
   listfigurename = {插图清单},
   listtablename  = {表格清单},
   secnumdepth    = 3,
-  tocdepth       = 5,
+  tocdepth       = 2,
   part           = {
     format    = \heiti\bfseries\LARGE\centering,
     number    = \Roman{part},
@@ -169,22 +165,22 @@
   Path            = ./fonts/,
   Extension       = .otf,
   UprightFont     = *-Regular,
-  BoldFont        = *-Bold,
+  BoldFont        = *-Semibold,
   ItalicFont      = *-It,
-  BoldItalicFont  = *-BoldIt
+  BoldItalicFont  = *-SemiboldIt
 ]{SourceCodePro}
 %%
 %% 设置 CJK 字体
 \setCJKmainfont[
-  Path      = ./fonts/,
-  Extension = .ttf,
-  AutoFakeBold,
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 3.4,
   AutoFakeSlant
 ]{FZSS}
 \setCJKsansfont[
-  Path      = ./fonts/,
-  Extension = .ttf,
-  AutoFakeBold,
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 2.6,
   AutoFakeSlant
 ]{FZHT}
 \setCJKmonofont[
@@ -192,13 +188,13 @@
   Extension    = .ttf,
   AutoFakeBold = 4,
   AutoFakeSlant
-]{FZSS}
+]{FZFS}
 %%
 %% 新建字体族
 \newCJKfontfamily[kaiti]\kaiti{FZKT}[
-  Path      = ./fonts/,
-  Extension = .ttf,
-  AutoFakeBold,
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 2.6,
   AutoFakeSlant
 ]
 \newCJKfontfamily[fangsong]\fangsong{FZFS}[
@@ -208,9 +204,9 @@
   AutoFakeSlant
 ]
 \newCJKfontfamily[heiti]\heiti{FZHT}[
-  Path      = ./fonts/,
-  Extension = .ttf,
-  AutoFakeBold,
+  Path         = ./fonts/,
+  Extension    = .ttf,
+  AutoFakeBold = 2.6,
   AutoFakeSlant
 ]
 %%
@@ -804,11 +800,10 @@
     \seq_set_split:Nnn \l_cnkeywords_seq {,} {##1}}
   \chapter*{摘要}\chaptermark{摘要}
 }{
-  \par\vskip12\p@\noindent
   \str_if_empty:NTF {\l_cnKeywords} {} {
     \ifdefstring{\ncu@format}{ncu}
-      {\textbf{\l_cnKeywords}}
-      {{\heiti{\l_cnKeywords}}}}
+      {\par\noindent\textbf{\l_cnKeywords}}
+      {\par\vskip12\p@\noindent{\heiti{\l_cnKeywords}}}}
   \seq_use:Nn \l_cnkeywords_seq {；}
   \clearpage
 }
@@ -821,8 +816,10 @@
     \seq_set_split:Nnn \l_enkeywords_seq {,} {##1}}
   \chapter*{Abstract}\chaptermark{Abstract}
 }{
-  \par\vskip12\p@\noindent
-  \str_if_empty:NTF \l_enKeywords {} {\textbf{\l_enKeywords}\space}
+  \str_if_empty:NTF \l_enKeywords {} {
+    \ifdefstring{\ncu@format}{ncu}
+      {\par\noindent\textbf{\l_enKeywords}\space}
+      {\par\vskip12\p@\noindent\textbf{\l_enKeywords}\space}}
   \seq_use:Nn \l_enkeywords_seq {;\space}
   \clearpage
 }
