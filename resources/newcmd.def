@@ -1,0 +1,17 @@
+%%
+%% 这是 `newcmd.def' 文件
+%% 为用户定制各种各样的命令
+%%
+%%
+%% 开启 l3 语法
+\ExplSyntaxOn
+%%
+%% 文件声明
+\ProvidesExplFile
+  {newcmd} {2023/02/09} {0.1} {New~cmds~definitions.}
+%%
+%%
+%%
+\endinput
+%% `newcmd.def' 文件结束
+%%

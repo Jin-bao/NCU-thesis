@@ -1,0 +1,82 @@
+%%
+%% 这是 `newenv.def' 文件
+%% 为用户定制各种各样的环境
+%%
+%%
+%% 开启 l3 语法
+\ExplSyntaxOn
+%%
+%% 文件声明
+\ProvidesExplFile
+  {newenv} {2023/02/09} {0.1} {New~envs~definitions.}
+%%
+%% 定理类环境定义
+\NewDocumentCommand \newthm {mm} {
+  \newcounter {@#1} [chapter]
+  \tl_set:cn {the@#1} {\thechapter.\arabic{@#1}}
+  \NewDocumentEnvironment {#1} {o} {
+    \list {} {
+      \topsep        \g__ncu_thm_topsep_skip
+      \itemsep       0pt
+      \parsep        0pt
+      \itemindent    \g__ncu_thm_indent_tl
+      \listparindent \itemindent
+      \leftmargin    \g__ncu_thm_leftmargin_dim
+      \rightmargin   \g__ncu_thm_rightmargin_dim
+    }
+    \item\relax
+    \refstepcounter {@#1}
+    \group_begin:
+      \g__ncu_thm_headfont_tl
+      #2\tl_use:c {the@#1}
+      \IfValueT {##1} {\g__ncu_thm_leftjoin_tl##1\g__ncu_thm_rightjoin_tl}
+      \g__ncu_thm_afterhead_tl
+    \group_end:
+    \g__ncu_thm_bodyfont_tl
+  }{
+    \endlist
+  }
+}
+\NewDocumentCommand \newnumlessthm {mm} {
+  \NewDocumentEnvironment {#1} {o} {
+    \list {} {
+      \topsep        \g__ncu_thm_topsep_skip
+      \itemsep       0pt
+      \parsep        0pt
+      \itemindent    \g__ncu_thm_indent_tl
+      \listparindent \itemindent
+      \leftmargin    \g__ncu_thm_leftmargin_dim
+      \rightmargin   \g__ncu_thm_rightmargin_dim
+    }
+    \item\relax
+    \group_begin:
+      \g__ncu_thm_headfont_tl
+      #2
+      \IfValueT {##1} {\g__ncu_thm_leftjoin_tl##1\g__ncu_thm_rightjoin_tl}
+      \g__ncu_thm_afterhead_tl
+    \group_end:
+    \g__ncu_thm_bodyfont_tl
+  }{
+    \endlist
+  }
+}
+%%
+\newthm {theorem}      {定理}
+\newthm {law}          {定律}
+\newthm {principle}    {原理}
+\newthm {axiom}        {公理}
+\newthm {lemma}        {引理}
+\newthm {inference}    {推论}
+\newthm {conclusion}   {结论}
+\newthm {proposition}  {命题}
+\newthm {definition}   {定义}
+\newthm {assumption}   {假设}
+\newthm {property}     {性质}
+\newthm {remark}       {注解}
+\newthm {condition}    {条件}
+\newnumlessthm {proof} {证明}
+%%
+%%
+\endinput
+%% `newenv.def' 文件结束
+%%
