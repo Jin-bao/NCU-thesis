@@ -117,8 +117,8 @@
   format .initial:n = {adjusted},
   format/unknown .code:n = 
     {\__ncu_warning:nn {unknown-option-value}{format=adjusted}},
-  adjusted .code:n = {\tl_gset:Nn \g__ncu_format {ncu}},
-  nuc .code:n = {\tl_gset:Nn \g__ncu_format {ncu}},
+  adjusted .code:n = {\tl_gset:Nn \g__ncu_format_tl {adjusted}},
+  ncu .code:n = {\tl_gset:Nn \g__ncu_format_tl {ncu}},
   bib .choice:,
   bib .value_required:n = true,
   bib .choices:nn =
