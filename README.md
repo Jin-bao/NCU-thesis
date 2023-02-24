@@ -31,3 +31,8 @@
 
 ### 许可证
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)（版本 1.3c 或更高）。
+
+__________
+
+### 广而告之
+本项目维护人员提供文档排版服务，询价可联系邮箱 yyyyyyhdd@outlook.com。
