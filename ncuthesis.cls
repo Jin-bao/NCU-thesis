@@ -153,12 +153,12 @@
 \ProcessKeysOptions {ncu/option}
 %% 稿件状态
 \tl_if_eq:NNT \g__ncu_doc_tl \g__ncu_doc_draft_tl {
-  \PassOptionsToClass   {draft}     {book}
+  \PassOptionsToClass   {draft}     {ctexbook}
   \PassOptionsToPackage {showframe} {geometry}
   \PassOptionsToPackage {draft}     {graphicx}
 }
 \tl_if_eq:NNT \g__ncu_doc_tl \g__ncu_doc_final_tl {
-  \PassOptionsToClass   {final} {book}
+  \PassOptionsToClass   {final} {ctexbook}
   \PassOptionsToPackage {final} {graphicx}
 }
 %% 导入选项设置文件
