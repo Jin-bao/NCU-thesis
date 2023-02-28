@@ -1,5 +1,5 @@
 # NCU-thesis
-<img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v0.2-orange" alt="Author" /> <img src="https://img.shields.io/badge/size-about%2012M-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
+<img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v0.2-orange" alt="Author" /> <img src="https://img.shields.io/badge/size-about%2011M-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
 
 适用于南昌大学学术型研究生、专业型研究生、本科生毕业（学位）论文撰写的模板。借助现代 LaTeX 技术，希望达到用户接口简明、内容格式规范和模板样式可定制的统一。
 
