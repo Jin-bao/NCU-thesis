@@ -1,8 +1,9 @@
 %%
 %% thesis.tex
-\documentclass[newenv,final]{ncuthesis}
+\documentclass[newenv]{ncuthesis}
 %%
 \ncusetup {
+  % style/footnote-num = plain,
   info = {
     CLC             = {O}, % 可省略花括号
     secret-level*   = 公开,
@@ -12,8 +13,8 @@
     title           = 南昌大学学位论文模板使用演示,
     title*          = Demonstration\\of\\Nanchang University Thesis Template,
     author          = 朱金宝,
-    department      = 物理与材料学院,
-    supervisor      = 舒富文教授,
+    department      = 物理,
+    supervisor      = 舒富文,
     field           = 理学,
     major           = 天体物理,
     defence-date    = 2023 年 2 月 16 日,
@@ -42,6 +43,7 @@ This is abstract.
 \tableofcontents
 %%
 \mainmatter
+\part{部}
 \chapter{引言}
 \section{历史}
 我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献。\footnote{test}
@@ -50,19 +52,19 @@ This is abstract.
 \centering
 \begin{subfigure}{.45\textwidth}
 \centering
-\includegraphics[width=5cm]{figures/test.pdf}
+\includegraphics[width=5cm]{example-image}
 \subcaption{这是子图}
 \label{fig:subfigexp-a}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}
 \centering
-\includegraphics[width=5cm]{figures/test.pdf}
+\includegraphics[width=5cm]{example-image}
 \subcaption{这又是子图}
 \label{fig:subfigexp-b}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}
 \centering
-\includegraphics[width=5cm]{figures/test.pdf}
+\includegraphics[width=5cm]{example-image}
 \subcaption{这还是子图}
 \label{fig:subfigexp-c}
 \end{subfigure}
@@ -90,8 +92,7 @@ This is abstract.
 \end{acknowledgements}
 %%
 %%
-%% 注意，以下内容本科生论文应当删除，否则报错！
-%%
+% 注意，以下内容本科生毕业论文不能写，否则报错！
 \begin{researchresults}
 \begin{published}
 \item 条目
