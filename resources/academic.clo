@@ -38,10 +38,12 @@
   \abovedisplayskip      7.6 \p@ \@plus2\p@ \@minus2.5\p@
   \abovedisplayshortskip \z@ \@plus2\p@
   \belowdisplayshortskip 7.6 \p@ \@plus2\p@ \@minus2.5\p@
-  \def\@listi{\leftmargin\leftmargini
-              \topsep    2\p@ \@plus1 \p@ \@minus1 \p@
-              \parsep    1\p@ \@plus  \p@ \@minus  \p@
-              \itemsep   \parsep}
+  \def\@listi{
+    \leftmargin \leftmargini
+    \topsep     2\p@ \@plus1 \p@ \@minus1 \p@
+    \parsep     1\p@ \@plus  \p@ \@minus  \p@
+    \itemsep    \parsep
+  }
   \belowdisplayskip      10.6\p@ \@plus2\p@ \@minus2.5\p@
 }
 \DeclareDocumentCommand \footnotesize {} {
@@ -49,25 +51,26 @@
   \abovedisplayskip      5.9\p@ \@plus1.5\p@ \@minus1.4\p@
   \abovedisplayshortskip \z@ \@plus1.5\p@
   \belowdisplayshortskip 5.9\p@ \@plus1.5\p@ \@minus1.4\p@
-  \def\@listi{\leftmargin\leftmargini
-              \topsep    1\p@ \@plus.5\p@ \@minus.5\p@
-              \parsep   .5\p@ \@plus  \p@ \@minus  \p@
-              \itemsep   \parsep}
+  \def\@listi{
+    \leftmargin \leftmargini
+    \topsep     1\p@ \@plus.5\p@ \@minus.5\p@
+    \parsep    .5\p@ \@plus  \p@ \@minus  \p@
+    \itemsep    \parsep
+  }
   \belowdisplayskip      8  \p@ \@plus1.5\p@ \@minus1.4\p@
 }
 \DeclareDocumentCommand \scriptsize {} {\@setfontsize\scriptsize\@viiipt{13.3}}
-\DeclareDocumentCommand \tiny {} {\@setfontsize\tiny\@vipt\@xpt}
+\DeclareDocumentCommand \tiny  {} {\@setfontsize\tiny\@vipt\@xpt}
 \DeclareDocumentCommand \large {} {\@setfontsize\large{14}{23}}
 \DeclareDocumentCommand \Large {} {\@setfontsize\Large{16}{26}}
 \DeclareDocumentCommand \LARGE {} {\@setfontsize\LARGE{18}{30}}
-\DeclareDocumentCommand \huge {} {\@setfontsize\huge{24}{40}}
+\DeclareDocumentCommand \huge  {} {\@setfontsize\huge{24}{40}}
 \tl_set_eq:NN \Huge \huge
 %%
 %% 载入宏包
 \RequirePackage {amsmath}
 \RequirePackage {unicode-math}
 \RequirePackage {geometry}
-\RequirePackage {xcolor}
 \RequirePackage {graphicx}
 \RequirePackage {fancyhdr}
 \RequirePackage [titles] {tocloft}
@@ -95,7 +98,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\vskip16pt\relax,
+      aftername = \par\skip_vertical:n {16pt},
       tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
     },
     chapter = {
@@ -139,7 +142,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\vskip16pt\relax,
+      aftername = \par\skip_vertical:n {16pt},
       tocline   = \CTEXifname{\CTEXthepart\hspace{1em}}{}#2
     },
     chapter = {
@@ -507,9 +510,9 @@
 \setlist[itemize,2]{label=\normalfont\bfseries\textendash}
 \setlist[itemize,3]{label=\textasteriskcentered}
 \setlist[itemize,4]{label=\textperiodcentered}
-\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\relax}
+\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\scan_stop:}
 \setlist[enumerate,2]{label=(\arabic*)}
-\setlist[enumerate,3]{label=\alph*.\hskip-.1em\relax}
+\setlist[enumerate,3]{label=\alph*.\hskip-.1em\scan_stop:}
 \setlist[enumerate,4]{label=(\alph*)}
 \setlist[description]{font=\normalfont\heiti}
 %%
@@ -601,23 +604,6 @@
 \tl_set:Nn \@floatboxreset {\reset@font \small \@setminipage}
 %%
 %% 脚注设置
-\tl_new:N \g__ncu_fn_num_style_tl
-\tl_new:N \g__ncu_fn_num_XITS_tl
-\tl_new:N \g__ncu_fn_num_Libertinus_tl
-\tl_new:N \g__ncu_fn_num_plain_tl
-\tl_gset:Nn \g__ncu_fn_num_XITS_tl {XITS}
-\tl_gset:Nn \g__ncu_fn_num_Libertinus_tl {Libertinus}
-\tl_gset:Nn \g__ncu_fn_num_plain_tl {plain}
-\keys_define:nn {ncu/style} {
-  footnote-num .choice:,
-  footnote-num .value_required:n = true,
-  footnote-num .choices:nn =
-    {XITS, Libertinus, plain}
-    {\tl_gset:NV \g__ncu_fn_num_style_tl \l_keys_choice_tl},
-  footnote-num .initial:n = {XITS},
-  footnote-num/unknown .code:n = 
-    {\__ncu_warning:nn {unknown-style-value} {footnote-num=XITS}}
-}
 \cs_new:Npn \ncu__select_fn_num:n #1 {
   \int_compare:nTF {#1>=21}
     {
@@ -628,43 +614,55 @@
     {\__symbol:n {\int_eval:n {"2460-1+#1}}}
 }
 \cs_new:Npn \ncu__plain_fn_num:n #1 {\int_use:N #1}
-\cs_new:Npn \ncu__fn_num_:N #1 {
-  \tl_case:Nn \g__ncu_fn_num_style_tl {
-    \g__ncu_fn_num_XITS_tl {
-      \fontspec {XITS-Regular.otf} [Path = ./fonts/]
-      \ncu__select_fn_num:n {#1}
+%%
+\keys_define:nn {ncu/style} {
+  footnote-num .code:n = {
+    \str_case_e:nnF {#1} {
+      {circled} {
+        \cs_set_eq:NN \ncu__fn_num:N \ncu__select_fn_num:n
+        \cs_set:Npn \@makefntext ##1 {
+          \noindent
+          \hbox_to_wd:nn {2\ccwd} {
+            \hss\hbox:n {\normalfont\@thefnmark\space}
+          }
+          ##1
+        }
+      }
+      {plain} {
+        \cs_set_eq:NN \ncu__fn_num:N \ncu__plain_fn_num:n
+        \cs_set:Npn \@makefntext ##1 {
+          \noindent
+          \hbox_to_wd:nn {2\ccwd} {
+            \hss\@textsuperscript{\normalfont\@thefnmark}
+          }
+          ##1
+        }
+      }
+    }{
+      \cs_set_eq:NN \ncu__fn_num:N \ncu__select_fn_num:n
+      \cs_set:Npn \@makefntext ##1 {
+        \noindent
+        \hbox_to_wd:nn {2\ccwd} {
+          \hss\hbox:n {\normalfont\@thefnmark\space}
+        }
+        ##1
+      }
+      \__ncu_warning:nn {unknown-style-value} {footnote-num=circled}
     }
-    \g__ncu_fn_num_Libertinus_tl {
-      \fontspec {LibertinusSerif-Regular.otf} [Path = ./fonts/]
-      \ncu__select_fn_num:n {#1}
-    }
-    \g__ncu_fn_num_plain_tl {\ncu__plain_fn_num:n {#1}}
   }
+}
+\keys_set:nn {ncu/style} {
+  footnote-num = circled
 }
 %%
 \skip_set:Nn \footnotesep {9pt}
 \tl_new:N  \l__ncu_footinsskip_tl
 \tl_set:Nn \l__ncu_footinsskip_tl {\skip\footins}
 \skip_set:Nn \l__ncu_footinsskip_tl {13.2pt plus2.5pt minus2.5pt}
-\tl_set:Nn \thefootnote {\ncu__fn_num_:N \c@footnote}
-\BeforeBeginEnvironment {document} {
-  \tl_if_eq:NnTF \g__ncu_fn_num_style_tl {plain}
-  {
-    \cs_set:Npn \@makefntext #1 {
-      \noindent\hb@xt@2\ccwd{\hss\@textsuperscript{\normalfont\@thefnmark}}#1
-    }
-  }
-  {
-    \tl_new:N  \l__ncu_makefnmark_tl
-    \tl_set:Nn \l__ncu_makefnmark_tl {\hbox{\normalfont\@thefnmark\space}}
-    \cs_set:Npn \@makefntext #1 {
-      \noindent\hb@xt@2\ccwd{\hss\l__ncu_makefnmark_tl}#1
-    }
-  }
-}
 \tl_set:Nn \footnoterule {
   \kern-1pt\hrule height.5pt width.25\columnwidth\kern3pt
 }
+\tl_set:Nn \thefootnote {\ncu__fn_num:N \c@footnote}
 %%
 %% 附录
 %% 附录不需要进行设置
@@ -674,12 +672,12 @@
   \RequirePackage [sort&compress] {gbt7714}
   \bibliographystyle {gbt7714-numerical}
   \tl_set:Nn \bibfont {\small}
-  \bibsep0pt plus1pt\relax
+  \bibsep0pt plus1pt\scan_stop:
 }
 \tl_if_eq:NNT \g__ncu_bib_tl \g__ncu_bib_biblatex_tl {
   \RequirePackage [backend=biber, style=gb7714-2015] {biblatex}
   \tl_set:Nn \bibfont {\small}
-  \bibitemsep0 plus1pt\relax
+  \bibitemsep0 plus1pt\scan_stop:
 }
 %%
 %% 索引设置
@@ -699,7 +697,7 @@
     \leftmargin    4\ccwd
     \rightmargin   2\ccwd
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
   \endlist
 }
@@ -713,9 +711,12 @@
     \leftmargin    2\ccwd
     \rightmargin   \leftmargin
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
-  \IfNoValueTF {#1} {} {\par\vskip\parsep\relax\rightline{——#1}}
+  \IfValueT {#1} {
+    \par\skip_vertical:n {\parsep}
+    \rightline{——#1}
+  }
   \endlist
 }
 \RenewDocumentEnvironment {quote} {} {
@@ -728,7 +729,7 @@
     \leftmargin    2\ccwd
     \rightmargin   \leftmargin
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
   \endlist
 }
@@ -781,12 +782,10 @@
   \tl_new:N   \l__sid_tl
   \tl_set:Nn  \l__clc_tl {分\hss{}类\hss{}号}
   \tl_set:Nn  \l__sll_tl {密\hss{}级}
-  \tl_set:Nn  \l__udc_tl {U\hss{}D\hss{}C\hskip1pt\relax}
+  \tl_set:Nn  \l__udc_tl {U\hss{}D\hss{}C\hskip1pt\scan_stop:}
   \tl_set:Nn  \l__sid_tl {学\hss{}号}
-  % \tl_new:N   \l__info_degree_tmp_tl
   \tl_new:N   \l__cti_tl
   \tl_new:N   \l__ctii_tl
-  % \tl_set:Nx  \l__info_degree_tmp_tl {\l__info_degree_tl}
   \tl_set:Nx  \l__cti_tl {南昌大学\l__info_degree_tl 研究生}
   \tl_set:Nn  \l__ctii_tl {学位论文}
   \str_new:N  \l__dpt_str
@@ -807,27 +806,27 @@
   \tl_set:Nn  \l__star_tl {~\raisebox{1pt}{★}}
 %%
   \begin{titlepage}
-    \parindent\z@
+    \parindent0pt
     \heiti
     \group_begin:
       \tl_set_eq:NN \\ \c_empty_tl
       \makebox[.38\columnwidth][l]
-        {\hb@xt@3\ccwd{\l__clc_tl}：\l__info_CLC_tl}
+        {\hbox_to_wd:nn {3\ccwd} {\l__clc_tl}：\l__info_CLC_tl}
       \hfill
       \makebox[.38\columnwidth][l] {
-        \hb@xt@2\ccwd{\l__sll_tl}：
+        \hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：
         \bool_if:NTF \l__info_sll_star_bool
           {\l__info_secretlevel_tl}
           {保密\l__star_tl\l__info_secretlevel_tl 年}
       }
       \par
       \makebox[.38\columnwidth][l]
-        {\hb@xt@3\ccwd{\l__udc_tl}：\l__info_UDC_tl}
+        {\hbox_to_wd:nn {3\ccwd} {\l__udc_tl}：\l__info_UDC_tl}
       \hfill
       \makebox[.38\columnwidth][l]
-        {\hb@xt@2\ccwd{\l__sid_tl}：\l__info_studentid_tl}
+        {\hbox_to_wd:nn {2\ccwd} {\l__sid_tl}：\l__info_studentid_tl}
     \group_end:
-    \par\vskip42pt minus6pt\relax
+    \par\skip_vertical:n {42pt minus6pt}
     \begin{center}
       \group_begin:
         \int_compare:nNnTF
@@ -835,59 +834,59 @@
           {\Large\l__cti_tl}
           {\Large\tl_map_inline:Nn \l__cti_tl {##1\hspace{.4em}}}
       \group_end:
-      \par\vskip16pt\relax
+      \par\skip_vertical:n {16pt}
       \group_begin:
         \huge\tl_map_inline:Nn \l__ctii_tl {##1\hspace{.4em}}
       \group_end:
-      \par\vskip42pt minus8pt\relax
+      \par\skip_vertical:n {42pt minus8pt}
       \group_begin:
         \bfseries\LARGE
         \begin{minipage}{.8\columnwidth}
           \centering\l__info_cntitle_tl
         \end{minipage}
       \group_end:
-      \par\vskip16pt\relax
+      \par\skip_vertical:n {16pt}
       \group_begin:
         \bfseries\large
         \begin{minipage}{.8\columnwidth}
           \centering\l__info_entitle_tl
         \end{minipage}
       \group_end:
-      \par\vskip32pt minus10pt\relax
+      \par\skip_vertical:n {32pt minus10pt}
       \group_begin:
         \tl_set_eq:NN \\ \c_empty_tl
         \rmfamily\large\l__info_author_tl
       \group_end:
     \end{center}
     \tl_set_eq:NN \\ \c_empty_tl
-    \vskip32pt minus10pt\relax
+    \skip_vertical:n {32pt minus10pt}
     \rmfamily
     \begingroup
       \str_map_inline:Nn \l__dpt_str {##1\hspace{.08em}}
-        \mbox{\l__info_department_tl}\par\vskip3pt\relax
+        \mbox{\l__info_department_tl}\par\skip_vertical:n {3pt}
       \str_map_inline:Nn \l__spv_str {##1\hspace{.08em}}
-        \mbox{\l__info_supervisor_tl}\par\vskip3pt\relax
+        \mbox{\l__info_supervisor_tl}\par\skip_vertical:n {3pt}
       \str_map_inline:Nn \l__fld_str {##1\hspace{.08em}}
-        \mbox{\l__info_field_tl}\par\vskip3pt\relax
+        \mbox{\l__info_field_tl}\par\skip_vertical:n {3pt}
       \str_map_inline:Nn \l__mjr_str {##1\hspace{.08em}}
-        \mbox{\l__info_major_tl}\par\vskip3pt\relax
+        \mbox{\l__info_major_tl}\par\skip_vertical:n {3pt}
       \str_map_inline:Nn \l__dfd_str {##1\hspace{.08em}}
         \mbox{\l__info_defensedate_tl}
     \endgroup
-    \par\vskip28pt minus18pt\relax
+    \par\skip_vertical:n {28pt minus18pt}
     \begingroup
       \rightline{
         \str_map_inline:Nn \l__dcc_str {##1\hspace{.08em}}
         \uline{\makebox[7\ccwd][c]{\l__info_tdcchairman_tl}}
       }
-      \par\vskip6pt\relax
+      \par\skip_vertical:n {6pt}
       \rightline{
         \str_map_inline:Nn \l__rvr_str {##1\hspace{.08em}}
         \uline{
           \makebox[7\ccwd][c]{\clist_item:Nn \l__info_reviewer_tl {1}}
         }
       }
-      \par\vskip6pt\relax
+      \par\skip_vertical:n {6pt}
       \rightline{
         \uline{
           \makebox[7\ccwd][c]{\clist_item:Nn \l__info_reviewer_tl {2}}
@@ -929,7 +928,7 @@
   \dim_set:Nn  \arrayrulewidth {.5pt}
   \clearpage
   \chaptermark{声明和授权书}
-  \hrule height 0pt\relax\nobreak
+  \hrule height 0pt\scan_stop:\nobreak
   \begin{center}
     \fangsong\bfseries\LARGE{一、学位论文独创性声明}
   \end{center}
@@ -938,7 +937,7 @@
   \makebox[\l__mbl_skip][l]{\l__asi_tl}
   \hfill
   \makebox[\l__mbl_skip][l]{\l__sdt_tl}
-  \par\vskip30pt minus6pt\relax
+  \par\skip_vertical:n {30pt minus6pt}
   \begin{center}
     \fangsong\bfseries\LARGE{二、学位论文版权使用授权书}
   \end{center}
@@ -950,7 +949,7 @@
   \makebox[\l__mbl_skip][l]{\l__sdt_tl}
   \hfill
   \makebox[\l__mbl_skip][l]{\l__sdt_tl}
-  \par\vskip24pt minus4pt\relax
+  \par\skip_vertical:n {24pt minus4pt}
   \begingroup
     \parindent0pt
     \begin{tabularx}{\textwidth}{|c|X|c|p{6em}|c|p{7.8em}|}
@@ -966,7 +965,7 @@
       \multicolumn{6}{|l|}{备注：}\\
       \hline
     \end{tabularx}
-    \par\vskip8pt\relax
+    \par\skip_vertical:n {8pt}
     \nopagebreak
     \l__tfn_tl
   \endgroup
@@ -990,7 +989,7 @@
 }{
   \str_if_empty:NTF \l__cnkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\vskip12pt\relax\noindent{\heiti\l__cnkws_str}
+      \par\skip_vertical:n {12pt}\noindent{\heiti\l__cnkws_str}
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__cnkws_str}
@@ -1016,7 +1015,7 @@
 }{
   \str_if_empty:NTF \l__enkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\vskip12pt\relax\noindent\textbf{\l__enkws_str}\space
+      \par\skip_vertical:n {12pt}\noindent\textbf{\l__enkws_str}\space
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__enkws_str}\space
@@ -1031,7 +1030,7 @@
   \tl_new:N  \l__acks_tl
   \tl_set:Nn \l__acks_tl {致谢}
   \NewDocumentCommand \signoff {mm} {
-    \par\vskip12pt\relax
+    \par\skip_vertical:n {12pt}
     \rightline{##1}
     \par
     \rightline{##2}

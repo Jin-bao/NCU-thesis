@@ -36,10 +36,12 @@
   \abovedisplayskip      7.6 \p@ \@plus2\p@ \@minus2.5\p@
   \abovedisplayshortskip \z@ \@plus2\p@
   \belowdisplayshortskip 7.6 \p@ \@plus2\p@ \@minus2.5\p@
-  \def\@listi{\leftmargin\leftmargini
-              \topsep    2\p@ \@plus1 \p@ \@minus1 \p@
-              \parsep    1\p@ \@plus  \p@ \@minus  \p@
-              \itemsep   \parsep}
+  \def\@listi{
+    \leftmargin \leftmargini
+    \topsep     2\p@ \@plus1 \p@ \@minus1 \p@
+    \parsep     1\p@ \@plus  \p@ \@minus  \p@
+    \itemsep    \parsep
+  }
   \belowdisplayskip      10.6\p@ \@plus2\p@ \@minus2.5\p@
 }
 \DeclareDocumentCommand \footnotesize {} {
@@ -47,25 +49,26 @@
   \abovedisplayskip      5.9\p@ \@plus1.5\p@ \@minus1.4\p@
   \abovedisplayshortskip \z@ \@plus1.5\p@
   \belowdisplayshortskip 5.9\p@ \@plus1.5\p@ \@minus1.4\p@
-  \def\@listi{\leftmargin\leftmargini
-              \topsep    1\p@ \@plus.5\p@ \@minus.5\p@
-              \parsep   .5\p@ \@plus  \p@ \@minus  \p@
-              \itemsep   \parsep}
+  \def\@listi{
+    \leftmargin \leftmargini
+    \topsep     1\p@ \@plus.5\p@ \@minus.5\p@
+    \parsep    .5\p@ \@plus  \p@ \@minus  \p@
+    \itemsep    \parsep
+  }
   \belowdisplayskip      8  \p@ \@plus1.5\p@ \@minus1.4\p@
 }
 \DeclareDocumentCommand \scriptsize {} {\@setfontsize\scriptsize\@viiipt{9.6}}
-\DeclareDocumentCommand \tiny {} {\@setfontsize\tiny\@vipt{7.2}}
+\DeclareDocumentCommand \tiny  {} {\@setfontsize\tiny\@vipt{7.2}}
 \DeclareDocumentCommand \large {} {\@setfontsize\large{14}{16.8}}
 \DeclareDocumentCommand \Large {} {\@setfontsize\Large{16}{19.2}}
 \DeclareDocumentCommand \LARGE {} {\@setfontsize\LARGE{18}{21.6}}
-\DeclareDocumentCommand \huge {} {\@setfontsize\huge{24}{28.8}}
-\DeclareDocumentCommand \Huge {} {\@setfontsize\huge{30}{36}}
+\DeclareDocumentCommand \huge  {} {\@setfontsize\huge{24}{28.8}}
+\DeclareDocumentCommand \Huge  {} {\@setfontsize\huge{30}{36}}
 %%
 %% 载入宏包
 \RequirePackage {amsmath}
 \RequirePackage {unicode-math}
 \RequirePackage {geometry}
-\RequirePackage {xcolor}
 \RequirePackage {graphicx}
 \RequirePackage {fancyhdr}
 \RequirePackage [titles] {tocloft}
@@ -92,7 +95,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\vskip16pt\relax,
+      aftername = \par\skip_vertical:n {16pt},
       tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
     },
     chapter = {
@@ -136,7 +139,7 @@
     part = {
       format    = \Large\centering,
       number    = \Roman{part},
-      aftername = \par\vskip16pt\relax,
+      aftername = \par\skip_vertical:n {16pt},
       tocline   = \CTEXifname{\CTEXthepart\hspace{1em}}{}#2
     },
     chapter = {
@@ -504,9 +507,9 @@
 \setlist[itemize,2]{label=\normalfont\bfseries\textendash}
 \setlist[itemize,3]{label=\textasteriskcentered}
 \setlist[itemize,4]{label=\textperiodcentered}
-\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\relax}
+\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\scan_stop:}
 \setlist[enumerate,2]{label=(\arabic*)}
-\setlist[enumerate,3]{label=\alph*.\hskip-.1em\relax}
+\setlist[enumerate,3]{label=\alph*.\hskip-.1em\scan_stop:}
 \setlist[enumerate,4]{label=(\alph*)}
 \setlist[description]{font=\normalfont\heiti}
 %%
@@ -600,23 +603,6 @@
 \tl_set:Nn \@floatboxreset {\reset@font \small \@setminipage}
 %%
 %% 脚注设置
-\tl_new:N \g__ncu_fn_num_style_tl
-\tl_new:N \g__ncu_fn_num_XITS_tl
-\tl_new:N \g__ncu_fn_num_Libertinus_tl
-\tl_new:N \g__ncu_fn_num_plain_tl
-\tl_gset:Nn \g__ncu_fn_num_XITS_tl {XITS}
-\tl_gset:Nn \g__ncu_fn_num_Libertinus_tl {Libertinus}
-\tl_gset:Nn \g__ncu_fn_num_plain_tl {plain}
-\keys_define:nn {ncu/style} {
-  footnote-num .choice:,
-  footnote-num .value_required:n = true,
-  footnote-num .choices:nn =
-    {XITS, Libertinus, plain}
-    {\tl_gset:NV \g__ncu_fn_num_style_tl \l_keys_choice_tl},
-  footnote-num .initial:n = {XITS},
-  footnote-num/unknown .code:n = 
-    {\__ncu_warning:nn {unknown-style-value} {footnote-num=XITS}}
-}
 \cs_new:Npn \ncu__select_fn_num:n #1 {
   \int_compare:nTF {#1>=21}
     {
@@ -627,43 +613,55 @@
     {\__symbol:n {\int_eval:n {"2460-1+#1}}}
 }
 \cs_new:Npn \ncu__plain_fn_num:n #1 {\int_use:N #1}
-\cs_new:Npn \ncu__fn_num_:N #1 {
-  \tl_case:Nn \g__ncu_fn_num_style_tl {
-    \g__ncu_fn_num_XITS_tl {
-      \fontspec {XITS-Regular.otf} [Path = ./fonts/]
-      \ncu__select_fn_num:n {#1}
+%%
+\keys_define:nn {ncu/style} {
+  footnote-num .code:n = {
+    \str_case_e:nnF {#1} {
+      {circled} {
+        \cs_set_eq:NN \ncu__fn_num:N \ncu__select_fn_num:n
+        \cs_set:Npn \@makefntext ##1 {
+          \noindent
+          \hbox_to_wd:nn {2\ccwd} {
+            \hss\hbox:n {\normalfont\@thefnmark\space}
+          }
+          ##1
+        }
+      }
+      {plain} {
+        \cs_set_eq:NN \ncu__fn_num:N \ncu__plain_fn_num:n
+        \cs_set:Npn \@makefntext ##1 {
+          \noindent
+          \hbox_to_wd:nn {2\ccwd} {
+            \hss\@textsuperscript{\normalfont\@thefnmark}
+          }
+          ##1
+        }
+      }
+    }{
+      \cs_set_eq:NN \ncu__fn_num:N \ncu__select_fn_num:n
+      \cs_set:Npn \@makefntext ##1 {
+        \noindent
+        \hbox_to_wd:nn {2\ccwd} {
+          \hss\hbox:n {\normalfont\@thefnmark\space}
+        }
+        ##1
+      }
+      \__ncu_warning:nn {unknown-style-value} {footnote-num=circled}
     }
-    \g__ncu_fn_num_Libertinus_tl {
-      \fontspec {LibertinusSerif-Regular.otf} [Path = ./fonts/]
-      \ncu__select_fn_num:n {#1}
-    }
-    \g__ncu_fn_num_plain_tl {\ncu__plain_fn_num:n {#1}}
   }
+}
+\keys_set:nn {ncu/style} {
+  footnote-num = circled
 }
 %%
 \skip_set:Nn \footnotesep {9pt}
 \tl_new:N  \l__ncu_footinsskip_tl
 \tl_set:Nn \l__ncu_footinsskip_tl {\skip\footins}
 \skip_set:Nn \l__ncu_footinsskip_tl {13.2pt plus2.5pt minus2.5pt}
-\tl_set:Nn \thefootnote {\ncu__fn_num_:N \c@footnote}
-\BeforeBeginEnvironment {document} {
-  \tl_if_eq:NnTF \g__ncu_fn_num_style_tl {plain}
-  {
-    \cs_set:Npn \@makefntext #1 {
-      \noindent\hb@xt@2\ccwd{\hss\@textsuperscript{\normalfont\@thefnmark}}#1
-    }
-  }
-  {
-    \tl_new:N  \l__ncu_makefnmark_tl
-    \tl_set:Nn \l__ncu_makefnmark_tl {\hbox{\normalfont\@thefnmark\space}}
-    \cs_set:Npn \@makefntext #1 {
-      \noindent\hb@xt@2\ccwd{\hss\l__ncu_makefnmark_tl}#1
-    }
-  }
-}
 \tl_set:Nn \footnoterule {
   \kern-1pt\hrule height.5pt width.25\columnwidth\kern3pt
 }
+\tl_set:Nn \thefootnote {\ncu__fn_num:N \c@footnote}
 %%
 %% 附录
 %% 附录不需要进行设置
@@ -673,12 +671,12 @@
   \RequirePackage [sort&compress] {gbt7714}
   \bibliographystyle {gbt7714-numerical}
   \tl_set:Nn \bibfont {\small}
-  \bibsep0pt plus1pt\relax
+  \bibsep0pt plus1pt\scan_stop:
 }
 \tl_if_eq:NNT \g__ncu_bib_tl \g__ncu_bib_biblatex_tl {
   \RequirePackage [backend=biber, style=gb7714-2015] {biblatex}
   \tl_set:Nn \bibfont {\small}
-  \bibitemsep0 plus1pt\relax
+  \bibitemsep0 plus1pt\scan_stop:
 }
 %%
 %% 索引设置
@@ -698,7 +696,7 @@
     \leftmargin    4\ccwd
     \rightmargin   2\ccwd
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
   \endlist
 }
@@ -712,9 +710,12 @@
     \leftmargin    2\ccwd
     \rightmargin   \leftmargin
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
-  \IfNoValueTF {#1} {} {\par\vskip\parsep\relax\rightline{——#1}}
+  \IfValueT {#1} {
+    \par\skip_vertical:n {\parsep}
+    \rightline{——#1}
+  }
   \endlist
 }
 \RenewDocumentEnvironment {quote} {} {
@@ -727,7 +728,7 @@
     \leftmargin    2\ccwd
     \rightmargin   \leftmargin
   }
-  \item\relax\kaiti
+  \item\scan_stop:\kaiti
 }{
   \endlist
 }
@@ -819,34 +820,34 @@
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \par\vskip22pt plus7pt minus5pt
+      \par\skip_vertical:n {22pt plus7pt minus5pt}
       \begin{center}
         \group_begin:
           \includegraphics[width=65.9mm]{./resources/logo-name.png}
         \group_end:
-        \par\vskip22pt plus7pt minus5pt
+        \par\skip_vertical:n {22pt plus7pt minus5pt}
         \group_begin:
           \bfseries\Huge\tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
         \group_end:
-        \par\vskip4pt plus2pt minus1pt
+        \par\skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \bfseries\l__cover_enname_tl
         \group_end:
-        \par\vskip4pt plus2pt minus1pt
+        \par\skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \rmfamily\l__cover_date_tl
         \group_end:
-        \par\vskip26pt plus9pt minus6pt
+        \par\skip_vertical:n {26pt plus9pt minus6pt}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.png}
         \group_end:
-        \par\vskip32pt plus10pt minus8pt
+        \par\skip_vertical:n {32pt plus10pt minus8pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \par\vskip45pt plus15pt minus23pt
+        \par\skip_vertical:n {45pt plus15pt minus23pt}
         \rmfamily
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
@@ -865,34 +866,34 @@
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \par\vskip26pt plus7pt minus5pt
+      \par\skip_vertical:n {26pt plus7pt minus5pt}
       \begin{center}
         \group_begin:
           \includegraphics[width=65.9mm]{./resources/logo-name.png}
         \group_end:
-        \par\vskip26pt plus7pt minus5pt
+        \par\skip_vertical:n {26pt plus7pt minus5pt}
         \group_begin:
           \Huge\tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
         \group_end:
-        \par\vskip4pt plus2pt minus1pt
+        \par\skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \l__cover_enname_tl
         \group_end:
-        \par\vskip4pt plus2pt minus1pt
+        \par\skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_date_tl
         \group_end:
-        \par\vskip30pt plus9pt minus6pt
+        \par\skip_vertical:n {30pt plus9pt minus6pt}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.png}
         \group_end:
-        \par\vskip36pt plus10pt minus8pt
+        \par\skip_vertical:n {36pt plus10pt minus8pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \par\vskip52pt plus15pt minus23pt
+        \par\skip_vertical:n {52pt plus15pt minus23pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_info_tl
@@ -908,38 +909,38 @@
   \tl_set:Nn \l__square_tl {\raisebox{1pt}{□}}
   \begin{titlepage}
     \linespread{1.5}\selectfont
-    \hrule height 0pt\relax
+    \hrule height 0pt\scan_stop:
     \par
     \group_begin:
       \bfseries\Large
       \centerline{南昌大学}
       \centerline{学士学位论文原创性申明}
     \group_end:
-    \par\vskip6pt\relax
+    \par\skip_vertical:n {6pt}
     \group_begin:
       本人郑重申明：所呈交的论文是本人在导师的指导下独立进行研究所取得的研究成果。除了文中特别加以标注引用的内容外，本论文不包含任何其他个人或集体已经发表或撰写的成果。对本文的研究作出重要贡献的个人和集体，均已在文中以明确方式表明。本人完全意识到本申明的法律后果由本人承担。
-      \par\vskip16pt\relax
+      \par\skip_vertical:n {16pt}
       作者签名：\hspace{11\ccwd}日期：
     \group_end:
-    \par\vskip72pt\relax
+    \par\skip_vertical:n {72pt}
     \group_begin:
       \bfseries\Large
       \centerline{学位论文版权使用授权书}
     \group_end:
-    \par\vskip6pt\relax
+    \par\skip_vertical:n {6pt}
     \group_begin:
       本学位论文作者完全了解学校有关保留、使用学位论文的规定，同意学校保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权南昌大学可以将本论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
-      \par\vskip10pt\relax
+      \par\skip_vertical:n {10pt}
       本学位论文属于\hspace{1\ccwd}
       \begin{minipage}[c]{.6\textwidth}
         保密~\l__square_tl ，在\hspace{2\ccwd}年解密后适用本授权书。\\
         不保密~\l__square_tl 。
       \end{minipage}
-      \par\vskip10pt\relax
+      \par\skip_vertical:n {10pt}
       （请在以上相应方框内打“✓”）
-      \par\vskip16pt\relax
+      \par\skip_vertical:n {16pt}
       作者签名：\hspace{11\ccwd}日期：
-      \par\vskip16pt\relax
+      \par\skip_vertical:n {16pt}
       导师签名：\hspace{11\ccwd}日期：
     \group_end:
   \end{titlepage}
@@ -954,7 +955,7 @@
     \seq_set_split:Nnn \l__cnkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt\relax
+  \hrule height 0pt\scan_stop:
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -968,7 +969,7 @@
       }
     \end{minipage}
   \group_end:
-  \par\vskip3pt plus1pt minus1pt
+  \par\skip_vertical:n {3pt plus1pt minus1pt}
   \begin{center}
     \small
     \begin{tabular}{llll}
@@ -978,7 +979,7 @@
       \makebox[5.26em][s]{指导教师：}\l__info_supervisor_tl
     \end{tabular}
   \end{center}
-  \par\vskip3pt plus1pt minus1pt
+  \par\skip_vertical:n {3pt plus1pt minus1pt}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -990,11 +991,11 @@
     \addcontentsline{toc}{chapter}{摘要}
     \chaptermark{摘要}
   \group_end:
-  \par\vskip6pt plus2pt minus2pt
+  \par\skip_vertical:n {6pt plus2pt minus2pt}
 }{
   \str_if_empty:NTF \l__cnkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\vskip12pt\relax\noindent{\heiti\l__cnkws_str}
+      \par\skip_vertical:n {12pt}\noindent{\heiti\l__cnkws_str}
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__cnkws_str}
@@ -1012,7 +1013,7 @@
     \seq_set_split:Nnn \l__enkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt\relax
+  \hrule height 0pt\scan_stop:
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -1026,7 +1027,7 @@
       }
     \end{minipage}
   \group_end:
-  \par\vskip16pt plus1pt minus1pt
+  \par\skip_vertical:n {16pt plus1pt minus1pt}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1038,11 +1039,11 @@
     \addcontentsline{toc}{chapter}{Abstract}
     \chaptermark{Abstract}
   \group_end:
-  \par\vskip6pt plus2pt minus2pt
+  \par\skip_vertical:n {6pt plus2pt minus2pt}
 }{
   \str_if_empty:NTF \l__enkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\vskip12pt\relax\noindent\textbf{\l__enkws_str}\space
+      \par\skip_vertical:n {12pt}\noindent\textbf{\l__enkws_str}\space
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__enkws_str}\space
@@ -1057,7 +1058,7 @@
   \tl_new:N  \l__acks_tl
   \tl_set:Nn \l__acks_tl {致谢}
   \NewDocumentCommand \signoff {mm} {
-    \par\vskip12pt\relax
+    \par\skip_vertical:n {12pt}
     \rightline{##1}\par
     \rightline{##2}
   }
