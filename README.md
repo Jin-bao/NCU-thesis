@@ -27,7 +27,11 @@
 3. 因上级需求不同而引起的任何问题均与模板作者无关。
 
 ### 贡献
-如果您有任何改进意见或者功能需求，欢迎提交 [issues](https://github.com/Jin-bao/NCU-thesis/issues)、[pull requests](https://github.com/Jin-bao/NCU-thesis/pulls)，或者与模板作者联系（邮箱：yyyyyyhdd@outlook.com）。任何对 NCU-thesis 有贡献的人，其名字都会记录在 `NCU-thesis-guide.pdf` 中。
+- 如果您有任何改进意见或者功能需求，欢迎提交 [issues](https://github.com/Jin-bao/NCU-thesis/issues)、[pull requests](https://github.com/Jin-bao/NCU-thesis/pulls)。
+- 希望有热心用户能录制一期 NCU-thesis 的使用视频。
+- 可随时与模板作者联系（邮箱：yyyyyyhdd@outlook.com）。
+
+任何对 NCU-thesis 有贡献的人，其名字都会记录在 `NCU-thesis-guide.pdf` 中。
 
 ### 许可证
 本模板的发布遵守 [LaTeX Project Public License](http://www.latex-project.org/lppl.txt)（版本 1.3c 或更高）。
@@ -35,4 +39,4 @@
 __________
 
 ### 广而告之
-本项目维护人员提供文档排版服务，询价可联系邮箱 yyyyyyhdd@outlook.com。
+若需要文档排版服务，可联系邮箱 yyyyyyhdd@outlook.com 询价。
