@@ -18,7 +18,7 @@
 %%
 %%
 \NeedsTeXFormat {LaTeX2e} [1995/12/01]
-\ProvidesExplClass {ncuthesis} {2023/02/16} {0.2} {Nanchang University LaTeX thesis template}
+\ProvidesExplClass {ncuthesis} {2023/03/03} {0.2a} {Nanchang University LaTeX thesis template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
