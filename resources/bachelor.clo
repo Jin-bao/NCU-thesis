@@ -8,7 +8,7 @@
 %% 开启 l3 语法
 \ExplSyntaxOn
 %%
-\ProvidesExplFile {bachelor} {2023/03/03} {0.1a} {Bachelor~thesis~settings}
+\ProvidesExplFile {bachelor} {2023/02/16} {0.1} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -200,9 +200,9 @@
   \use:c {__load_cjkfont_ \g__ncu_cjkfont_tl :}
 }
 %%
-\tl_new:N   \g__load_mathfont_XITSMath
-\tl_new:N   \g__load_mathfont_NCMMath
-\tl_gset:Nn \g__load_mathfont_XITSMath {
+\tl_new:N   \g__load_mathfont_XITSMath_tl
+\tl_new:N   \g__load_mathfont_NCMMath_tl
+\tl_gset:Nn \g__load_mathfont_XITSMath_tl {
   \setmathfont[
     Extension = .otf
   ]{XITSMath-Regular}
@@ -219,7 +219,7 @@
     }
   ]
 }
-\tl_gset:Nn \g__load_mathfont_NCMMath {
+\tl_gset:Nn \g__load_mathfont_NCMMath_tl {
   \setmathfont{NewCMMath-Book.otf}
 }
 %%
@@ -248,7 +248,7 @@
     BoldItalicFont   = *-MediumOblique,
     PunctuationSpace = 4
   ]{FiraMono}
-  \g__load_mathfont_XITSMath
+  \g__load_mathfont_XITSMath_tl
 }
 \cs_new_protected:cn {__load_font_times*:} {
   \setmainfont[
@@ -270,7 +270,7 @@
     BoldItalicFont   = *-MediumOblique,
     PunctuationSpace = 4
   ]{FiraMono}
-  \g__load_mathfont_XITSMath
+  \g__load_mathfont_XITSMath_tl
 }
 \cs_new_protected:Nn \__load_font_ncm: {
   \setmainfont[
@@ -297,37 +297,31 @@
     BoldItalicFont   = *-BoldOblique,
     PunctuationSpace = 4
   ]{NewCMMono10}
-  \g__load_mathfont_NCMMath
+  \g__load_mathfont_NCMMath_tl
 }
 %%
 \cs_new_protected:Nn \__load_cjkfont_windows: {
   \setCJKmainfont[
-    Extension    = .ttc,
     AutoFakeBold = 3.4,
     AutoFakeSlant
   ]{SimSun}
   \setCJKsansfont[
-    Extension    = .ttf,
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]{SimHei}
   \setCJKmonofont[
-    Extension    = .ttf,
     AutoFakeBold = 3.2,
     AutoFakeSlant
-  ]{SimFang}
-  \newCJKfontfamily[kaiti]\kaiti{SimKai}[
-    Extension    = .ttf,
+  ]{FangSong}
+  \newCJKfontfamily[kaiti]\kaiti{KaiTi}[
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[fangsong]\fangsong{SimFang}[
-    Extension    = .ttf,
+  \newCJKfontfamily[fangsong]\fangsong{FangSong}[
     AutoFakeBold = 3.2,
     AutoFakeSlant
   ]
   \newCJKfontfamily[heiti]\heiti{SimHei}[
-    Extension    = .ttf,
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
