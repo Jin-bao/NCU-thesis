@@ -5,7 +5,7 @@
 
 本模板开发时所用操作系统是 Windows 11，TeX 发行版是 TeX Live 2022。若使用其他系统和发行版，可能出现意料之外的问题。强烈建议使用最新版本的 TeX 发行版，并更新到最新。
 
-在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf](https://github.com/Jin-bao/NCU-thesis/releases/download/v0.2/NCU-thesis-guide.pdf)。
+在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf](https://github.com/Jin-bao/NCU-thesis/releases/download/v0.2a/NCU-thesis-guide.pdf)。
 
 ### 模板组成
 - 核心文档类：
