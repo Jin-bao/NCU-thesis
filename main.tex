@@ -1,11 +1,17 @@
 %%
-%% thesis.tex
-\documentclass[newenv]{ncuthesis}
+%% File encoding: UTF-8
+%% 这是 `main.tex' 文件
 %%
-\ncusetup {
-  % style/footnote-num = plain,
+\documentclass[final,newenv]{ncuthesis}
+%%
+\ncusetup{
+  % style = {
+  %   footnote-num = plain,
+  %   font         = ncm,
+  %   cjk-font     = founder
+  % },
   info = {
-    CLC             = {O}, % 可省略花括号
+    CLC             = {O}, % 可省略花括号，但最好不要
     secret-level*   = 公开,
     UDC             = 123.123.1,
     studentid       = 402200220047,
@@ -24,6 +30,7 @@
   }
 }
 %%
+% \usepackage{hyperref}
 %%
 \begin{document}
 \maketitle
@@ -43,7 +50,6 @@ This is abstract.
 \tableofcontents
 %%
 \mainmatter
-\part{部}
 \chapter{引言}
 \section{历史}
 我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献。\footnote{test}
@@ -73,7 +79,7 @@ This is abstract.
 \end{figure}
 
 \begin{law}[黑洞面积定律]
-  黑洞事件视界的面积不可能随着时间的推移而减小。
+黑洞事件视界的面积不可能随着时间的推移而减小。
 \end{law}
 \begin{proof}
 即得易见平凡，仿照上例显然。留作习题答案略，读者自证不难。反之亦然同理，推论自然成立。略去过程 QED，由上可知证毕。
