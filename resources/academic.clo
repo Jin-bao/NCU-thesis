@@ -1,4 +1,6 @@
 %%
+%% File encoding: UTF-8
+%%
 %% 这是 `academic.clo' 选项执行文件
 %% 学术研究生学位论文相关设置
 %%
@@ -69,7 +71,14 @@
 %%
 %% 载入宏包
 \RequirePackage {amsmath}
-\RequirePackage {unicode-math}
+\RequirePackage [
+  math-style = TeX,
+  mathrm     = sym,
+  mathit     = sym,
+  mathsf     = sym,
+  mathbf     = sym,
+  mathtt     = sym
+] {unicode-math}
 \RequirePackage {geometry}
 \RequirePackage {graphicx}
 \RequirePackage {fancyhdr}
@@ -185,6 +194,200 @@
     }
   }
 }
+%%
+%%
+\tl_new:N \g__ncu_font_tl
+\tl_new:N \g__ncu_cjkfont_tl
+%%
+\cs_new_protected:Nn \__load_font: {
+  \use:c {__load_font_ \g__ncu_font_tl :}
+}
+\cs_new_protected:Nn \__load_cjkfont: {
+  \use:c {__load_cjkfont_ \g__ncu_cjkfont_tl :}
+}
+%%
+\tl_new:N   \g__load_mathfont_XITSMath
+\tl_new:N   \g__load_mathfont_NCMMath
+\tl_gset:Nn \g__load_mathfont_XITSMath {
+  \setmathfont[
+    Extension = .otf
+  ]{XITSMath-Regular}
+  \setmathfont[
+    Extension = .otf,
+    range     = {bfup->up,bfit->it}
+  ]{XITSMath-Bold}
+  \setmathfont{NewCMMath-Book}[
+    Extension = .otf,
+    range     = {
+      "220F-"2211,
+      "222B-"2233,
+      "2A0A-"2A1C
+    }
+  ]
+}
+\tl_gset:Nn \g__load_mathfont_NCMMath {
+  \setmathfont{NewCMMath-Book.otf}
+}
+%%
+\cs_new_protected:Nn \__load_font_times: {
+  \setmainfont[
+    Extension        = .otf,
+    UprightFont      = *-Regular,
+    BoldFont         = *-Bold,
+    ItalicFont       = *-Italic,
+    BoldItalicFont   = *-BoldItalic,
+    PunctuationSpace = 4
+  ]{XITS}
+  \setsansfont[
+    Extension        = .otf,
+    UprightFont      = *-Regular,
+    BoldFont         = *-SemiBold,
+    ItalicFont       = *-Italic,
+    BoldItalicFont   = *-SemiBoldItalic,
+    PunctuationSpace = 4
+  ]{FiraSans}
+  \setmonofont[
+    Extension        = .otf,
+    UprightFont      = *-Regular,
+    BoldFont         = *-Medium,
+    ItalicFont       = *-Oblique,
+    BoldItalicFont   = *-MediumOblique,
+    PunctuationSpace = 4
+  ]{FiraMono}
+  \g__load_mathfont_XITSMath
+}
+\cs_new_protected:cn {__load_font_times*:} {
+  \setmainfont[
+    PunctuationSpace = 4
+  ]{Times~New~Roman}
+  \setsansfont[
+    Extension        = .otf,
+    UprightFont      = *-Regular,
+    BoldFont         = *-SemiBold,
+    ItalicFont       = *-Italic,
+    BoldItalicFont   = *-SemiBoldItalic,
+    PunctuationSpace = 4
+  ]{FiraSans}
+  \setmonofont[
+    Extension        = .otf,
+    UprightFont      = *-Regular,
+    BoldFont         = *-Medium,
+    ItalicFont       = *-Oblique,
+    BoldItalicFont   = *-MediumOblique,
+    PunctuationSpace = 4
+  ]{FiraMono}
+  \g__load_mathfont_XITSMath
+}
+\cs_new_protected:Nn \__load_font_ncm: {
+  \setmainfont[
+    Extension        = .otf,
+    UprightFont      = *-Book,
+    BoldFont         = *-Bold,
+    ItalicFont       = *-BookItalic,
+    BoldItalicFont   = *-BoldItalic,
+    PunctuationSpace = 4
+  ]{NewCM10}
+  \setsansfont[
+    Extension        = .otf,
+    UprightFont      = *-Book,
+    BoldFont         = *-Bold,
+    ItalicFont       = *-BookOblique,
+    BoldItalicFont   = *-BoldOblique,
+    PunctuationSpace = 4
+  ]{NewCMSans10}
+  \setmonofont[
+    Extension        = .otf,
+    UprightFont      = *-Book,
+    BoldFont         = *-Bold,
+    ItalicFont       = *-BookItalic,
+    BoldItalicFont   = *-BoldOblique,
+    PunctuationSpace = 4
+  ]{NewCMMono10}
+  \g__load_mathfont_NCMMath
+}
+%%
+\cs_new_protected:Nn \__load_cjkfont_windows: {
+  \setCJKmainfont[
+    Extension    = .ttc,
+    AutoFakeBold = 3.4,
+    AutoFakeSlant
+  ]{SimSun}
+  \setCJKsansfont[
+    Extension    = .ttf,
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]{SimHei}
+  \setCJKmonofont[
+    Extension    = .ttf,
+    AutoFakeBold = 3.2,
+    AutoFakeSlant
+  ]{SimFang}
+  \newCJKfontfamily[kaiti]\kaiti{SimKai}[
+    Extension    = .ttf,
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[fangsong]\fangsong{SimFang}[
+    Extension    = .ttf,
+    AutoFakeBold = 3.2,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[heiti]\heiti{SimHei}[
+    Extension    = .ttf,
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+}
+\cs_new_protected:Nn \__load_cjkfont_founder: {
+  \setCJKmainfont[
+    AutoFakeBold = 3.4,
+    AutoFakeSlant
+  ]{FZShuSong-Z01S}
+  \setCJKsansfont[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]{FZHei-B01S}
+  \setCJKmonofont[
+    AutoFakeBold = 4,
+    AutoFakeSlant
+  ]{FZFangSong-Z02S}
+  \newCJKfontfamily[kaiti]\kaiti{FZKai-Z03S}[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[fangsong]\fangsong{FZFangSong-Z02S}[
+    AutoFakeBold = 4,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[heiti]\heiti{FZHei-B01S}[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+}
+%%
+\keys_define:nn {ncu/style} {
+  font .choice:,
+  font .value_required:n = true,
+  font .choices:nn =
+    {times, times*, ncm}
+    {\tl_gset:NV \g__ncu_font_tl \l_keys_choice_tl},
+  font .initial:n = {times},
+  font/unknown .code:n = 
+    {\__ncu_warning:nn {unknown-style-value} {font=times}},
+  cjk-font .choice:,
+  cjk-font .value_required:n = true,
+  cjk-font .choices:nn =
+    {windows, founder}
+    {\tl_gset:NV \g__ncu_cjkfont_tl \l_keys_choice_tl},
+  cjk-font .initial:n = {windows},
+  cjk-font/unknown .code:n = 
+    {\__ncu_warning:nn {unknown-style-value} {cjk-font=windows}},
+}
+%% 加载字体
+\BeforeBeginEnvironment {document} {
+  \__load_font:
+  \__load_cjkfont:
+}
 %% 字符间距微调
 \cs_new:Npn \__punct_spacing {
   \sfcode`\.3000
@@ -198,98 +401,6 @@
   \ziju{0.08}
   \__punct_spacing
 }
-%% 设置西文字体
-\setmainfont[
-  Path             = ./fonts/,
-  Extension        = .otf,
-  UprightFont      = *-Regular,
-  BoldFont         = *-Bold,
-  ItalicFont       = *-Italic,
-  BoldItalicFont   = *-BoldItalic,
-  PunctuationSpace = 4
-]{XITS}
-\setsansfont[
-  Path            = ./fonts/,
-  Extension       = .ttf,
-  UprightFont     = *-Regular,
-  BoldFont        = *-SemiBold,
-  ItalicFont      = *-Italic,
-  BoldItalicFont  = *-SemiBoldItalic,
-  PunctuationSpace = 4
-]{FiraSans}
-\setmonofont[
-  Path            = ./fonts/,
-  Extension       = .otf,
-  UprightFont     = *-Regular,
-  BoldFont        = *-Semibold,
-  ItalicFont      = *-It,
-  BoldItalicFont  = *-SemiboldIt
-]{SourceCodePro}
-%% 设置 CJK 字体
-\setCJKmainfont[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 3.4,
-  AutoFakeSlant
-]{FZSS}
-\setCJKsansfont[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 2.6,
-  AutoFakeSlant
-]{FZHT}
-\setCJKmonofont[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 4,
-  AutoFakeSlant
-]{FZFS}
-%% 新建字体族
-\newCJKfontfamily[kaiti]\kaiti{FZKT}[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 2.6,
-  AutoFakeSlant
-]
-\newCJKfontfamily[fangsong]\fangsong{FZFS}[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 4,
-  AutoFakeSlant
-]
-\newCJKfontfamily[heiti]\heiti{FZHT}[
-  Path         = ./fonts/,
-  Extension    = .ttf,
-  AutoFakeBold = 2.6,
-  AutoFakeSlant
-]
-%% 设置数学字体
-\keys_set:nn {unicode-math} {
-  math-style = TeX,
-  mathrm     = sym,
-  mathit     = sym,
-  mathsf     = sym,
-  mathbf     = sym,
-  mathtt     = sym
-}
-\setmathfont[
-  Path      = ./fonts/,
-  Extension = .otf
-]{XITSMath-Regular}
-\setmathfont[
-  Path      = ./fonts/,
-  Extension = .otf,
-  range     = {bfup->up,bfit->it}
-]{XITSMath-Bold}
-\setmathfont{NewCMMath-Book}[
-  Path      = ./fonts/,
-  Extension = .otf,
-  range     = {
-    "220F-"2211,
-    "222B-"2233,
-    "2A0A-"2A1C
-  }
-]
 %% 符号调整
 \AtBeginDocument{
   \tl_set_eq:NN \nabla \mbfnabla
@@ -677,7 +788,7 @@
 \tl_if_eq:NNT \g__ncu_bib_tl \g__ncu_bib_biblatex_tl {
   \RequirePackage [backend=biber, style=gb7714-2015] {biblatex}
   \tl_set:Nn \bibfont {\small}
-  \bibitemsep0 plus1pt\scan_stop:
+  \bibitemsep0pt plus1pt\scan_stop:
 }
 %%
 %% 索引设置
