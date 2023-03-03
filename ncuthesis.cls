@@ -1,6 +1,7 @@
 %%
+%% File encoding: UTF-8
+%%
 %% 这是 `ncuthesis.cls' 文件
-%% 
 %% 南昌大学非官方的学位 (毕业) 论文 LaTeX 模板
 %%
 %% 仓库在 https://github.com/Jin-bao/NCU-thesis
@@ -126,8 +127,8 @@
     {\tl_gset:NV \g__ncu_bib_tl \l_keys_choice_tl},
   bib .initial:n = {bibtex},
   bib/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{bib=bibtex}},
-  bibtex .code:n = {\tl_gset:NV \g__ncu_bib_tl {bibtex}},
-  biblatex .code:n = {\tl_gset:NV \g__ncu_bib_tl {biblatex}},
+  bibtex .code:n = {\tl_gset:Nn \g__ncu_bib_tl {bibtex}},
+  biblatex .code:n = {\tl_gset:Nn \g__ncu_bib_tl {biblatex}},
   newenv .choice:,
   newenv/true  .code:n = {\bool_gset_true:N  \g__ncu_newenv_bool},
   newenv/false .code:n = {\bool_gset_false:N \g__ncu_newenv_bool},
