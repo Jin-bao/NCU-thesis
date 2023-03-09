@@ -18,7 +18,7 @@
 %%
 %%
 \NeedsTeXFormat {LaTeX2e} [1995/12/01]
-\ProvidesExplClass {ncuthesis} {2023/03/03} {0.2a} {Nanchang University LaTeX thesis template}
+\ProvidesExplClass {ncuthesis} {2023/03/09} {0.2b} {Nanchang University LaTeX thesis template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
@@ -35,12 +35,12 @@
 \cs_new:Npn \__ncu_msg_new:nn  {\msg_new:nnn       {ncuthesis}}
 \cs_new:Npn \__ncu_warning:n   {\msg_warning:nn    {ncuthesis}}
 \cs_new:Npn \__ncu_warning:nn  {\msg_warning:nnn   {ncuthesis}}
+\cs_new:Npn \__ncu_warning:nx  {\msg_warning:nnx   {ncuthesis}}
 \cs_new:Npn \__ncu_warning:nnn {\msg_warning:nnnn  {ncuthesis}}
 \cs_new:Npn \__ncu_error:n     {\msg_error:nn      {ncuthesis}}
 \cs_new:Npn \__ncu_error:nn    {\msg_error:nnn     {ncuthesis}}
 \cs_new:Npn \__ncu_error:nnn   {\msg_error:nnnn    {ncuthesis}}
 %%
-% \cs_generate_variant:Nn \str_count_ignore_spaces:n {V}
 \cs_new:Npn \__symbol:n #1 {\tex_char:D #1 \scan_stop:}
 %%
 \__ncu_msg_new:nn {unknown-option}
@@ -106,7 +106,7 @@
   doc .choices:nn =
     {draft, final}
     {\tl_gset:NV \g__ncu_doc_tl \l_keys_choice_tl},
-  doc .initial:n = {draft},
+  doc .initial:n = {final},
   doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{doc=draft}},
   draft .code:n = {\tl_gset:Nn \g__ncu_doc_tl {draft}},
   final .code:n = {\tl_gset:Nn \g__ncu_doc_tl {final}},
