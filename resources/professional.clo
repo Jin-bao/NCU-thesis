@@ -10,7 +10,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {professional} {2023/03/03} {0.2a} {Professional~degree~thesis~settings}
+  {professional} {2023/03/04} {0.2a} {Professional~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -306,6 +306,32 @@
   \g__load_mathfont_NCMMath_tl
 }
 %%
+\cs_new_protected:Nn \__load_cjkfont_fandol: {
+  \setCJKmainfont[
+    AutoFakeBold = 3.4,
+    AutoFakeSlant
+  ]{FandolSong}
+  \setCJKsansfont[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]{FandolHei}
+  \setCJKmonofont[
+    AutoFakeBold = 3.2,
+    AutoFakeSlant
+  ]{FandolFang}
+  \newCJKfontfamily[kaiti]\kaiti{FandolKai}[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[fangsong]\fangsong{FandolFang}[
+    AutoFakeBold = 3.2,
+    AutoFakeSlant
+  ]
+  \newCJKfontfamily[heiti]\heiti{FandolHei}[
+    AutoFakeBold = 2.6,
+    AutoFakeSlant
+  ]
+}
 \cs_new_protected:Nn \__load_cjkfont_windows: {
   \setCJKmainfont[
     AutoFakeBold = 3.4,
@@ -359,6 +385,11 @@
   ]
 }
 %%
+\tl_new:N \g__ncu_cjkfont_scheme_tl
+\sys_if_platform_windows:TF
+  {\tl_gset:Nn \g__ncu_cjkfont_scheme_tl {windows}}
+  {\tl_gset:Nn \g__ncu_cjkfont_scheme_tl {fandol}}
+%%
 \keys_define:nn {ncu/style} {
   font .choice:,
   font .value_required:n = true,
@@ -371,11 +402,11 @@
   cjk-font .choice:,
   cjk-font .value_required:n = true,
   cjk-font .choices:nn =
-    {windows, founder}
+    {fandol, windows, founder}
     {\tl_gset:NV \g__ncu_cjkfont_tl \l_keys_choice_tl},
-  cjk-font .initial:n = {windows},
+  cjk-font .initial:V = {\g__ncu_cjkfont_scheme_tl},
   cjk-font/unknown .code:n = 
-    {\__ncu_warning:nn {unknown-style-value} {cjk-font=windows}},
+    {\__ncu_warning:nx {unknown-style-value} {cjk-font=\g__ncu_cjkfont_scheme_tl}},
 }
 %% 加载字体
 \BeforeBeginEnvironment {document} {
@@ -1033,7 +1064,7 @@
   \tl_set:Nn \l__sdt_tl {
     签字日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
   }
-  \tl_set:Nn \l__square_tl {\raisebox{1pt}{□}}
+  \tl_set:Nn \l__square_tl {\raisebox{1pt}{\fontspec{XITS-Regular.otf}□}}
   \tl_set:Nn \l__tfn_tl {
     \l__square_tl{公开}\hfill\l__square_tl{保密}
     （向校学位办申请获批准为“保密”，\uline{\makebox[2.5\ccwd][c]{}}年\uline{\makebox[1.4\ccwd][c]{}}月后公开）
