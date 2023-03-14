@@ -107,7 +107,7 @@
     {draft, final}
     {\tl_gset:NV \g__ncu_doc_tl \l_keys_choice_tl},
   doc .initial:n = {final},
-  doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{doc=draft}},
+  doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{doc=final}},
   draft .code:n = {\tl_gset:Nn \g__ncu_doc_tl {draft}},
   final .code:n = {\tl_gset:Nn \g__ncu_doc_tl {final}},
   format .choice:,
