@@ -2,16 +2,14 @@
 %% File encoding: UTF-8
 %% 这是 `main.tex' 文件
 %%
-\documentclass[final,newenv]{ncuthesis}
+\documentclass[type=academic,newenv,newcmd]{ncuthesis}
 %%
 \ncusetup{
   % style = {
-  %   footnote-num = plain,
-  %   font         = ncm,
-  %   cjk-font     = founder
+  %   font = ncm
   % },
   info = {
-    CLC             = {O}, % 可省略花括号，但最好不要
+    CLC             = {O}, % 可省略花括号, 但最好不要
     secret-level*   = 公开,
     UDC             = 123.123.1,
     studentid       = 402200220047,
@@ -23,25 +21,25 @@
     supervisor      = 舒富文教授,
     field           = 理学,
     major           = 天体物理,
-    defence-date    = 2023 年 2 月 16 日,
+    defence-date    = 2022 年 12 月 31 日,
     tdc-chairman    = 主席,
     reviewer        = {评阅人 1, 评阅人 2},
-    completion-date = 2023 年 2 月 16 日
+    completion-date = 2022 年 12 月 31 日
   }
 }
-%%
-% \usepackage{hyperref}
 %%
 \begin{document}
 \maketitle
 %%
 \frontmatter
+%%
 \makedecaut
 %%
 \begin{abstract}
-这是摘要内容。
+这是摘要内容. 
 \keywords{关键词 1, 关键词 2, 关键词 3}
 \end{abstract}
+%%
 \begin{abstract*}
 This is abstract.
 \keywords{kw1, kw2, kw3}
@@ -50,39 +48,24 @@ This is abstract.
 \tableofcontents
 %%
 \mainmatter
+%%
 \chapter{引言}
 \section{历史}
-我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献。\footnote{test}
+我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献.\footnote{这是脚注测试.}
 
-\begin{figure}[htb]
-\centering
-\begin{subfigure}{.45\textwidth}
-\centering
-\includegraphics[width=5cm]{example-image}
-\subcaption{这是子图}
-\label{fig:subfigexp-a}
-\end{subfigure}
-\begin{subfigure}{.45\textwidth}
-\centering
-\includegraphics[width=5cm]{example-image}
-\subcaption{这又是子图}
-\label{fig:subfigexp-b}
-\end{subfigure}
-\begin{subfigure}{.45\textwidth}
-\centering
-\includegraphics[width=5cm]{example-image}
-\subcaption{这还是子图}
-\label{fig:subfigexp-c}
-\end{subfigure}
-\caption{子图排版示例}
-\label{fig:subfig}
-\end{figure}
-
-\begin{law}[黑洞面积定律]
-黑洞事件视界的面积不可能随着时间的推移而减小。
-\end{law}
+\begin{theorem}
+若满足条件
+\[
+  \sum_{j=0}^S q_j = 1,\quad
+  \sum_{k\in\symbb{Z}} h_{k-2n}\bar{h}_k = \delta_{n0},\quad
+  \sup \lvert Q(z)\rvert < 2^{N-1},
+\]
+则双尺度方程 $\varphi(x) = \sqrt{2}\sum_{k=0}^L h_k\varphi(2x-k)$ 迭代可解, 
+且其解生成一个多分辨分析. 
+\end{theorem}
 \begin{proof}
-即得易见平凡，仿照上例显然。留作习题答案略，读者自证不难。反之亦然同理，推论自然成立。略去过程 QED，由上可知证毕。
+即得易见平凡, 仿照上例显然. 留作习题答案略, 读者自证不难. 
+反之亦然同理, 推论自然成立. 略去过程 QED, 由上可知证毕. \freeze
 \end{proof}
 \appendix
 \chapter{公式推导}
@@ -90,6 +73,7 @@ This is abstract.
 %% 推导过程
 %%
 \backmatter
+%%
 \bibliography{references.bib}
 %%
 \begin{acknowledgements}
@@ -97,23 +81,26 @@ This is abstract.
 \signoff{朱金宝}{2022 年 12 月 31 日}
 \end{acknowledgements}
 %%
-%%
-% 注意，以下内容本科生毕业论文不能写，否则报错！
 \begin{researchresults}
 \begin{published}
-\item 条目
+\item OETIKER T, PARTL H, HYNA I, et al. 一份 (不太) 简短的
+\LaTeXe\ 介绍 [EB/OL]. 2021.
 \end{published}
 \begin{tobepublished}
-\item 条目
+\item 即将发表内容
+\item 马上发表内容
 \end{tobepublished}
 \begin{reports}
-\item 条目
+\item 研究报告
 \end{reports}
 \begin{others}[另外还有] % 标题作为可选参数
-\item 条目
+\item 其他的内容
 \end{others}
+不论如何, 还可以在 \textsf{researchresults} 环境内使用
+\texttt{papers} 列表环境, 这个环境最多支持到第二级. 
 \begin{papers}
-\item 条目
+\item 论文
+\item 报告
 \end{papers}
 \end{researchresults}
 \end{document}
