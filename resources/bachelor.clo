@@ -8,7 +8,7 @@
 %% 开启 l3 语法
 \ExplSyntaxOn
 %%
-\ProvidesExplFile {bachelor} {2023/03/04} {0.1a} {Bachelor~thesis~settings}
+\ProvidesExplFile {bachelor} {2023/03/04} {1.0s} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -26,38 +26,38 @@
 %% 重定义字体大小
 \DeclareDocumentCommand \normalsize {} {
   \@setfontsize\normalsize\@xiipt{14.5}
-  \abovedisplayskip      9.9 \p@ \@plus2.5\p@ \@minus3.8\p@
-  \abovedisplayshortskip \z@ \@plus3.3\p@
-  \belowdisplayshortskip 9.9 \p@ \@plus3.3\p@ \@minus3.8\p@
-  \belowdisplayskip      13.2\p@ \@plus2.5\p@ \@minus3.8\p@
+  \abovedisplayskip      9  \p@ \@plus3\p@ \@minus4\p@
+  \abovedisplayshortskip \z@    \@plus3\p@
+  \belowdisplayshortskip 12 \p@ \@plus3\p@ \@minus4\p@
+  \belowdisplayskip      13 \p@ \@plus3\p@ \@minus4\p@
   \let\@listi\@listI
 }
 \normalsize
 \DeclareDocumentCommand \small {} {
   \@setfontsize\small{10.5}{12.6}
-  \abovedisplayskip      7.6 \p@ \@plus2\p@ \@minus2.5\p@
-  \abovedisplayshortskip \z@ \@plus2\p@
-  \belowdisplayshortskip 7.6 \p@ \@plus2\p@ \@minus2.5\p@
+  \abovedisplayskip      7  \p@ \@plus2\p@ \@minus3\p@
+  \abovedisplayshortskip \z@    \@plus2\p@
+  \belowdisplayshortskip 10 \p@ \@plus2\p@ \@minus3\p@
   \def\@listi{
     \leftmargin \leftmargini
-    \topsep     2\p@ \@plus1 \p@ \@minus1 \p@
-    \parsep     1\p@ \@plus  \p@ \@minus  \p@
+    \topsep     2\p@ \@plus1\p@ \@minus1\p@
+    \parsep     1\p@ \@plus \p@ \@minus \p@
     \itemsep    \parsep
   }
-  \belowdisplayskip      10.6\p@ \@plus2\p@ \@minus2.5\p@
+  \belowdisplayskip      11 \p@ \@plus2\p@ \@minus3\p@
 }
 \DeclareDocumentCommand \footnotesize {} {
   \@setfontsize\footnotesize\@ixpt{10.8}
-  \abovedisplayskip      5.9\p@ \@plus1.5\p@ \@minus1.4\p@
-  \abovedisplayshortskip \z@ \@plus1.5\p@
-  \belowdisplayshortskip 5.9\p@ \@plus1.5\p@ \@minus1.4\p@
+  \abovedisplayskip      6\p@ \@plus2\p@ \@minus2\p@
+  \abovedisplayshortskip \z@  \@plus2\p@
+  \belowdisplayshortskip 7\p@ \@plus2\p@ \@minus2\p@
   \def\@listi{
     \leftmargin \leftmargini
-    \topsep     1\p@ \@plus.5\p@ \@minus.5\p@
-    \parsep    .5\p@ \@plus  \p@ \@minus  \p@
+    \topsep     1\p@ \@plus.6\p@ \@minus.6\p@
+    \parsep    .6\p@ \@plus  \p@ \@minus  \p@
     \itemsep    \parsep
   }
-  \belowdisplayskip      8  \p@ \@plus1.5\p@ \@minus1.4\p@
+  \belowdisplayskip      8\p@ \@plus2\p@ \@minus2\p@
 }
 \DeclareDocumentCommand \scriptsize {} {\@setfontsize\scriptsize\@viiipt{9.6}}
 \DeclareDocumentCommand \tiny  {} {\@setfontsize\tiny\@vipt{7.2}}
@@ -85,7 +85,28 @@
 \RequirePackage {caption, subcaption}
 \RequirePackage {footnpag}
 \RequirePackage [nottoc, notlof, notlot] {tocbibind}
-\RequirePackage [normalem,normalbf] {ulem}
+%%
+%% 定义模板需要的命令
+\cs_new:Npn \__symbol:n #1 {\tex_char:D #1 \scan_stop:}
+\cs_new:Npn \__cn_uline:n #1 {
+  \skip_horizontal:N \l__ctex_ccglue_skip
+  \group_begin:
+    \tl_set:Nn \l_tmpa_tl {#1}
+    \hbox_set:Nn \l_tmpa_box {\l_tmpa_tl}
+    \skip_set:Nn \l_tmpa_skip {\box_wd:N \l_tmpa_box - \l__ctex_ccglue_skip}
+    \hbox:n {
+      \makebox [0pt] [l] {\rule[-0.252em]{\l_tmpa_skip}{0.4pt}}
+      \box_use:N \l_tmpa_box
+    }
+  \group_end:
+  \skip_horizontal:N \l__ctex_ccglue_skip
+}
+\cs_new:Npn \__fixed_uline:nn #1#2 {
+  \hbox:n {
+    \makebox [0pt] [l] {\rule[-0.252em]{#1}{0.4pt}}
+    \makebox [#1] [c] {#2}
+  }
+}
 %%
 %% 中文支持, 字体设置, 字符微调及 ctex 设置
 %% ctex 设置
@@ -134,12 +155,12 @@
     },
     paragraph = {
       format     = \heiti\bfseries\indent,
-      beforeskip = 0pt,
+      beforeskip = 0pt plus2pt,
       afterskip  = 0pt
     },
     subparagraph = {
       format     = \heiti\bfseries\indent,
-      beforeskip = 0pt
+      beforeskip = 0pt plus2pt
     }
   }
 }
@@ -179,12 +200,12 @@
     },
     paragraph = {
       format     = \indent,
-      beforeskip = 0pt,
+      beforeskip = 0pt plus2pt,
       afterskip  = 0pt
     },
     subparagraph = {
       format     = \indent,
-      beforeskip = 0pt
+      beforeskip = 0pt plus2pt
     }
   }
 }
@@ -193,187 +214,191 @@
 \tl_new:N \g__ncu_font_tl
 \tl_new:N \g__ncu_cjkfont_tl
 %%
-\cs_new_protected:Nn \__load_font: {
-  \use:c {__load_font_ \g__ncu_font_tl :}
+\cs_new_protected:Nn \ncu__load_font: {
+  \use:c {ncu__load_font_ \g__ncu_font_tl :}
 }
-\cs_new_protected:Nn \__load_cjkfont: {
-  \use:c {__load_cjkfont_ \g__ncu_cjkfont_tl :}
+\cs_new_protected:Nn \ncu__load_cjkfont: {
+  \use:c {ncu__load_cjkfont_ \g__ncu_cjkfont_tl :}
 }
 %%
-\tl_new:N   \g__load_mathfont_XITSMath_tl
-\tl_new:N   \g__load_mathfont_NCMMath_tl
-\tl_gset:Nn \g__load_mathfont_XITSMath_tl {
-  \setmathfont[
-    Extension = .otf
-  ]{XITSMath-Regular}
-  \setmathfont[
-    Extension = .otf,
-    range     = {bfup->up,bfit->it}
-  ]{XITSMath-Bold}
-  \setmathfont{NewCMMath-Book}[
-    Extension = .otf,
-    range     = {
+\cs_new_protected:Nn \ncu__load_mathfont_XITSMath: {
+  \setmathfont {XITSMath-Regular.otf}
+  \setmathfont {XITSMath-Bold.otf} [range={bfup->up,bfit->it}]
+  \setmathfont {NewCMMath-Book.otf} [
+    range = {
       "220F-"2211,
       "222B-"2233,
       "2A0A-"2A1C
     }
   ]
 }
-\tl_gset:Nn \g__load_mathfont_NCMMath_tl {
-  \setmathfont{NewCMMath-Book.otf}
+\cs_new_protected:Nn \ncu__load_mathfont_NCMMath: {
+  \setmathfont {NewCMMath-Book.otf}
 }
 %%
-\cs_new_protected:Nn \__load_font_times: {
-  \setmainfont[
+\cs_new_protected:Nn \ncu__load_font_times: {
+  \setmainfont [
     Extension        = .otf,
     UprightFont      = *-Regular,
     BoldFont         = *-Bold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-BoldItalic,
     PunctuationSpace = 4
-  ]{XITS}
-  \setsansfont[
+  ] {XITS}
+  \setsansfont [
     Extension        = .otf,
     UprightFont      = *-Regular,
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
     PunctuationSpace = 4
-  ]{FiraSans}
-  \setmonofont[
+  ] {FiraSans}
+  \setmonofont [
     Extension        = .otf,
     UprightFont      = *-Regular,
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
     PunctuationSpace = 4
-  ]{FiraMono}
-  \g__load_mathfont_XITSMath_tl
+  ] {FiraMono}
+  \ncu__load_mathfont_XITSMath:
 }
-\cs_new_protected:cn {__load_font_times*:} {
-  \setmainfont[
+\cs_new_protected:cn {ncu__load_font_times*:} {
+  \setmainfont [
     PunctuationSpace = 4
-  ]{Times~New~Roman}
-  \setsansfont[
+  ] {Times~New~Roman}
+  \setsansfont [
     Extension        = .otf,
     UprightFont      = *-Regular,
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
     PunctuationSpace = 4
-  ]{FiraSans}
-  \setmonofont[
+  ] {FiraSans}
+  \setmonofont [
     Extension        = .otf,
     UprightFont      = *-Regular,
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
     PunctuationSpace = 4
-  ]{FiraMono}
-  \g__load_mathfont_XITSMath_tl
+  ] {FiraMono}
+  \ncu__load_mathfont_XITSMath:
 }
-\cs_new_protected:Nn \__load_font_ncm: {
-  \setmainfont[
+\cs_new_protected:Nn \ncu__load_font_ncm: {
+  \setmainfont [
     Extension        = .otf,
     UprightFont      = *-Book,
     BoldFont         = *-Bold,
     ItalicFont       = *-BookItalic,
     BoldItalicFont   = *-BoldItalic,
     PunctuationSpace = 4
-  ]{NewCM10}
-  \setsansfont[
+  ] {NewCM10}
+  \setsansfont [
     Extension        = .otf,
     UprightFont      = *-Book,
     BoldFont         = *-Bold,
     ItalicFont       = *-BookOblique,
     BoldItalicFont   = *-BoldOblique,
     PunctuationSpace = 4
-  ]{NewCMSans10}
-  \setmonofont[
+  ] {NewCMSans10}
+  \setmonofont [
     Extension        = .otf,
     UprightFont      = *-Book,
     BoldFont         = *-Bold,
     ItalicFont       = *-BookItalic,
     BoldItalicFont   = *-BoldOblique,
     PunctuationSpace = 4
-  ]{NewCMMono10}
-  \g__load_mathfont_NCMMath_tl
+  ] {NewCMMono10}
+  \ncu__load_mathfont_NCMMath:
 }
 %%
-\cs_new_protected:Nn \__load_cjkfont_fandol: {
-  \setCJKmainfont[
+\cs_new_protected:Nn \ncu__load_cjkfont_fandol: {
+  \setCJKmainfont [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 3.4,
     AutoFakeSlant
-  ]{FandolSong}
-  \setCJKsansfont[
+  ] {FandolSong}
+  \setCJKsansfont [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 2.6,
     AutoFakeSlant
-  ]{FandolHei}
-  \setCJKmonofont[
+  ] {FandolHei}
+  \setCJKmonofont [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 3.2,
     AutoFakeSlant
-  ]{FandolFang}
-  \newCJKfontfamily[kaiti]\kaiti{FandolKai}[
+  ] {FandolFang}
+  \newCJKfontfamily [kaiti] \kaiti {FandolKai} [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[fangsong]\fangsong{FandolFang}[
+  \newCJKfontfamily [fangsong] \fangsong {FandolFang} [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 3.2,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[heiti]\heiti{FandolHei}[
+  \newCJKfontfamily [heiti] \heiti {FandolHei} [
+    Extension    = .otf,
+    UprightFont  = *-Regular,
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
 }
-\cs_new_protected:Nn \__load_cjkfont_windows: {
-  \setCJKmainfont[
+\cs_new_protected:Nn \ncu__load_cjkfont_windows: {
+  \setCJKmainfont [
     AutoFakeBold = 3.4,
     AutoFakeSlant
-  ]{SimSun}
-  \setCJKsansfont[
+  ] {SimSun}
+  \setCJKsansfont [
     AutoFakeBold = 2.6,
     AutoFakeSlant
-  ]{SimHei}
-  \setCJKmonofont[
+  ] {SimHei}
+  \setCJKmonofont [
     AutoFakeBold = 3.2,
     AutoFakeSlant
-  ]{FangSong}
-  \newCJKfontfamily[kaiti]\kaiti{KaiTi}[
+  ] {FangSong}
+  \newCJKfontfamily [kaiti] \kaiti {KaiTi} [
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[fangsong]\fangsong{FangSong}[
+  \newCJKfontfamily [fangsong] \fangsong {FangSong} [
     AutoFakeBold = 3.2,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[heiti]\heiti{SimHei}[
+  \newCJKfontfamily [heiti] \heiti {SimHei} [
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
 }
-\cs_new_protected:Nn \__load_cjkfont_founder: {
-  \setCJKmainfont[
+\cs_new_protected:Nn \ncu__load_cjkfont_founder: {
+  \setCJKmainfont [
     AutoFakeBold = 3.4,
     AutoFakeSlant
-  ]{FZShuSong-Z01S}
-  \setCJKsansfont[
+  ] {FZShuSong-Z01S}
+  \setCJKsansfont [
     AutoFakeBold = 2.6,
     AutoFakeSlant
-  ]{FZHei-B01S}
-  \setCJKmonofont[
+  ] {FZHei-B01S}
+  \setCJKmonofont [
     AutoFakeBold = 4,
     AutoFakeSlant
-  ]{FZFangSong-Z02S}
-  \newCJKfontfamily[kaiti]\kaiti{FZKai-Z03S}[
+  ] {FZFangSong-Z02S}
+  \newCJKfontfamily [kaiti] \kaiti {FZKai-Z03S} [
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[fangsong]\fangsong{FZFangSong-Z02S}[
+  \newCJKfontfamily [fangsong] \fangsong {FZFangSong-Z02S} [
     AutoFakeBold = 4,
     AutoFakeSlant
   ]
-  \newCJKfontfamily[heiti]\heiti{FZHei-B01S}[
+  \newCJKfontfamily [heiti] \heiti {FZHei-B01S} [
     AutoFakeBold = 2.6,
     AutoFakeSlant
   ]
@@ -388,40 +413,51 @@
   font .choice:,
   font .value_required:n = true,
   font .choices:nn =
-    {times, times*, ncm}
+    {times,times*,ncm,none}
     {\tl_gset:NV \g__ncu_font_tl \l_keys_choice_tl},
   font .initial:n = {times},
-  font/unknown .code:n = 
+  font/unknown .code:n =
     {\__ncu_warning:nn {unknown-style-value} {font=times}},
   cjk-font .choice:,
   cjk-font .value_required:n = true,
   cjk-font .choices:nn =
-    {fandol, windows, founder}
+    {fandol,windows,founder,none}
     {\tl_gset:NV \g__ncu_cjkfont_tl \l_keys_choice_tl},
   cjk-font .initial:V = {\g__ncu_cjkfont_scheme_tl},
-  cjk-font/unknown .code:n = 
-    {\__ncu_warning:nx {unknown-style-value} {cjk-font=\g__ncu_cjkfont_scheme_tl}},
+  cjk-font/unknown .code:n = {
+    \__ncu_warning:nx
+      {unknown-style-value}
+      {cjk-font=\g__ncu_cjkfont_scheme_tl}
+  },
 }
 %% 加载字体
 \BeforeBeginEnvironment {document} {
-  \__load_font:
-  \__load_cjkfont:
+  \tl_if_eq:NnF \g__ncu_font_tl {none} {
+    \ncu__load_font:
+  }
+  \tl_if_eq:NnTF \g__ncu_cjkfont_tl {none} {
+    \ProvideDocumentCommand {\kaiti} {}    {}
+    \ProvideDocumentCommand {\fangsong} {} {}
+    \ProvideDocumentCommand {\heiti} {}    {}
+  } {
+    \ncu__load_cjkfont:
+  }
 }
 %% 字符间距微调
-\cs_new:Npn \__punct_spacing {
+\cs_new:Nn \ncu__punct_spacing: {
   \sfcode`\.3000
   \sfcode`\?3000
   \sfcode`\!3000
+  \sfcode`\;2750
   \sfcode`\:2500
-  \sfcode`\;2500
-  \sfcode`\,2400
+  \sfcode`\,2250
 }
-\AtBeginDocument{
-  \ziju{0.08}
-  \__punct_spacing
+\BeforeBeginEnvironment {document} {
+  \tl_if_eq:NnTF \g__ncu_cjkfont_tl {windows} {\ziju{0.04}} {\ziju{0.08}}
+  \ncu__punct_spacing:
 }
 %% 符号调整
-\AtBeginDocument{
+\AtBeginDocument {
   \tl_set_eq:NN \nabla \mbfnabla
   \tl_set_eq:NN \muppi \uppi
   \tl_set:Nx    \pi    \uppi
@@ -433,7 +469,7 @@
 %% 页面布局
 %% 直接通过 geometry 包设置
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-  \geometry{
+  \geometry {
     papersize      = {210mm,297mm},
     headheight     = 20pt,
     headsep        = 20pt,
@@ -448,7 +484,7 @@
   }
 }
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
-  \geometry{
+  \geometry {
     papersize      = {210mm,297mm},
     headheight     = 20pt,
     headsep        = 20pt,
@@ -463,7 +499,7 @@
   }
 }
 \tl_set_eq:NN \Gm@vrules@mpi \Gm@vrules@mpii
-\AtEndOfClass{
+\AtEndOfClass {
   \flushbottom
   \allowdisplaybreaks[3]
 }
@@ -530,8 +566,8 @@
 }
 %%
 %% 目录格式
-\cftsetrmarg{3em}
-\cftsetpnumwidth{2em}
+\cftsetrmarg     {3em}
+\cftsetpnumwidth {2em}
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
   \tl_set:Nn   \cftpartfont       {\heiti}
   \tl_set:Nn   \cftpartpagefont   {\normalfont\normalsize}
@@ -618,12 +654,12 @@
 \DeclareDocumentCommand \frontmatter {} {
   \clearpage
   \@mainmatterfalse
-  \pagenumbering{Roman}
+  \pagenumbering {Roman}
 }
 \DeclareDocumentCommand \mainmatter {} {
   \clearpage
   \@mainmattertrue
-  \pagenumbering{arabic}
+  \pagenumbering {arabic}
 }
 \DeclareDocumentCommand \backmatter {} {
   \clearpage
@@ -631,7 +667,7 @@
 }
 %%
 %% 列表设置
-\setlist{
+\setlist {
   topsep      = 2pt plus1pt minus1pt,
   parsep      = 1pt,
   partopsep   = 0pt,
@@ -639,15 +675,15 @@
   leftmargin  = 2\ccwd,
   rightmargin = 0pt
 }
-\setlist[itemize,1]{label=\textbullet}
-\setlist[itemize,2]{label=\normalfont\bfseries\textendash}
-\setlist[itemize,3]{label=\textasteriskcentered}
-\setlist[itemize,4]{label=\textperiodcentered}
-\setlist[enumerate,1]{label=\arabic*.\hskip-.1em\scan_stop:}
-\setlist[enumerate,2]{label=(\arabic*)}
-\setlist[enumerate,3]{label=\alph*.\hskip-.1em\scan_stop:}
-\setlist[enumerate,4]{label=(\alph*)}
-\setlist[description]{font=\normalfont\heiti}
+\setlist [itemize,1]   {label=\textbullet}
+\setlist [itemize,2]   {label=\normalfont\bfseries\textendash}
+\setlist [itemize,3]   {label=\textasteriskcentered}
+\setlist [itemize,4]   {label=\textperiodcentered}
+\setlist [enumerate,1] {label=\arabic*.\kern-.1em}
+\setlist [enumerate,2] {label=(\arabic*)}
+\setlist [enumerate,3] {label=\alph*.\kern-.1em}
+\setlist [enumerate,4] {label=(\alph*)}
+\setlist [description] {font=\normalfont\heiti, labelsep=0.8em}
 %%
 %% 重设某些长度和比例以及图表设置
 \skip_set:Nn \lineskiplimit  {0pt}
@@ -656,22 +692,22 @@
 \tl_set:Nn \topfraction    {.7}
 \tl_set:Nn \bottomfraction {.5}
 \tl_set:Nn \textfraction   {.14}
-\skip_set:Nn \floatsep     {17pt plus2.5pt minus1.5pt}
-\skip_set:Nn \textfloatsep {18pt plus4.5pt minus1.5pt}
-\skip_set:Nn \intextsep    {12pt plus3.5pt minus1.5pt}
+\skip_set:Nn \floatsep     {17pt plus3pt minus2pt}
+\skip_set:Nn \textfloatsep {18pt plus5pt minus2pt}
+\skip_set:Nn \intextsep    {14pt plus4pt minus2pt}
 \tl_set:Nn \thefigure {\ifnum\c@chapter>\z@ \thechapter-\fi\@arabic\c@figure}
 \tl_set:Nn \thetable  {\ifnum\c@chapter>\z@ \thechapter-\fi\@arabic\c@table}
-\DeclareCaptionFont{heiti}{\heiti}
+\DeclareCaptionFont {heiti} {\heiti}
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-  \captionsetup[figure]{
+  \captionsetup [figure] {
     labelfont     = {small, heiti},
     font          = small,
     justification = centerlast,
     margin        = 1\ccwd,
     aboveskip     = 9pt,
-    belowskip     = -4.5pt
+    belowskip     = -4pt
   }
-  \captionsetup[table]{
+  \captionsetup [table] {
     labelfont     = {small, heiti},
     font          = small,
     justification = centerlast,
@@ -679,18 +715,18 @@
     belowskip     = -4.5pt,
     aboveskip     = 8pt
   }
-  \captionsetup[sub]{
+  \captionsetup [sub] {
     labelformat = simple,
     font        = small
   }
-  \captionsetup[subfigure]{
+  \captionsetup [subfigure] {
     labelfont     = heiti,
     justification = centerlast,
     margin        = 1\ccwd,
     aboveskip     = 6.5pt,
     belowskip     = 4.5pt
   }
-  \captionsetup[subtable]{
+  \captionsetup [subtable] {
     labelfont     = heiti,
     justification = centerlast,
     margin        = 1\ccwd,
@@ -700,15 +736,15 @@
 }
 %%
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
-  \captionsetup[figure]{
+  \captionsetup [figure] {
     font          = {small, bf},
     labelsep      = quad,
     justification = centerlast,
     margin        = 1\ccwd,
     aboveskip     = 9pt,
-    belowskip     = -4.5pt
+    belowskip     = -4pt
   }
-  \captionsetup[table]{
+  \captionsetup [table] {
     font          = {small, bf},
     labelsep      = quad,
     justification = centerlast,
@@ -716,17 +752,17 @@
     belowskip     = -4.5pt,
     aboveskip     = 8pt
   }
-  \captionsetup[sub]{
+  \captionsetup [sub] {
     labelformat = simple,
     font        = {small, bf}
   }
-  \captionsetup[subfigure]{
+  \captionsetup [subfigure] {
     justification = centerlast,
     margin        = 1\ccwd,
     aboveskip     = 6.5pt,
     belowskip     = 4.5pt
   }
-  \captionsetup[subtable]{
+  \captionsetup [subtable] {
     justification = centerlast,
     margin        = 1\ccwd,
     belowskip     = 4.5pt,
@@ -739,14 +775,28 @@
 \tl_set:Nn \@floatboxreset {\reset@font \small \@setminipage}
 %%
 %% 脚注设置
+\tl_new:N \g__ncu_font_ncm_tl
+\tl_gset:Nn \g__ncu_font_ncm_tl {ncm}
 \cs_new:Npn \ncu__select_fn_num:n #1 {
-  \int_compare:nTF {#1>=21}
-    {
+  \tl_if_eq:NNTF \g__ncu_font_tl \g__ncu_font_ncm_tl {
+    \fontspec[Scale=0.9]{FandolSong-Regular.otf}
+    \int_compare:nTF {#1>=21} {
       \int_compare:nTF {#1>=47}
         {\__symbol:n {\int_eval:n {"24B6-47+#1}}}
         {\__symbol:n {\int_eval:n {"24D0-21+#1}}}
+    } {
+      \__symbol:n {\int_eval:n {"2460-1+#1}}
     }
-    {\__symbol:n {\int_eval:n {"2460-1+#1}}}
+  } {
+    \fontspec[Scale=1.1]{XITS-Regular.otf}
+    \int_compare:nTF {#1>=21} {
+      \int_compare:nTF {#1>=47}
+        {\__symbol:n {\int_eval:n {"24B6-47+#1}}}
+        {\__symbol:n {\int_eval:n {"24D0-21+#1}}}
+    } {
+      \__symbol:n {\int_eval:n {"2460-1+#1}}
+    }
+  }
 }
 \cs_new:Npn \ncu__plain_fn_num:n #1 {\int_use:N #1}
 %%
@@ -790,10 +840,10 @@
   footnote-num = circled
 }
 %%
-\skip_set:Nn \footnotesep {9pt}
+\skip_set:Nn \footnotesep {11pt}
 \tl_new:N  \l__ncu_footinsskip_tl
 \tl_set:Nn \l__ncu_footinsskip_tl {\skip\footins}
-\skip_set:Nn \l__ncu_footinsskip_tl {13.2pt plus2.5pt minus2.5pt}
+\skip_set:Nn \l__ncu_footinsskip_tl {15pt plus3pt minus3pt}
 \tl_set:Nn \footnoterule {
   \kern-1pt\hrule height.5pt width.25\columnwidth\kern3pt
 }
@@ -807,23 +857,25 @@
   \RequirePackage [sort&compress] {gbt7714}
   \bibliographystyle {gbt7714-numerical}
   \tl_set:Nn \bibfont {\small}
-  \bibsep0pt plus1pt\scan_stop:
+  \bibsep0pt plus1pt
 }
 \tl_if_eq:NNT \g__ncu_bib_tl \g__ncu_bib_biblatex_tl {
   \RequirePackage [backend=biber, style=gb7714-2015] {biblatex}
   \tl_set:Nn \bibfont {\small}
-  \bibitemsep0pt plus1pt\scan_stop:
+  \bibitemsep0pt plus1pt
 }
 %%
 %% 索引设置
 %% 注意, 南昌大学毕业论文并不需要索引
-% \RequirePackage{imakeidx}
-% \indexsetup{othercode={\renewcommand\indexspace{}}}
+% \RequirePackage {imakeidx}
+% \indexsetup {
+%   othercode = {\renewcommand\indexspace{}}
+% }
 %%
 %% 对 book 文档类进行另外的调整
 \RenewDocumentEnvironment {verse} {} {
   \tl_set_eq:NN \\ \@centercr
-  \list{}{
+  \list {} {
     \topsep        2pt plus1pt
     \itemsep       0pt
     \parsep        2pt plus1pt
@@ -833,11 +885,11 @@
     \rightmargin   2\ccwd
   }
   \item\scan_stop:\kaiti
-}{
+} {
   \endlist
 }
 \RenewDocumentEnvironment {quotation} {o} {
-  \list{}{
+  \list {} {
     \topsep        2pt plus1pt
     \itemsep       0pt
     \parsep        2pt plus1pt
@@ -847,15 +899,15 @@
     \rightmargin   \leftmargin
   }
   \item\scan_stop:\kaiti
-}{
+} {
   \IfValueT {#1} {
-    \par\skip_vertical:n {\parsep}
+    \skip_vertical:n {\parsep}
     \rightline{——#1}
   }
   \endlist
 }
 \RenewDocumentEnvironment {quote} {} {
-  \list{}{
+  \list {} {
     \topsep        2pt plus1pt
     \itemsep       0pt
     \parsep        2pt plus1pt
@@ -865,7 +917,7 @@
     \rightmargin   \leftmargin
   }
   \item\scan_stop:\kaiti
-}{
+} {
   \endlist
 }
 %%
@@ -887,7 +939,7 @@
   start-stop-date  .tl_set:N = \l__info_startstopdate_tl
 }
 \keys_set:nn {ncu/info} {
-  secret-level     = \__ncu_warning:nnn {no-info} {secret-level} {密级},
+  secret-level     = {},
   start-date       = \__ncu_warning:nnn {no-info} {start-date} {开始时间},
   stop-date        = \__ncu_warning:nnn {no-info} {stop-date} {结束时间},
   title            = {标题\__ncu_warning:nnn {no-info} {title} {中文标题}},
@@ -910,40 +962,46 @@
 \tl_new:N  \l__cover_info_tl
 \tl_set:Nn \l__cover_secretlevel_tl {
   \rightline{
-    密级：\uline{\makebox[7\ccwd][c]{\l__info_secretlevel_tl}}
+    密级：\__fixed_uline:nn {7\ccwd} {\l__info_secretlevel_tl}
   }
 }
 \tl_set:Nn \l__cover_cnname_tl {学士学位论文}
 \tl_set:Nn \l__cover_enname_tl {THESIS\hspace{1em}OF\hspace{1em}BACHELOR}
 \tl_set:Nn \l__cover_date_tl {
-  （\makebox[2em][l]{20\l__info_startdate_tl}\;—\;\makebox[2em][l]{20\l__info_stopdate_tl}\;年）
+  （\makebox [2em] [l] {20\l__info_startdate_tl}
+    \hspace {0.278em} — \hspace{0.278em}
+    \makebox [2em] [l] {20\l__info_stopdate_tl}
+    \hspace {0.278em}年）
 }
 \tl_set:Nn \l__cover_cntitle_tl {
-  \makebox[3\ccwd][s]{题\hfil{目}}
-  \uline{
-    \makebox[1em][l]{}
+  \makebox [3\ccwd] [s] {题\hfil{目}}
+  \__cn_uline:n {
+    \makebox [1em] [l] {}
     \begin{minipage}[b]{.67\textwidth}
       \centering
       \l__info_cntitle_tl
     \end{minipage}
-    \makebox[1em][l]{}
+    \makebox [1em] [l] {}
   }
 }
 \tl_set:Nn \l__cover_info_tl {
   \begin{minipage}{.8\textwidth}
-    \makebox[5.26em][s]{学\hfill 院：}
-    \uline{\makebox[8\ccwd][c]{\l__info_college_tl}}
-    系\uline{\hfill\l__info_department_tl\hfill}\\[6pt]
-    \makebox[5.26em][s]{专业班级：}
-    \uline{\hfill\l__info_majorclass_tl\hfill}\\[6pt]
-    \makebox[5.26em][s]{学生姓名：}
-    \uline{\makebox[7\ccwd][c]{\l__info_author_tl}}
-    学号：\uline{\hfill\l__info_studentid_tl\hfill}\\[6pt]
-    \makebox[5.26em][s]{指导教师：}
-    \uline{\makebox[7\ccwd][c]{\l__info_supervisor_tl}}
-    职称：\uline{\hfill\l__info_supervisortitle_tl\hfill}\\[6pt]
-    \makebox[5.26em][s]{起讫日期：}
-    \uline{\hfill\l__info_startstopdate_tl\hfill}
+    \makebox [5\ccwd] [l] {学\hfill 院：}
+    \__fixed_uline:nn {8\ccwd} {\l__info_college_tl}
+    \makebox [\ccwd] [c] {系}
+    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[6pt]
+    \makebox [5\ccwd] [s] {专业班级：}
+    \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[6pt]
+    \makebox [5\ccwd] [s] {学生姓名：}
+    \__fixed_uline:nn {7\ccwd} {\l__info_author_tl}
+    \makebox [3\ccwd] [l] {学\hfill{号：}}
+    \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[6pt]
+    \makebox [5\ccwd] [s] {指导教师：}
+    \__fixed_uline:nn {7\ccwd} {\l__info_supervisor_tl}
+    \makebox [3\ccwd] [l] {职\hfill{称：}}
+    \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[6pt]
+    \makebox [5\ccwd] [s] {起讫日期：}
+    \__fixed_uline:nn {17\ccwd} {\l__info_startstopdate_tl}
   \end{minipage}
 }
 %%
@@ -956,34 +1014,35 @@
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \par\skip_vertical:n {22pt plus7pt minus5pt}
+      \skip_vertical:n {22pt plus7pt minus5pt}
       \begin{center}
         \group_begin:
           \includegraphics[width=65.9mm]{./resources/logo-name.png}
         \group_end:
-        \par\skip_vertical:n {22pt plus7pt minus5pt}
+        \skip_vertical:n {22pt plus7pt minus5pt}
         \group_begin:
-          \bfseries\Huge\tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
+          \bfseries\Huge
+          \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
         \group_end:
-        \par\skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \bfseries\l__cover_enname_tl
         \group_end:
-        \par\skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \rmfamily\l__cover_date_tl
         \group_end:
-        \par\skip_vertical:n {26pt plus9pt minus6pt}
+        \skip_vertical:n {26pt plus9pt minus6pt}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.png}
         \group_end:
-        \par\skip_vertical:n {32pt plus10pt minus8pt}
+        \skip_vertical:n {32pt plus10pt minus8pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \par\skip_vertical:n {45pt plus15pt minus23pt}
+        \skip_vertical:n {45pt plus15pt minus23pt}
         \rmfamily
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
@@ -1002,34 +1061,34 @@
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \par\skip_vertical:n {26pt plus7pt minus5pt}
+      \skip_vertical:n {26pt plus7pt minus5pt}
       \begin{center}
         \group_begin:
           \includegraphics[width=65.9mm]{./resources/logo-name.png}
         \group_end:
-        \par\skip_vertical:n {26pt plus7pt minus5pt}
+        \skip_vertical:n {26pt plus7pt minus5pt}
         \group_begin:
           \Huge\tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
         \group_end:
-        \par\skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \l__cover_enname_tl
         \group_end:
-        \par\skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {4pt plus2pt minus1pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_date_tl
         \group_end:
-        \par\skip_vertical:n {30pt plus9pt minus6pt}
+        \skip_vertical:n {30pt plus9pt minus6pt}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.png}
         \group_end:
-        \par\skip_vertical:n {36pt plus10pt minus8pt}
+        \skip_vertical:n {36pt plus10pt minus8pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \par\skip_vertical:n {52pt plus15pt minus23pt}
+        \skip_vertical:n {52pt plus15pt minus23pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_info_tl
@@ -1042,41 +1101,67 @@
 %% 申明和授权书
 \NewDocumentCommand \makedecaut {} {
   \tl_new:N  \l__square_tl
-  \tl_set:Nn \l__square_tl {\raisebox{1pt}{\fontspec{XITS-Regular.otf}□}}
+  \tl_new:N  \l__square_star_tl
+  \tl_set:Nn \l__square_tl {
+    \hbox:n {
+      \vrule height1.53ex width0.4pt
+      \skip_horizontal:n {-0.4pt}
+      \vbox:n {
+        \hrule height0.4pt width1.53ex
+        \skip_vertical:n {1.53ex-0.8pt}
+        \hrule height0.4pt width1.53ex
+      }
+      \skip_horizontal:n {-0.4pt}
+      \vrule height1.53ex width0.4pt
+    }
+  }
+  \tl_set:Nn \l__square_star_tl {
+    \group_begin:
+      \fontspec {XITS-Regular.otf}
+      \rlap{✓}\l__square_tl
+    \group_end:
+  }
+%%
   \begin{titlepage}
     \linespread{1.5}\selectfont
-    \hrule height 0pt\scan_stop:
+    \hrule height 0pt
     \par
     \group_begin:
       \bfseries\Large
       \centerline{南昌大学}
       \centerline{学士学位论文原创性申明}
     \group_end:
-    \par\skip_vertical:n {6pt}
+    \skip_vertical:n {6pt}
     \group_begin:
-      本人郑重申明：所呈交的论文是本人在导师的指导下独立进行研究所取得的研究成果。除了文中特别加以标注引用的内容外，本论文不包含任何其他个人或集体已经发表或撰写的成果。对本文的研究作出重要贡献的个人和集体，均已在文中以明确方式表明。本人完全意识到本申明的法律后果由本人承担。
-      \par\skip_vertical:n {16pt}
+      本人郑重申明：所呈交的论文是本人在导师的指导下独立进行研究所取得的
+      研究成果。除了文中特别加以标注引用的内容外，本论文不包含任何其他个
+      人或集体已经发表或撰写的成果。对本文的研究作出重要贡献的个人和集体，
+      均已在文中以明确方式表明。本人完全意识到本申明的法律后果由本人承担。
+      \skip_vertical:n {16pt}
       作者签名：\hspace{11\ccwd}日期：
     \group_end:
-    \par\skip_vertical:n {72pt}
+    \skip_vertical:n {72pt}
     \group_begin:
       \bfseries\Large
       \centerline{学位论文版权使用授权书}
     \group_end:
-    \par\skip_vertical:n {6pt}
+    \skip_vertical:n {6pt}
     \group_begin:
-      本学位论文作者完全了解学校有关保留、使用学位论文的规定，同意学校保留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅。本人授权南昌大学可以将本论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
-      \par\skip_vertical:n {10pt}
+      本学位论文作者完全了解学校有关保留、使用学位论文的规定，同意学校保
+      留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和
+      借阅。本人授权南昌大学可以将本论文的全部或部分内容编入有关数据库进
+      行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
+      \skip_vertical:n {10pt}
       本学位论文属于\hspace{1\ccwd}
       \begin{minipage}[c]{.6\textwidth}
         保密~\l__square_tl ，在\hspace{2\ccwd}年解密后适用本授权书。\\
         不保密~\l__square_tl 。
       \end{minipage}
-      \par\skip_vertical:n {10pt}
-      （请在以上相应方框内打“✓”）
-      \par\skip_vertical:n {16pt}
+      \skip_vertical:n {10pt}
+      （请在以上相应方框内打“{\fontspec{XITS-Regular.otf}✓}”）
+      \skip_vertical:n {16pt}
       作者签名：\hspace{11\ccwd}日期：
-      \par\skip_vertical:n {16pt}
+      \skip_vertical:n {16pt}
       导师签名：\hspace{11\ccwd}日期：
     \group_end:
   \end{titlepage}
@@ -1091,7 +1176,7 @@
     \seq_set_split:Nnn \l__cnkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt\scan_stop:
+  \hrule height 0pt
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -1105,17 +1190,17 @@
       }
     \end{minipage}
   \group_end:
-  \par\skip_vertical:n {3pt plus1pt minus1pt}
+  \skip_vertical:n {3pt plus1pt minus1pt}
   \begin{center}
     \small
     \begin{tabular}{llll}
       \makebox[5.26em][s]{专\hfill 业：}\l__info_major_tl & & &
-      \makebox[5.26em][s]{学\hfill 号：}\l__info_studentid_tl\\
+      \makebox[5.26em][s]{学\hfill 号：}\l__info_studentid_tl \\
       \makebox[5.26em][s]{学生姓名：}\l__info_author_tl   & & &
       \makebox[5.26em][s]{指导教师：}\l__info_supervisor_tl
     \end{tabular}
   \end{center}
-  \par\skip_vertical:n {3pt plus1pt minus1pt}
+  \skip_vertical:n {3pt plus1pt minus1pt}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1128,7 +1213,7 @@
     \chaptermark{摘要}
   \group_end:
   \par\skip_vertical:n {6pt plus2pt minus2pt}
-}{
+} {
   \str_if_empty:NTF \l__cnkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
       \par\skip_vertical:n {12pt}\noindent{\heiti\l__cnkws_str}
@@ -1149,7 +1234,7 @@
     \seq_set_split:Nnn \l__enkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt\scan_stop:
+  \hrule height 0pt
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -1163,7 +1248,7 @@
       }
     \end{minipage}
   \group_end:
-  \par\skip_vertical:n {16pt plus1pt minus1pt}
+  \skip_vertical:n {16pt plus1pt minus1pt}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1176,7 +1261,7 @@
     \chaptermark{Abstract}
   \group_end:
   \par\skip_vertical:n {6pt plus2pt minus2pt}
-}{
+} {
   \str_if_empty:NTF \l__enkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
       \par\skip_vertical:n {12pt}\noindent\textbf{\l__enkws_str}\space
@@ -1194,14 +1279,16 @@
   \tl_new:N  \l__acks_tl
   \tl_set:Nn \l__acks_tl {致谢}
   \NewDocumentCommand \signoff {mm} {
-    \par\skip_vertical:n {12pt}
+    \skip_vertical:n {12pt}
     \rightline{##1}\par
     \rightline{##2}
   }
   \chapter*{\l__acks_tl}
   \addcontentsline{toc}{chapter}{\l__acks_tl}
   \chaptermark{\l__acks_tl}
-}{\clearpage}
+} {
+  \clearpage
+}
 %%
 %% 新环境和新命令设置
 \keys_define:nn {ncu/style} {
@@ -1226,10 +1313,8 @@
   thm-afterhead   = \quad,
   thm-bodyfont    = \kaiti
 }
-\bool_if:NT \g__ncu_newenv_bool
-  {\input{./resources/newenv.def}}
-\bool_if:NT \g__ncu_newcmd_bool
-  {\input{./resources/newcmd.def}}
+\bool_if:NT \g__ncu_newenv_bool {\input{./resources/newenv.def}}
+\bool_if:NT \g__ncu_newcmd_bool {\input{./resources/newcmd.def}}
 %%
 %%
 \endinput

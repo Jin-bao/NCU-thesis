@@ -8,8 +8,44 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {newcmd} {2023/02/09} {0.1} {New~cmds~definitions.}
+  {newcmd} {2024/02/26} {0.2} {New~cmds~definitions}
 %%
+%% 类似于 \qedhere 效果的 \freeze
+\tl_new:N  \l__ncu_freeze_tl
+\tl_new:N  \l__ncu_freeze_star_tl
+\tl_set:Nn \l__ncu_freeze_tl {
+  \hbox:n {
+    \vrule height1.5ex width0.5pt
+    \skip_horizontal:n {-0.5pt}
+    \vbox:n {
+      \hrule height0.5pt width1.5ex
+      \skip_vertical:n {1.5ex-1pt}
+      \hrule height0.5pt width1.5ex
+    }
+    \skip_horizontal:n {-0.5pt}
+    \vrule height1.5ex width0.5pt
+  }
+}
+\tl_set:Nn \l__ncu_freeze_star_tl {
+  \hbox:n {
+    \vrule height1.5ex width1.5ex
+  }
+}
+\NewDocumentCommand \freeze {s} {
+  \IfBooleanTF {#1} {
+    \if_mode_math:
+      \tag*{\l__ncu_freeze_star_tl}
+    \else:
+      \space\hbox:n{}\penalty10001\hfill\l__ncu_freeze_star_tl
+    \fi:
+  } {
+    \if_mode_math:
+      \tag*{\l__ncu_freeze_tl}
+    \else:
+      \space\hbox:n{}\penalty10001\hfill\l__ncu_freeze_tl
+    \fi:
+  }
+}
 %%
 %%
 \endinput
