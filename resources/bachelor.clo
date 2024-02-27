@@ -8,7 +8,7 @@
 %% 开启 l3 语法
 \ExplSyntaxOn
 %%
-\ProvidesExplFile {bachelor} {2023/03/04} {1.0s} {Bachelor~thesis~settings}
+\ProvidesExplFile {bachelor} {2024/02/26} {1.0s} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -464,6 +464,8 @@
   \tl_set_eq:NN \itpi  \mitpi
   \tl_set_eq:NN \leq   \leqslant
   \tl_set_eq:NN \geq   \geqslant
+  \DeclareDocumentCommand \Re {} {\mathop{\rm Re}\nolimits}
+  \DeclareDocumentCommand \Im {} {\mathop{\rm Im}\nolimits}
 }
 %%
 %% 页面布局

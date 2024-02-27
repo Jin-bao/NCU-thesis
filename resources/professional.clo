@@ -470,6 +470,8 @@
   \tl_set_eq:NN \itpi  \mitpi
   \tl_set_eq:NN \leq   \leqslant
   \tl_set_eq:NN \geq   \geqslant
+  \DeclareDocumentCommand \Re {} {\mathop{\rm Re}\nolimits}
+  \DeclareDocumentCommand \Im {} {\mathop{\rm Im}\nolimits}
 }
 %%
 %% 页面布局
