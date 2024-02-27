@@ -18,12 +18,15 @@
 %%
 %%
 \NeedsTeXFormat {LaTeX2e} [1995/12/01]
-\ProvidesExplClass {ncuthesis} {2023/03/09} {0.2b} {Nanchang University LaTeX thesis template}
+\ProvidesExplClass
+  {ncuthesis} {2024/02/26} {1.0s} {Nanchang~University~LaTeX~thesis~template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
 \msg_new:nnn {ncuthesis} {unsupported-engine} {
-  The~ncuthesis~class~requires~either~XeTeX~or~LuaTeX.~"#1"~is~not~supported~at~present.~You~must~change~your~typesetting~engine~to~"xelatex"~or~"lualatex".
+  The~ncuthesis~class~requires~either~XeTeX~or~LuaTeX.~
+  "#1"~is~not~supported~at~present.~
+  You~must~change~your~typesetting~engine~to~"xelatex"~or~"lualatex".
 }
 \sys_if_engine_xetex:F {
   \sys_if_engine_luatex:F {
@@ -32,16 +35,14 @@
 }
 %%
 %% 前面的准备
-\cs_new:Npn \__ncu_msg_new:nn  {\msg_new:nnn       {ncuthesis}}
-\cs_new:Npn \__ncu_warning:n   {\msg_warning:nn    {ncuthesis}}
-\cs_new:Npn \__ncu_warning:nn  {\msg_warning:nnn   {ncuthesis}}
-\cs_new:Npn \__ncu_warning:nx  {\msg_warning:nnx   {ncuthesis}}
-\cs_new:Npn \__ncu_warning:nnn {\msg_warning:nnnn  {ncuthesis}}
-\cs_new:Npn \__ncu_error:n     {\msg_error:nn      {ncuthesis}}
-\cs_new:Npn \__ncu_error:nn    {\msg_error:nnn     {ncuthesis}}
-\cs_new:Npn \__ncu_error:nnn   {\msg_error:nnnn    {ncuthesis}}
-%%
-\cs_new:Npn \__symbol:n #1 {\tex_char:D #1 \scan_stop:}
+\cs_new:Npn \__ncu_msg_new:nn  {\msg_new:nnn      {ncuthesis}}
+\cs_new:Npn \__ncu_warning:n   {\msg_warning:nn   {ncuthesis}}
+\cs_new:Npn \__ncu_warning:nn  {\msg_warning:nnn  {ncuthesis}}
+\cs_new:Npn \__ncu_warning:nx  {\msg_warning:nnx  {ncuthesis}}
+\cs_new:Npn \__ncu_warning:nnn {\msg_warning:nnnn {ncuthesis}}
+\cs_new:Npn \__ncu_error:n     {\msg_error:nn     {ncuthesis}}
+\cs_new:Npn \__ncu_error:nn    {\msg_error:nnn    {ncuthesis}}
+\cs_new:Npn \__ncu_error:nnn   {\msg_error:nnnn   {ncuthesis}}
 %%
 \__ncu_msg_new:nn {unknown-option}
   {Unknown~option:~\l_keys_key_str.}
@@ -90,11 +91,11 @@
   type .choice:,
   type .value_required:n = true,
   type .choices:nn =
-    {academic, professional, bachelor}
+    {academic,professional,bachelor}
     {\str_gset:NV \g__ncu_type_str \l_keys_choice_tl},
   type .initial:n = {academic},
-  type/unknown .code:n = 
-    {\__ncu_warning:nn {unknown-option-value}{type=bachelor}},
+  type/unknown .code:n =
+    {\__ncu_warning:nn {unknown-option-value} {type=academic}},
   academic .code:n = {\str_gset:Nn \g__ncu_type_str {academic}},
   academic .value_forbidden:n = true,
   professional .code:n = {\str_gset:Nn \g__ncu_type_str {professional}},
@@ -104,31 +105,37 @@
   doc .choice:,
   doc .value_required:n = true,
   doc .choices:nn =
-    {draft, final}
+    {draft,final}
     {\tl_gset:NV \g__ncu_doc_tl \l_keys_choice_tl},
   doc .initial:n = {final},
-  doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{doc=final}},
+  doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value} {doc=final}},
   draft .code:n = {\tl_gset:Nn \g__ncu_doc_tl {draft}},
+  draft .value_forbidden:n = true,
   final .code:n = {\tl_gset:Nn \g__ncu_doc_tl {final}},
+  final .value_forbidden:n = true,
   format .choice:,
   format .value_required:n = true,
   format .choices:nn =
-    {adjusted, ncu}
+    {adjusted,ncu}
     {\tl_gset:NV \g__ncu_format_tl \l_keys_choice_tl},
   format .initial:n = {adjusted},
   format/unknown .code:n = 
-    {\__ncu_warning:nn {unknown-option-value}{format=adjusted}},
+    {\__ncu_warning:nn {unknown-option-value} {format=adjusted}},
   adjusted .code:n = {\tl_gset:Nn \g__ncu_format_tl {adjusted}},
+  adjusted .value_forbidden:n = true,
   ncu .code:n = {\tl_gset:Nn \g__ncu_format_tl {ncu}},
+  ncu .value_forbidden:n = true,
   bib .choice:,
   bib .value_required:n = true,
   bib .choices:nn =
-    {bibtex, biblatex}
+    {bibtex,biblatex}
     {\tl_gset:NV \g__ncu_bib_tl \l_keys_choice_tl},
   bib .initial:n = {bibtex},
-  bib/unknown .code:n = {\__ncu_warning:nn {unknown-option-value}{bib=bibtex}},
+  bib/unknown .code:n = {\__ncu_warning:nn {unknown-option-value} {bib=bibtex}},
   bibtex .code:n = {\tl_gset:Nn \g__ncu_bib_tl {bibtex}},
+  bibtex .value_forbidden:n = true,
   biblatex .code:n = {\tl_gset:Nn \g__ncu_bib_tl {biblatex}},
+  biblatex .value_forbidden:n = true,
   newenv .choice:,
   newenv/true  .code:n = {\bool_gset_true:N  \g__ncu_newenv_bool},
   newenv/false .code:n = {\bool_gset_false:N \g__ncu_newenv_bool},
