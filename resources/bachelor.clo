@@ -8,7 +8,8 @@
 %% 开启 l3 语法
 \ExplSyntaxOn
 %%
-\ProvidesExplFile {bachelor} {2024/02/26} {1.0s} {Bachelor~thesis~settings}
+\ProvidesExplFile
+  {bachelor} {2024/03/04} {1.1} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -130,7 +131,7 @@
     },
     chapter = {
       format       = \heiti\bfseries\Large\centering,
-      number       = \arabic{chapter},
+      number       = \chinese{chapter},
       beforeskip   = 8pt plus2pt minus4pt,
       afterskip    = 18pt plus2pt minus2pt,
       tocline      = \CTEXifname{\CTEXthechapter\hspace{.8em}}{}#2
@@ -174,7 +175,7 @@
     },
     chapter = {
       format       = \large\centering,
-      number       = \arabic{chapter},
+      number       = \chinese{chapter},
       fixskip      = true,
       beforeskip   = 8pt plus4pt,
       afterskip    = 28pt plus4pt minus4pt,
@@ -571,6 +572,8 @@
 \cftsetrmarg     {3em}
 \cftsetpnumwidth {2em}
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
+  \tl_set:Nn   \cftpnumalign      {c}
+%%
   \tl_set:Nn   \cftpartfont       {\heiti}
   \tl_set:Nn   \cftpartpagefont   {\normalfont\normalsize}
   \skip_set:Nn \cftbeforepartskip {9pt plus4pt minus2pt}
@@ -612,6 +615,8 @@
 }
 %%
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
+  \tl_set:Nn   \cftpnumalign      {c}
+%%
   \tl_set:Nn   \cftpartfont       {\normalfont\normalsize}
   \tl_set:Nn   \cftpartleader     {\cftdotfill{\cftdotsep}}
   \tl_set:Nn   \cftpartpagefont   {\normalfont\normalsize}
@@ -957,6 +962,7 @@
 }
 %%
 \tl_new:N  \l__cover_secretlevel_tl
+\tl_new:N  \l__cover_logo_name_tl
 \tl_new:N  \l__cover_cnname_tl
 \tl_new:N  \l__cover_enname_tl
 \tl_new:N  \l__cover_date_tl
@@ -967,6 +973,7 @@
     密级：\__fixed_uline:nn {7\ccwd} {\l__info_secretlevel_tl}
   }
 }
+\tl_set:Nn \l__cover_logo_name_tl {NANCHANG \hfill UNIVERSITY}
 \tl_set:Nn \l__cover_cnname_tl {学士学位论文}
 \tl_set:Nn \l__cover_enname_tl {THESIS\hspace{1em}OF\hspace{1em}BACHELOR}
 \tl_set:Nn \l__cover_date_tl {
@@ -979,7 +986,7 @@
   \makebox [3\ccwd] [s] {题\hfil{目}}
   \__cn_uline:n {
     \makebox [1em] [l] {}
-    \begin{minipage}[b]{.67\textwidth}
+    \begin{minipage}[b]{.77\textwidth}
       \centering
       \l__info_cntitle_tl
     \end{minipage}
@@ -990,18 +997,18 @@
   \begin{minipage}{.8\textwidth}
     \makebox [5\ccwd] [l] {学\hfill 院：}
     \__fixed_uline:nn {8\ccwd} {\l__info_college_tl}
-    \makebox [\ccwd] [c] {系}
-    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[6pt]
+    \makebox [\ccwd]  [c] {系}
+    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[8pt]
     \makebox [5\ccwd] [s] {专业班级：}
-    \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[6pt]
+    \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[8pt]
     \makebox [5\ccwd] [s] {学生姓名：}
     \__fixed_uline:nn {7\ccwd} {\l__info_author_tl}
     \makebox [3\ccwd] [l] {学\hfill{号：}}
-    \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[6pt]
+    \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[8pt]
     \makebox [5\ccwd] [s] {指导教师：}
     \__fixed_uline:nn {7\ccwd} {\l__info_supervisor_tl}
     \makebox [3\ccwd] [l] {职\hfill{称：}}
-    \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[6pt]
+    \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[8pt]
     \makebox [5\ccwd] [s] {起讫日期：}
     \__fixed_uline:nn {17\ccwd} {\l__info_startstopdate_tl}
   \end{minipage}
@@ -1019,32 +1026,33 @@
       \skip_vertical:n {22pt plus7pt minus5pt}
       \begin{center}
         \group_begin:
-          \includegraphics[width=65.9mm]{./resources/logo-name.png}
+          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5pt]
+          \makebox [65.6mm] [c] {\bfseries\large\l__cover_logo_name_tl}
         \group_end:
         \skip_vertical:n {22pt plus7pt minus5pt}
         \group_begin:
           \bfseries\Huge
-          \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
+          \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.48em}}
         \group_end:
-        \skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {10pt plus2pt minus2pt}
         \group_begin:
           \bfseries\l__cover_enname_tl
         \group_end:
-        \skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {6pt plus2pt minus2pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \rmfamily\l__cover_date_tl
         \group_end:
-        \skip_vertical:n {26pt plus9pt minus6pt}
+        \skip_vertical:n {30pt plus9pt minus9pt}
         \group_begin:
-          \includegraphics[width=33.3mm]{./resources/logo.png}
+          \includegraphics[width=33.3mm]{./resources/logo.jpg}
         \group_end:
-        \skip_vertical:n {32pt plus10pt minus8pt}
+        \skip_vertical:n {60pt plus10pt minus14pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \skip_vertical:n {45pt plus15pt minus23pt}
+        \skip_vertical:n {45pt plus10pt minus25pt}
         \rmfamily
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
@@ -1063,34 +1071,36 @@
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \skip_vertical:n {26pt plus7pt minus5pt}
+      \skip_vertical:n {10pt plus2pt minus2pt}
       \begin{center}
         \group_begin:
-          \includegraphics[width=65.9mm]{./resources/logo-name.png}
+          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5pt]
+          \makebox [65.6mm] [c] {\bfseries\large\l__cover_logo_name_tl}
         \group_end:
-        \skip_vertical:n {26pt plus7pt minus5pt}
+        \skip_vertical:n {18pt plus2pt minus2pt}
         \group_begin:
-          \Huge\tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.3em}}
+          \bfseries\Huge
+          \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.48em}}
         \group_end:
-        \skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {10pt plus2pt minus2pt}
         \group_begin:
-          \l__cover_enname_tl
+          \bfseries\l__cover_enname_tl
         \group_end:
-        \skip_vertical:n {4pt plus2pt minus1pt}
+        \skip_vertical:n {6pt plus2pt minus2pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_date_tl
         \group_end:
-        \skip_vertical:n {30pt plus9pt minus6pt}
+        \skip_vertical:n {34pt plus10pt minus10pt}
         \group_begin:
-          \includegraphics[width=33.3mm]{./resources/logo.png}
+          \includegraphics[width=33.3mm]{./resources/logo.jpg}
         \group_end:
-        \skip_vertical:n {36pt plus10pt minus8pt}
+        \skip_vertical:n {63pt plus10pt minus13pt}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \skip_vertical:n {52pt plus15pt minus23pt}
+        \skip_vertical:n {56pt plus10pt minus20pt}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_info_tl
@@ -1196,10 +1206,12 @@
   \begin{center}
     \small
     \begin{tabular}{llll}
-      \makebox[5.26em][s]{专\hfill 业：}\l__info_major_tl & & &
-      \makebox[5.26em][s]{学\hfill 号：}\l__info_studentid_tl \\
-      \makebox[5.26em][s]{学生姓名：}\l__info_author_tl   & & &
-      \makebox[5.26em][s]{指导教师：}\l__info_supervisor_tl
+      \makebox [4.24em] [l] {专\hfill{}业}：\l__info_major_tl & & &
+      \makebox [4.24em] [l] {学\hfill{}号}：\l__info_studentid_tl \\
+      \makebox [4.24em] [l]
+        {学\hfill{}生\hfill{}姓\hfill{}名}：\l__info_author_tl & & &
+      \makebox [4.24em] [l]
+        {指\hfill{}导\hfill{}教\hfill{}师}：\l__info_supervisor_tl
     \end{tabular}
   \end{center}
   \skip_vertical:n {3pt plus1pt minus1pt}

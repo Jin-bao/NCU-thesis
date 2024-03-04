@@ -10,7 +10,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {professional} {2024/02/26} {1.0s} {Professional~degree~thesis~settings}
+  {professional} {2024/03/04} {1.1} {Professional~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包并写死参数
 \LoadClass [
