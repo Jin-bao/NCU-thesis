@@ -1,0 +1,120 @@
+%%
+%% File encoding: UTF-8
+%% 这是 `demo-academic.tex' 文件
+%%
+\documentclass[academic,newenv]{ncuthesis}
+%%
+\ncusetup{
+  % style = {
+  %   footnote-num = plain,
+  %   font         = times,
+  %   cjk-font     = fandol
+  % },
+  info = {
+    CLC             = {O}, % 可省略花括号，但最好不要
+    secret-level*   = {公开},
+    UDC             = {123.123.1},
+    studentid       = {402200220047},
+    degree          = {硕士},
+    title           = {南昌大学学位论文模板使用演示},
+    title*          = {Demonstration\\of\\Nanchang University Thesis Template},
+    author          = {朱金宝},
+    department      = {物理},
+    supervisor      = {舒富文},
+    field           = {理学},
+    major           = {天体物理},
+    defence-date    = {2023 年 2 月 16 日},
+    tdc-chairman    = {主席},
+    reviewer        = {评阅人 1, 评阅人 2},
+    completion-date = {2023 年 2 月 16 日}
+  }
+}
+%%
+% \usepackage{hyperref}
+%%
+\begin{document}
+\maketitle
+%%
+\frontmatter
+\makedecaut
+%%
+\begin{abstract}
+这是摘要内容。
+\keywords{关键词 1, 关键词 2, 关键词 3}
+\end{abstract}
+\begin{abstract*}
+This is abstract.
+\keywords{kw1, kw2, kw3}
+\end{abstract*}
+%%
+\tableofcontents
+%%
+\mainmatter
+\chapter{引言}
+\section{历史}
+我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献。\footnote{test}
+
+\begin{figure}[htb]
+\centering
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width=5cm]{example-image}
+\subcaption{这是子图}
+\label{fig:subfigexp-a}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width=5cm]{example-image}
+\subcaption{这又是子图}
+\label{fig:subfigexp-b}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width=5cm]{example-image}
+\subcaption{这还是子图}
+\label{fig:subfigexp-c}
+\end{subfigure}
+\caption{子图排版示例}
+\label{fig:subfig}
+\end{figure}
+
+\begin{law}[黑洞面积定律]
+黑洞事件视界的面积不可能随着时间的推移而减小。
+\end{law}
+\begin{proof}
+即得易见平凡，仿照上例显然。留作习题答案略，读者自证不难。反之亦然同理，推论自然成立。略去过程 QED，由上可知证毕。
+\end{proof}
+\appendix
+\chapter{公式推导}
+\section{Einstein 场方程}
+%% 推导过程
+%%
+\backmatter
+\bibliography{references.bib}
+%%
+\begin{acknowledgements}
+感谢……
+\signoff{朱金宝}{2022 年 12 月 31 日}
+\end{acknowledgements}
+%%
+%%
+\begin{researchresults}
+\begin{published}
+\item 条目
+\end{published}
+\begin{tobepublished}
+\item 条目
+\end{tobepublished}
+\begin{reports}
+\item 条目
+\end{reports}
+\begin{others}[另外还有] % 标题作为可选参数
+\item 条目
+\end{others}
+\begin{papers}
+\item 条目
+\end{papers}
+\end{researchresults}
+\end{document}
+%% 结束
+%%
