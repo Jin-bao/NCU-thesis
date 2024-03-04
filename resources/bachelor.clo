@@ -9,7 +9,7 @@
 \ExplSyntaxOn
 %%
 \ProvidesExplFile
-  {bachelor} {2024/03/04} {1.1} {Bachelor~thesis~settings}
+  {bachelor} {2024/03/04} {1.1a} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
