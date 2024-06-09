@@ -19,7 +19,7 @@
 %%
 \NeedsTeXFormat {LaTeX2e} [1995/12/01]
 \ProvidesExplClass
-  {ncuthesis} {2024/03/04} {1.1a} {Nanchang~University~LaTeX~thesis~template}
+  {ncuthesis} {2024/06/08} {1.1b} {Nanchang~University~LaTeX~thesis~template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
@@ -91,7 +91,7 @@
   type .choice:,
   type .value_required:n = true,
   type .choices:nn =
-    {academic,professional,bachelor}
+    {academic, professional, bachelor}
     {\str_gset:NV \g__ncu_type_str \l_keys_choice_tl},
   type .initial:n = {academic},
   type/unknown .code:n =
@@ -105,7 +105,7 @@
   doc .choice:,
   doc .value_required:n = true,
   doc .choices:nn =
-    {draft,final}
+    {draft, final}
     {\tl_gset:NV \g__ncu_doc_tl \l_keys_choice_tl},
   doc .initial:n = {final},
   doc/unknown .code:n = {\__ncu_warning:nn {unknown-option-value} {doc=final}},
@@ -116,7 +116,7 @@
   format .choice:,
   format .value_required:n = true,
   format .choices:nn =
-    {adjusted,ncu}
+    {adjusted, ncu}
     {\tl_gset:NV \g__ncu_format_tl \l_keys_choice_tl},
   format .initial:n = {adjusted},
   format/unknown .code:n = 
@@ -128,7 +128,7 @@
   bib .choice:,
   bib .value_required:n = true,
   bib .choices:nn =
-    {bibtex,biblatex}
+    {bibtex, biblatex}
     {\tl_gset:NV \g__ncu_bib_tl \l_keys_choice_tl},
   bib .initial:n = {bibtex},
   bib/unknown .code:n = {\__ncu_warning:nn {unknown-option-value} {bib=bibtex}},
@@ -170,7 +170,7 @@
   \PassOptionsToPackage {final} {graphicx}
 }
 %% 导入选项设置文件
-\input{./resources/\g__ncu_type_str.clo}
+\file_input:n {./resources/\g__ncu_type_str.clo}
 %%
 %% 后面一些处理
 \keys_define:nn {ncu} {
@@ -190,6 +190,6 @@
 }
 %%
 %%
-\endinput
+\file_input_stop:
 %% `ncuthesis.cls' 文件结束
 %%
