@@ -9,7 +9,7 @@
 \ExplSyntaxOn
 %%
 \ProvidesExplFile
-  {bachelor} {2024/03/04} {1.1a} {Bachelor~thesis~settings}
+  {bachelor} {2024/06/08} {1.1b} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -19,54 +19,41 @@
   onecolumn,
   openany,
   fontset    = none,
-  linespread = 1.38, % 模板规定 1.35 倍, 多余的是单位换算的补偿
+  linespread = 1.35,
   sub3section
 ] {ctexbook}
 %%
 %% 对 (ctex)book 文档类进行一些调整
 %% 重定义字体大小
 \DeclareDocumentCommand \normalsize {} {
-  \@setfontsize\normalsize\@xiipt{14.5}
-  \abovedisplayskip      9  \p@ \@plus3\p@ \@minus4\p@
-  \abovedisplayshortskip \z@    \@plus3\p@
-  \belowdisplayshortskip 12 \p@ \@plus3\p@ \@minus4\p@
-  \belowdisplayskip      13 \p@ \@plus3\p@ \@minus4\p@
-  \let\@listi\@listI
+  \@setfontsize\normalsize{12bp}{14.5bp}
+  \abovedisplayskip      9 bp plus3bp minus4bp
+  \abovedisplayshortskip 0 bp plus3bp
+  \belowdisplayshortskip 12bp plus3bp minus4bp
+  \belowdisplayskip      13bp plus3bp minus4bp
 }
 \normalsize
 \DeclareDocumentCommand \small {} {
-  \@setfontsize\small{10.5}{12.6}
-  \abovedisplayskip      7  \p@ \@plus2\p@ \@minus3\p@
-  \abovedisplayshortskip \z@    \@plus2\p@
-  \belowdisplayshortskip 10 \p@ \@plus2\p@ \@minus3\p@
-  \def\@listi{
-    \leftmargin \leftmargini
-    \topsep     2\p@ \@plus1\p@ \@minus1\p@
-    \parsep     1\p@ \@plus \p@ \@minus \p@
-    \itemsep    \parsep
-  }
-  \belowdisplayskip      11 \p@ \@plus2\p@ \@minus3\p@
+  \@setfontsize\small{10.5bp}{12.6bp}
+  \abovedisplayskip      7 bp plus2bp minus3bp
+  \abovedisplayshortskip 0 bp plus2bp
+  \belowdisplayshortskip 10bp plus2bp minus3bp
+  \belowdisplayskip      11bp plus2bp minus3bp
 }
 \DeclareDocumentCommand \footnotesize {} {
-  \@setfontsize\footnotesize\@ixpt{10.8}
-  \abovedisplayskip      6\p@ \@plus2\p@ \@minus2\p@
-  \abovedisplayshortskip \z@  \@plus2\p@
-  \belowdisplayshortskip 7\p@ \@plus2\p@ \@minus2\p@
-  \def\@listi{
-    \leftmargin \leftmargini
-    \topsep     1\p@ \@plus.6\p@ \@minus.6\p@
-    \parsep    .6\p@ \@plus  \p@ \@minus  \p@
-    \itemsep    \parsep
-  }
-  \belowdisplayskip      8\p@ \@plus2\p@ \@minus2\p@
+  \@setfontsize\footnotesize{9bp}{10.8bp}
+  \abovedisplayskip      6bp plus2bp minus2bp
+  \abovedisplayshortskip 0bp plus2bp
+  \belowdisplayshortskip 7bp plus2bp minus2bp
+  \belowdisplayskip      8bp plus2bp minus2bp
 }
-\DeclareDocumentCommand \scriptsize {} {\@setfontsize\scriptsize\@viiipt{9.6}}
-\DeclareDocumentCommand \tiny  {} {\@setfontsize\tiny\@vipt{7.2}}
-\DeclareDocumentCommand \large {} {\@setfontsize\large{14}{16.8}}
-\DeclareDocumentCommand \Large {} {\@setfontsize\Large{16}{19.2}}
-\DeclareDocumentCommand \LARGE {} {\@setfontsize\LARGE{18}{21.6}}
-\DeclareDocumentCommand \huge  {} {\@setfontsize\huge{24}{28.8}}
-\DeclareDocumentCommand \Huge  {} {\@setfontsize\huge{30}{36}}
+\DeclareDocumentCommand \scriptsize {} {\@setfontsize\scriptsize{8bp}{9.6bp}}
+\DeclareDocumentCommand \tiny  {} {\@setfontsize\tiny{6bp}{7.2bp}}
+\DeclareDocumentCommand \large {} {\@setfontsize\large{14bp}{16.8bp}}
+\DeclareDocumentCommand \Large {} {\@setfontsize\Large{16bp}{19.2bp}}
+\DeclareDocumentCommand \LARGE {} {\@setfontsize\LARGE{18bp}{21.6bp}}
+\DeclareDocumentCommand \huge  {} {\@setfontsize\huge{24bp}{28.8bp}}
+\DeclareDocumentCommand \Huge  {} {\@setfontsize\huge{30bp}{36bp}}
 %%
 %% 载入宏包
 \RequirePackage {amsmath}
@@ -96,7 +83,7 @@
     \hbox_set:Nn \l_tmpa_box {\l_tmpa_tl}
     \skip_set:Nn \l_tmpa_skip {\box_wd:N \l_tmpa_box - \l__ctex_ccglue_skip}
     \hbox:n {
-      \makebox [0pt] [l] {\rule[-0.252em]{\l_tmpa_skip}{0.4pt}}
+      \makebox [0bp] [l] {\rule[-0.252em]{\l_tmpa_skip}{0.4bp}}
       \box_use:N \l_tmpa_box
     }
   \group_end:
@@ -104,7 +91,7 @@
 }
 \cs_new:Npn \__fixed_uline:nn #1#2 {
   \hbox:n {
-    \makebox [0pt] [l] {\rule[-0.252em]{#1}{0.4pt}}
+    \makebox [0bp] [l] {\rule[-0.252em]{#1}{0.4bp}}
     \makebox [#1] [c] {#2}
   }
 }
@@ -126,42 +113,42 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16pt},
+      aftername = \par\skip_vertical:n {16bp},
       tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
     },
     chapter = {
       format       = \heiti\bfseries\Large\centering,
       number       = \chinese{chapter},
-      beforeskip   = 8pt plus2pt minus4pt,
-      afterskip    = 18pt plus2pt minus2pt,
+      beforeskip   = 8bp plus2bp minus4bp,
+      afterskip    = 18bp plus2bp minus2bp,
       tocline      = \CTEXifname{\CTEXthechapter\hspace{.8em}}{}#2
     },
     section = {
       format     = \heiti\bfseries\large,
-      beforeskip = 15pt plus4pt minus4pt,
-      afterskip  = 6pt plus2pt minus2pt,
+      beforeskip = 15bp plus4bp minus4bp,
+      afterskip  = 6bp plus2bp minus2bp,
       tocline    = \CTEXthesection\hspace{.8em}#2
     },
     subsection = {
       format     = \heiti\bfseries,
-      beforeskip = 8pt plus2pt minus2pt,
-      afterskip  = 6pt plus1pt minus1pt,
+      beforeskip = 8bp plus2bp minus2bp,
+      afterskip  = 6bp plus1bp minus1bp,
       tocline    = \CTEXthesubsection\hspace{.8em}#2
     },
     subsubsection = {
       format     = \heiti\bfseries,
-      beforeskip = 8pt plus2pt minus2pt,
-      afterskip  = 6pt plus1pt minus1pt,
+      beforeskip = 8bp plus2bp minus2bp,
+      afterskip  = 6bp plus1bp minus1bp,
       tocline    = \CTEXthesubsubsection\hspace{.8em}#2
     },
     paragraph = {
       format     = \heiti\bfseries\indent,
-      beforeskip = 0pt plus2pt,
-      afterskip  = 0pt
+      beforeskip = 0bp plus2bp,
+      afterskip  = 0bp
     },
     subparagraph = {
       format     = \heiti\bfseries\indent,
-      beforeskip = 0pt plus2pt
+      beforeskip = 0bp plus2bp
     }
   }
 }
@@ -170,43 +157,43 @@
     part = {
       format    = \Large\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16pt},
+      aftername = \par\skip_vertical:n {16bp},
       tocline   = \CTEXifname{\CTEXthepart\hspace{1em}}{}#2
     },
     chapter = {
       format       = \large\centering,
       number       = \chinese{chapter},
       fixskip      = true,
-      beforeskip   = 8pt plus4pt,
-      afterskip    = 28pt plus4pt minus4pt,
+      beforeskip   = 8bp plus4bp,
+      afterskip    = 28bp plus4bp minus4bp,
       tocline      = \CTEXifname{\CTEXthechapter\hspace{1em}}{}#2
     },
     section = {
       format     = \large,
-      beforeskip = 15pt plus4pt minus4pt,
-      afterskip  = 6pt plus2pt minus2pt,
+      beforeskip = 15bp plus4bp minus4bp,
+      afterskip  = 6bp plus2bp minus2bp,
       tocline    = \CTEXthesection\hspace{1em}#2
     },
     subsection = {
       format     = \large,
-      beforeskip = 8pt plus2pt minus2pt,
-      afterskip  = 6pt plus1pt minus1pt,
+      beforeskip = 8bp plus2bp minus2bp,
+      afterskip  = 6bp plus1bp minus1bp,
       tocline    = \CTEXthesubsection\hspace{1em}#2
     },
     subsubsection = {
       format     = \large,
-      beforeskip = 8pt plus2pt minus2pt,
-      afterskip  = 6pt plus1pt minus1pt,
+      beforeskip = 8bp plus2bp minus2bp,
+      afterskip  = 6bp plus1bp minus1bp,
       tocline    = \CTEXthesubsubsection\hspace{1em}#2
     },
     paragraph = {
       format     = \indent,
-      beforeskip = 0pt plus2pt,
-      afterskip  = 0pt
+      beforeskip = 0bp plus2bp,
+      afterskip  = 0bp
     },
     subparagraph = {
       format     = \indent,
-      beforeskip = 0pt plus2pt
+      beforeskip = 0bp plus2bp
     }
   }
 }
@@ -474,9 +461,9 @@
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
   \geometry {
     papersize      = {210mm,297mm},
-    headheight     = 20pt,
-    headsep        = 20pt,
-    footskip       = 32pt,
+    headheight     = 20bp,
+    headsep        = 20bp,
+    footskip       = 32bp,
     top            = 32mm,
     bottom         = 38mm,
     left           = 36.7mm,
@@ -489,9 +476,9 @@
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
   \geometry {
     papersize      = {210mm,297mm},
-    headheight     = 20pt,
-    headsep        = 20pt,
-    footskip       = 32pt,
+    headheight     = 20bp,
+    headsep        = 20bp,
+    footskip       = 32bp,
     top            = 25.4mm,
     bottom         = 25.4mm,
     left           = 36.7mm,
@@ -530,19 +517,19 @@
     \fancyhf {}
     \chead {\fangsong\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \fancypagestyle {fancy} {
     \fancyhf {}
     \chead {\fangsong\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \fancypagestyle {@ajd@ps} {
     \fancyhf {}
     \chead {\fangsong\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \pagestyle{@ajd@ps}
 }
@@ -551,19 +538,19 @@
     \fancyhf {}
     \chead {\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \fancypagestyle {fancy} {
     \fancyhf {}
     \chead {\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \fancypagestyle {@ncu@ps} {
     \fancyhf {}
     \chead {\small\leftmark}
     \cfoot {\small\thepage}
-    \tl_set:Nn \headrulewidth {0.5pt}
+    \tl_set:Nn \headrulewidth {0.5bp}
   }
   \pagestyle{@ncu@ps}
 }
@@ -572,89 +559,97 @@
 \cftsetrmarg     {3em}
 \cftsetpnumwidth {2em}
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-  \tl_set:Nn   \cftpnumalign      {c}
+  \cftsetrmarg     {2.6em}
+  \cftsetpnumwidth {1.6em}
+  \tl_set:Nn \cftdot {$\cdot$}
+  \tl_set:Nn \cftdotsep {4}
+  \tl_set:Nn \cftpnumalign {c}
 %%
   \tl_set:Nn   \cftpartfont       {\heiti}
   \tl_set:Nn   \cftpartpagefont   {\normalfont\normalsize}
-  \skip_set:Nn \cftbeforepartskip {9pt plus4pt minus2pt}
+  \skip_set:Nn \cftbeforepartskip {9bp plus4bp minus2bp}
 %%
   \tl_set:Nn   \cftchapfont       {\heiti}
   \tl_set:Nn   \cftchappagefont   {\normalfont\normalsize}
-  \skip_set:Nn \cftbeforechapskip {4pt plus2pt minus1pt}
+  \skip_set:Nn \cftbeforechapskip {4bp plus2bp minus1bp}
 %%
   \skip_set:Nn \cftsecnumwidth    {1.5em}
-  \skip_set:Nn \cftbeforesecskip  {1.6pt plus.8pt minus.4pt}
+  \skip_set:Nn \cftbeforesecskip  {1.6bp plus.8bp minus.4bp}
 %%
   \tl_set:Nn   \cftsubsecfont       {\kaiti}
   \skip_set:Nn \cftsubsecindent     {3em}
   \skip_set:Nn \cftsubsecnumwidth   {1.5em}
-  \skip_set:Nn \cftbeforesubsecskip {0pt plus.8pt}
+  \skip_set:Nn \cftbeforesubsecskip {0bp plus.8bp}
 %%
   \tl_set:Nn   \cftsubsubsecfont       {\kaiti}
   \skip_set:Nn \cftsubsubsecindent     {4.5em}
   \skip_set:Nn \cftsubsubsecnumwidth   {1.5em}
-  \skip_set:Nn \cftbeforesubsubsecskip {0pt}
+  \skip_set:Nn \cftbeforesubsubsecskip {0bp}
 %%
   \tl_set:Nn   \cftparafont       {\kaiti}
   \skip_set:Nn \cftparaindent     {6em}
   \skip_set:Nn \cftparanumwidth   {1.5em}
-  \skip_set:Nn \cftbeforeparaskip {0pt}
+  \skip_set:Nn \cftbeforeparaskip {0bp}
 %%
   \tl_set:Nn   \cftsubparafont       {\kaiti}
   \skip_set:Nn \cftsubparaindent     {7.5em}
   \skip_set:Nn \cftsubparanumwidth   {1.5em}
-  \skip_set:Nn \cftbeforesubparaskip {0pt}
+  \skip_set:Nn \cftbeforesubparaskip {0bp}
 %%
-  \tl_set:Nn   \cftfigindent     {0pt}
+  \tl_set:Nn   \cftfigindent     {0bp}
   \skip_set:Nn \cftfignumwidth   {1.5em}
-  \skip_set:Nn \cftbeforefigskip {1.6pt plus.8pt}
+  \skip_set:Nn \cftbeforefigskip {1.6bp plus.8bp}
 %%
-  \tl_set:Nn   \cfttabindent     {0pt}
+  \tl_set:Nn   \cfttabindent     {0bp}
   \skip_set:Nn \cfttabnumwidth   {1.5em}
-  \skip_set:Nn \cftbeforetabskip {1.6pt plus.8pt}
+  \skip_set:Nn \cftbeforetabskip {1.6bp plus.8bp}
 }
 %%
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
-  \tl_set:Nn   \cftpnumalign      {c}
+  \cftsetrmarg     {2.6em}
+  \cftsetpnumwidth {1.6em}
+  \tl_set:Nn \cftdot {$\cdot$}
+  \tl_set:Nn \cftdotsep {0.5}
+  \tl_set:Nn \cftpnumalign {c}
 %%
   \tl_set:Nn   \cftpartfont       {\normalfont\normalsize}
   \tl_set:Nn   \cftpartleader     {\cftdotfill{\cftdotsep}}
   \tl_set:Nn   \cftpartpagefont   {\normalfont\normalsize}
-  \skip_set:Nn \cftbeforepartskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforepartskip {1bp plus1bp minus1bp}
 %%
   \tl_set:Nn   \cftchapfont       {\normalfont\normalsize}
   \tl_set:Nn   \cftchapleader     {\cftdotfill{\cftdotsep}}
   \tl_set:Nn   \cftchappagefont   {\normalfont\normalsize}
   \skip_set:Nn \cftchapnumwidth   {2em}
-  \skip_set:Nn \cftbeforechapskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforechapskip {1bp plus1bp minus1bp}
 %%
   \skip_set:Nn \cftsecindent     {1em}
   \skip_set:Nn \cftsecnumwidth   {2em}
-  \skip_set:Nn \cftbeforesecskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforesecskip {1bp plus1bp minus1bp}
 %%
   \skip_set:Nn \cftsubsecindent     {2em}
   \skip_set:Nn \cftsubsecnumwidth   {2em}
-  \skip_set:Nn \cftbeforesubsecskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforesubsecskip {1bp plus1bp minus1bp}
 %%
   \skip_set:Nn \cftsubsubsecindent     {3em}
   \skip_set:Nn \cftsubsubsecnumwidth   {2em}
-  \skip_set:Nn \cftbeforesubsubsecskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforesubsubsecskip {1bp plus1bp minus1bp}
 %%
   \skip_set:Nn \cftparaindent     {4em}
   \skip_set:Nn \cftparanumwidth   {2em}
-  \skip_set:Nn \cftbeforeparaskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforeparaskip {1bp plus1bp minus1bp}
 %%
   \skip_set:Nn \cftsubparaindent     {5em}
   \skip_set:Nn \cftsubparanumwidth   {2em}
-  \skip_set:Nn \cftbeforesubparaskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforesubparaskip {1bp plus1bp minus1bp}
 %%
-  \tl_set:Nn   \cftfigindent     {0pt}
+  \tl_set:Nn   \cftfigindent     {0bp}
   \skip_set:Nn \cftfignumwidth   {2em}
-  \skip_set:Nn \cftbeforefigskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforefigskip {1bp plus1bp minus1bp}
 %%
-  \tl_set:Nn   \cfttabindent     {0pt}
+  \tl_set:Nn   \cfttabindent     {0bp}
   \skip_set:Nn \cfttabnumwidth   {2em}
-  \skip_set:Nn \cftbeforetabskip {1pt plus1pt minus1pt}
+  \skip_set:Nn \cftbeforetabskip {1bp plus1bp minus1bp}
 }
 %%
 %% 重定义文档结构命令
@@ -675,12 +670,12 @@
 %%
 %% 列表设置
 \setlist {
-  topsep      = 2pt plus1pt minus1pt,
-  parsep      = 1pt,
-  partopsep   = 0pt,
-  itemsep     = 1pt,
+  topsep      = 2bp plus1bp minus1bp,
+  parsep      = 1bp,
+  partopsep   = 0bp,
+  itemsep     = 1bp,
   leftmargin  = 2\ccwd,
-  rightmargin = 0pt
+  rightmargin = 0bp
 }
 \setlist [itemize,1]   {label=\textbullet}
 \setlist [itemize,2]   {label=\normalfont\bfseries\textendash}
@@ -693,15 +688,15 @@
 \setlist [description] {font=\normalfont\heiti, labelsep=0.8em}
 %%
 %% 重设某些长度和比例以及图表设置
-\skip_set:Nn \lineskiplimit  {0pt}
-\skip_set:Nn \lineskip       {2pt}
-\skip_set:Nn \normallineskip {2pt}
+\skip_set:Nn \lineskiplimit  {0bp}
+\skip_set:Nn \lineskip       {2bp}
+\skip_set:Nn \normallineskip {2bp}
 \tl_set:Nn \topfraction    {.7}
 \tl_set:Nn \bottomfraction {.5}
 \tl_set:Nn \textfraction   {.14}
-\skip_set:Nn \floatsep     {17pt plus3pt minus2pt}
-\skip_set:Nn \textfloatsep {18pt plus5pt minus2pt}
-\skip_set:Nn \intextsep    {14pt plus4pt minus2pt}
+\skip_set:Nn \floatsep     {17bp plus3bp minus2bp}
+\skip_set:Nn \textfloatsep {18bp plus5bp minus2bp}
+\skip_set:Nn \intextsep    {14bp plus4bp minus2bp}
 \tl_set:Nn \thefigure {\ifnum\c@chapter>\z@ \thechapter-\fi\@arabic\c@figure}
 \tl_set:Nn \thetable  {\ifnum\c@chapter>\z@ \thechapter-\fi\@arabic\c@table}
 \DeclareCaptionFont {heiti} {\heiti}
@@ -711,16 +706,16 @@
     font          = small,
     justification = centerlast,
     margin        = 1\ccwd,
-    aboveskip     = 9pt,
-    belowskip     = -4pt
+    aboveskip     = 9bp,
+    belowskip     = -4bp
   }
   \captionsetup [table] {
     labelfont     = {small, heiti},
     font          = small,
     justification = centerlast,
     margin        = 1\ccwd,
-    belowskip     = -4.5pt,
-    aboveskip     = 8pt
+    belowskip     = -4.5bp,
+    aboveskip     = 8bp
   }
   \captionsetup [sub] {
     labelformat = simple,
@@ -730,15 +725,15 @@
     labelfont     = heiti,
     justification = centerlast,
     margin        = 1\ccwd,
-    aboveskip     = 6.5pt,
-    belowskip     = 4.5pt
+    aboveskip     = 6.5bp,
+    belowskip     = 4.5bp
   }
   \captionsetup [subtable] {
     labelfont     = heiti,
     justification = centerlast,
     margin        = 1\ccwd,
-    belowskip     = 4.5pt,
-    aboveskip     = 6.5pt
+    belowskip     = 4.5bp,
+    aboveskip     = 6.5bp
   }
 }
 %%
@@ -748,16 +743,16 @@
     labelsep      = quad,
     justification = centerlast,
     margin        = 1\ccwd,
-    aboveskip     = 9pt,
-    belowskip     = -4pt
+    aboveskip     = 9bp,
+    belowskip     = -4bp
   }
   \captionsetup [table] {
     font          = {small, bf},
     labelsep      = quad,
     justification = centerlast,
     margin        = 1\ccwd,
-    belowskip     = -4.5pt,
-    aboveskip     = 8pt
+    belowskip     = -4.5bp,
+    aboveskip     = 8bp
   }
   \captionsetup [sub] {
     labelformat = simple,
@@ -766,14 +761,14 @@
   \captionsetup [subfigure] {
     justification = centerlast,
     margin        = 1\ccwd,
-    aboveskip     = 6.5pt,
-    belowskip     = 4.5pt
+    aboveskip     = 6.5bp,
+    belowskip     = 4.5bp
   }
   \captionsetup [subtable] {
     justification = centerlast,
     margin        = 1\ccwd,
-    belowskip     = 4.5pt,
-    aboveskip     = 6.5pt
+    belowskip     = 4.5bp,
+    aboveskip     = 6.5bp
   }
 }
 \tl_set:Nn \thesubfigure {(\alph{subfigure})}
@@ -847,12 +842,12 @@
   footnote-num = circled
 }
 %%
-\skip_set:Nn \footnotesep {11pt}
+\skip_set:Nn \footnotesep {11bp}
 \tl_new:N  \l__ncu_footinsskip_tl
 \tl_set:Nn \l__ncu_footinsskip_tl {\skip\footins}
-\skip_set:Nn \l__ncu_footinsskip_tl {15pt plus3pt minus3pt}
+\skip_set:Nn \l__ncu_footinsskip_tl {15bp plus3bp minus3bp}
 \tl_set:Nn \footnoterule {
-  \kern-1pt\hrule height.5pt width.25\columnwidth\kern3pt
+  \kern-1bp\hrule height.5bp width.25\columnwidth\kern3bp
 }
 \tl_set:Nn \thefootnote {\ncu__fn_num:N \c@footnote}
 %%
@@ -864,12 +859,12 @@
   \RequirePackage [sort&compress] {gbt7714}
   \bibliographystyle {gbt7714-numerical}
   \tl_set:Nn \bibfont {\small}
-  \bibsep0pt plus1pt
+  \bibsep0bp plus1bp
 }
 \tl_if_eq:NNT \g__ncu_bib_tl \g__ncu_bib_biblatex_tl {
   \RequirePackage [backend=biber, style=gb7714-2015] {biblatex}
   \tl_set:Nn \bibfont {\small}
-  \bibitemsep0pt plus1pt
+  \bibitemsep0bp plus1bp
 }
 %%
 %% 索引设置
@@ -883,9 +878,9 @@
 \RenewDocumentEnvironment {verse} {} {
   \tl_set_eq:NN \\ \@centercr
   \list {} {
-    \topsep        2pt plus1pt
-    \itemsep       0pt
-    \parsep        2pt plus1pt
+    \topsep        2bp plus1bp
+    \itemsep       0bp
+    \parsep        2bp plus1bp
     \itemindent    -2\ccwd
     \listparindent \itemindent
     \leftmargin    4\ccwd
@@ -897,9 +892,9 @@
 }
 \RenewDocumentEnvironment {quotation} {o} {
   \list {} {
-    \topsep        2pt plus1pt
-    \itemsep       0pt
-    \parsep        2pt plus1pt
+    \topsep        2bp plus1bp
+    \itemsep       0bp
+    \parsep        2bp plus1bp
     \listparindent 2\ccwd
     \itemindent    \listparindent
     \leftmargin    2\ccwd
@@ -915,10 +910,10 @@
 }
 \RenewDocumentEnvironment {quote} {} {
   \list {} {
-    \topsep        2pt plus1pt
-    \itemsep       0pt
-    \parsep        2pt plus1pt
-    \listparindent 0pt
+    \topsep        2bp plus1bp
+    \itemsep       0bp
+    \parsep        2bp plus1bp
+    \listparindent 0bp
     \itemindent    \listparindent
     \leftmargin    2\ccwd
     \rightmargin   \leftmargin
@@ -995,21 +990,21 @@
 }
 \tl_set:Nn \l__cover_info_tl {
   \begin{minipage}{.8\textwidth}
-    \makebox [5\ccwd] [l] {学\hfill 院：}
+    \makebox [5\ccwd] [l] {学\hfill{}院：}
     \__fixed_uline:nn {8\ccwd} {\l__info_college_tl}
     \makebox [\ccwd]  [c] {系}
-    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[8pt]
-    \makebox [5\ccwd] [s] {专业班级：}
-    \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[8pt]
-    \makebox [5\ccwd] [s] {学生姓名：}
+    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[8bp]
+    \makebox [5\ccwd] [l] {专\hfill{}业\hfill{}班\hfill{}级：}
+    \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[8bp]
+    \makebox [5\ccwd] [l] {学\hfill{}生\hfill{}姓\hfill{}名：}
     \__fixed_uline:nn {7\ccwd} {\l__info_author_tl}
     \makebox [3\ccwd] [l] {学\hfill{号：}}
-    \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[8pt]
-    \makebox [5\ccwd] [s] {指导教师：}
+    \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[8bp]
+    \makebox [5\ccwd] [l] {指\hfill{}导\hfill{}教\hfill{}师：}
     \__fixed_uline:nn {7\ccwd} {\l__info_supervisor_tl}
     \makebox [3\ccwd] [l] {职\hfill{称：}}
-    \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[8pt]
-    \makebox [5\ccwd] [s] {起讫日期：}
+    \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[8bp]
+    \makebox [5\ccwd] [l] {起\hfill{}讫\hfill{}日\hfill{}期：}
     \__fixed_uline:nn {17\ccwd} {\l__info_startstopdate_tl}
   \end{minipage}
 }
@@ -1017,42 +1012,42 @@
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
   \RenewDocumentCommand \maketitle {} {
     \begin{titlepage}
-      \parindent0pt
+      \parindent0bp
       \heiti\large
       \group_begin:
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \skip_vertical:n {22pt plus7pt minus5pt}
+      \skip_vertical:n {22bp plus7bp minus5bp}
       \begin{center}
         \group_begin:
-          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5pt]
+          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5bp]
           \makebox [65.6mm] [c] {\bfseries\large\l__cover_logo_name_tl}
         \group_end:
-        \skip_vertical:n {22pt plus7pt minus5pt}
+        \skip_vertical:n {22bp plus7bp minus5bp}
         \group_begin:
           \bfseries\Huge
           \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.48em}}
         \group_end:
-        \skip_vertical:n {10pt plus2pt minus2pt}
+        \skip_vertical:n {10bp plus2bp minus2bp}
         \group_begin:
           \bfseries\l__cover_enname_tl
         \group_end:
-        \skip_vertical:n {6pt plus2pt minus2pt}
+        \skip_vertical:n {6bp plus2bp minus2bp}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \rmfamily\l__cover_date_tl
         \group_end:
-        \skip_vertical:n {30pt plus9pt minus9pt}
+        \skip_vertical:n {30bp plus9bp minus9bp}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.jpg}
         \group_end:
-        \skip_vertical:n {60pt plus10pt minus14pt}
+        \skip_vertical:n {60bp plus10bp minus14bp}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \skip_vertical:n {45pt plus10pt minus25pt}
+        \skip_vertical:n {45bp plus10bp minus25bp}
         \rmfamily
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
@@ -1065,42 +1060,42 @@
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
   \RenewDocumentCommand \maketitle {} {
     \begin{titlepage}
-      \parindent0pt
+      \parindent0bp
       \large
       \group_begin:
         \tl_set_eq:NN \\ \c_empty_tl
         \l__cover_secretlevel_tl
       \group_end:
-      \skip_vertical:n {10pt plus2pt minus2pt}
+      \skip_vertical:n {10bp plus2bp minus2bp}
       \begin{center}
         \group_begin:
-          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5pt]
+          \includegraphics[width=65.9mm]{./resources/logo-name.png}\\[-5bp]
           \makebox [65.6mm] [c] {\bfseries\large\l__cover_logo_name_tl}
         \group_end:
-        \skip_vertical:n {18pt plus2pt minus2pt}
+        \skip_vertical:n {18bp plus2bp minus2bp}
         \group_begin:
           \bfseries\Huge
           \tl_map_inline:Nn \l__cover_cnname_tl {##1\hspace{.48em}}
         \group_end:
-        \skip_vertical:n {10pt plus2pt minus2pt}
+        \skip_vertical:n {10bp plus2bp minus2bp}
         \group_begin:
           \bfseries\l__cover_enname_tl
         \group_end:
-        \skip_vertical:n {6pt plus2pt minus2pt}
+        \skip_vertical:n {6bp plus2bp minus2bp}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_date_tl
         \group_end:
-        \skip_vertical:n {34pt plus10pt minus10pt}
+        \skip_vertical:n {34bp plus10bp minus10bp}
         \group_begin:
           \includegraphics[width=33.3mm]{./resources/logo.jpg}
         \group_end:
-        \skip_vertical:n {63pt plus10pt minus13pt}
+        \skip_vertical:n {63bp plus10bp minus13bp}
         \group_begin:
           \Large
           \l__cover_cntitle_tl
         \group_end:
-        \skip_vertical:n {56pt plus10pt minus20pt}
+        \skip_vertical:n {56bp plus10bp minus20bp}
         \group_begin:
           \tl_set_eq:NN \\ \c_empty_tl
           \l__cover_info_tl
@@ -1116,15 +1111,15 @@
   \tl_new:N  \l__square_star_tl
   \tl_set:Nn \l__square_tl {
     \hbox:n {
-      \vrule height1.53ex width0.4pt
-      \skip_horizontal:n {-0.4pt}
+      \vrule height1.53ex width0.4bp
+      \skip_horizontal:n {-0.4bp}
       \vbox:n {
-        \hrule height0.4pt width1.53ex
-        \skip_vertical:n {1.53ex-0.8pt}
-        \hrule height0.4pt width1.53ex
+        \hrule height0.4bp width1.53ex
+        \skip_vertical:n {1.53ex-0.8bp}
+        \hrule height0.4bp width1.53ex
       }
-      \skip_horizontal:n {-0.4pt}
-      \vrule height1.53ex width0.4pt
+      \skip_horizontal:n {-0.4bp}
+      \vrule height1.53ex width0.4bp
     }
   }
   \tl_set:Nn \l__square_star_tl {
@@ -1136,44 +1131,44 @@
 %%
   \begin{titlepage}
     \linespread{1.5}\selectfont
-    \hrule height 0pt
+    \hrule height 0bp
     \par
     \group_begin:
       \bfseries\Large
       \centerline{南昌大学}
       \centerline{学士学位论文原创性申明}
     \group_end:
-    \skip_vertical:n {6pt}
+    \skip_vertical:n {6bp}
     \group_begin:
       本人郑重申明：所呈交的论文是本人在导师的指导下独立进行研究所取得的
       研究成果。除了文中特别加以标注引用的内容外，本论文不包含任何其他个
       人或集体已经发表或撰写的成果。对本文的研究作出重要贡献的个人和集体，
       均已在文中以明确方式表明。本人完全意识到本申明的法律后果由本人承担。
-      \skip_vertical:n {16pt}
+      \skip_vertical:n {16bp}
       作者签名：\hspace{11\ccwd}日期：
     \group_end:
-    \skip_vertical:n {72pt}
+    \skip_vertical:n {72bp}
     \group_begin:
       \bfseries\Large
       \centerline{学位论文版权使用授权书}
     \group_end:
-    \skip_vertical:n {6pt}
+    \skip_vertical:n {6bp}
     \group_begin:
       本学位论文作者完全了解学校有关保留、使用学位论文的规定，同意学校保
       留并向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和
       借阅。本人授权南昌大学可以将本论文的全部或部分内容编入有关数据库进
       行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
-      \skip_vertical:n {10pt}
+      \skip_vertical:n {10bp}
       本学位论文属于\hspace{1\ccwd}
       \begin{minipage}[c]{.6\textwidth}
         保密~\l__square_tl ，在\hspace{2\ccwd}年解密后适用本授权书。\\
         不保密~\l__square_tl 。
       \end{minipage}
-      \skip_vertical:n {10pt}
+      \skip_vertical:n {10bp}
       （请在以上相应方框内打“{\fontspec{XITS-Regular.otf}✓}”）
-      \skip_vertical:n {16pt}
+      \skip_vertical:n {16bp}
       作者签名：\hspace{11\ccwd}日期：
-      \skip_vertical:n {16pt}
+      \skip_vertical:n {16bp}
       导师签名：\hspace{11\ccwd}日期：
     \group_end:
   \end{titlepage}
@@ -1188,7 +1183,7 @@
     \seq_set_split:Nnn \l__cnkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt
+  \hrule height 0bp
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -1202,7 +1197,7 @@
       }
     \end{minipage}
   \group_end:
-  \skip_vertical:n {3pt plus1pt minus1pt}
+  \skip_vertical:n {3bp plus1bp minus1bp}
   \begin{center}
     \small
     \begin{tabular}{llll}
@@ -1214,7 +1209,7 @@
         {指\hfill{}导\hfill{}教\hfill{}师}：\l__info_supervisor_tl
     \end{tabular}
   \end{center}
-  \skip_vertical:n {3pt plus1pt minus1pt}
+  \skip_vertical:n {3bp plus1bp minus1bp}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1226,11 +1221,11 @@
     \addcontentsline{toc}{chapter}{摘要}
     \chaptermark{摘要}
   \group_end:
-  \par\skip_vertical:n {6pt plus2pt minus2pt}
+  \par\skip_vertical:n {6bp plus2bp minus2bp}
 } {
   \str_if_empty:NTF \l__cnkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\skip_vertical:n {12pt}\noindent{\heiti\l__cnkws_str}
+      \par\skip_vertical:n {12bp}\noindent{\heiti\l__cnkws_str}
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__cnkws_str}
@@ -1248,7 +1243,7 @@
     \seq_set_split:Nnn \l__enkws_seq {,} {##1}
   }
 %%
-  \hrule height 0pt
+  \hrule height 0bp
   \par
   \group_begin:
     \bfseries\LARGE\noindent
@@ -1262,7 +1257,7 @@
       }
     \end{minipage}
   \group_end:
-  \skip_vertical:n {16pt plus1pt minus1pt}
+  \skip_vertical:n {16bp plus1bp minus1bp}
   \group_begin:
     \large
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1274,11 +1269,11 @@
     \addcontentsline{toc}{chapter}{Abstract}
     \chaptermark{Abstract}
   \group_end:
-  \par\skip_vertical:n {6pt plus2pt minus2pt}
+  \par\skip_vertical:n {6bp plus2bp minus2bp}
 } {
   \str_if_empty:NTF \l__enkws_str {} {
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
-      \par\skip_vertical:n {12pt}\noindent\textbf{\l__enkws_str}\space
+      \par\skip_vertical:n {12bp}\noindent\textbf{\l__enkws_str}\space
     }
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \par\noindent\textbf{\l__enkws_str}\space
@@ -1293,7 +1288,7 @@
   \tl_new:N  \l__acks_tl
   \tl_set:Nn \l__acks_tl {致谢}
   \NewDocumentCommand \signoff {mm} {
-    \skip_vertical:n {12pt}
+    \skip_vertical:n {12bp}
     \rightline{##1}\par
     \rightline{##2}
   }
@@ -1317,10 +1312,10 @@
   thm-bodyfont     .tl_gset:N = \g__ncu_thm_bodyfont_tl
 }
 \keys_set:nn {ncu/style} {
-  thm-topsep      = 2pt plus1pt,
+  thm-topsep      = 2bp plus1bp,
   thm-indent      = 2\ccwd,
-  thm-leftmargin  = 0pt,
-  thm-rightmargin = 0pt,
+  thm-leftmargin  = 0bp,
+  thm-rightmargin = 0bp,
   thm-headfont    = \heiti,
   thm-leftjoin    = ：,
   thm-rightjoin   = {},

@@ -8,7 +8,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {newenv} {2024/02/26} {0.2} {New~envs~definitions}
+  {newenv} {2024/06/08} {0.2a} {New~envs~definitions}
 %%
 %% 定理类环境定义
 \NewDocumentCommand \newthm {mm} {
@@ -17,8 +17,8 @@
   \NewDocumentEnvironment {#1} {o} {
     \list {} {
       \topsep        \g__ncu_thm_topsep_skip
-      \itemsep       0pt
-      \parsep        0pt
+      \itemsep       0bp
+      \parsep        0bp
       \itemindent    \g__ncu_thm_indent_tl
       \listparindent \itemindent
       \leftmargin    \g__ncu_thm_leftmargin_dim
@@ -41,8 +41,8 @@
   \NewDocumentEnvironment {#1} {o} {
     \list {} {
       \topsep        \g__ncu_thm_topsep_skip
-      \itemsep       0pt
-      \parsep        0pt
+      \itemsep       0bp
+      \parsep        0bp
       \itemindent    \g__ncu_thm_indent_tl
       \listparindent \itemindent
       \leftmargin    \g__ncu_thm_leftmargin_dim
