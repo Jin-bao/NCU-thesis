@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {bachelor} {2025/01/17} {1.1c} {Bachelor~thesis~settings}
+  {bachelor} {2025/02/22} {1.1c} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
