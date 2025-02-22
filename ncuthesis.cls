@@ -17,9 +17,9 @@
 %%     *.def
 %%
 %%
-\NeedsTeXFormat {LaTeX2e} [1995/12/01]
+\NeedsTeXFormat {LaTeX2e}
 \ProvidesExplClass
-  {ncuthesis} {2024/06/08} {1.1b} {Nanchang~University~LaTeX~thesis~template}
+  {ncuthesis} {2025/02/22} {1.1c} {Nanchang~University~LaTeX~thesis~template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
