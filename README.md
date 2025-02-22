@@ -1,11 +1,11 @@
 # NCU-thesis
-<img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v1.1b-orange" alt="Author" /> <img src="https://img.shields.io/badge/repo%20size-about%20160K-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
+<img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v1.1c-orange" alt="Author" /> <img src="https://img.shields.io/badge/repo%20size-about%20160K-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
 
 适用于南昌大学学术型研究生、专业型研究生、本科生毕业（学位）论文撰写的模板。借助现代 LaTeX 技术，希望达到用户接口简明、内容格式规范和模板样式可定制的统一。
 
 本模板开发时所用操作系统是 Windows 11，TeX 发行版是 TeX Live 2024。只要 Tex 发行版是 TeX Live 2024/2023/2022，理论上都不会出现问题。强烈建议使用最新版本的 TeX 发行版，并更新到最新。
 
-在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf](https://github.com/Jin-bao/NCU-thesis/releases/download/v1.1b/NCU-thesis-guide.pdf)。
+在您使用 `NCU-thesis` 之前，请务必先阅读 [NCU-thesis-guide.pdf](https://github.com/Jin-bao/NCU-thesis/releases/download/v1.1c/NCU-thesis-guide.pdf)。
 
 ### 模板组成
 - 核心文档类：
