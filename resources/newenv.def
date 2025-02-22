@@ -3,12 +3,9 @@
 %% 为用户定制各种各样的环境
 %%
 %%
-%% 开启 l3 语法
-\ExplSyntaxOn
-%%
 %% 文件声明
 \ProvidesExplFile
-  {newenv} {2024/06/08} {0.2a} {New~envs~definitions}
+  {newenv} {2025/02/22} {0.2b} {New~envs~definitions}
 %%
 %% 定理类环境定义
 \NewDocumentCommand \newthm {mm} {
@@ -77,6 +74,6 @@
 \newnumlessthm {proof} {证明}
 %%
 %%
-\endinput
+\file_input_stop:
 %% `newenv.def' 文件结束
 %%

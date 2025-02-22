@@ -5,12 +5,9 @@
 %% 学术型研究生学位论文相关设置
 %%
 %%
-%% 开启 l3 语法
-\ExplSyntaxOn
-%%
 %% 文件声明
 \ProvidesExplFile
-  {academic} {2024/06/08} {1.1b} {Academic~degree~thesis~settings}
+  {academic} {2025/01/17} {1.1c} {Academic~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包并写死参数
 \LoadClass [
@@ -945,7 +942,9 @@
   defence-date     .tl_set:N = \l__info_defensedate_tl,
   tdc-chairman     .tl_set:N = \l__info_tdcchairman_tl,
   reviewer      .clist_set:N = \l__info_reviewer_tl,
-  completion-date  .tl_set:N = \l__info_completiondate_tl
+  completion-date  .tl_set:N = \l__info_completiondate_tl,
+  email            .tl_set:N = \l__info_email_tl,
+  decautremark     .tl_set:N = \l__info_decautremark_tl
 }
 \keys_set:nn {ncu/info} {
   CLC              = {},
@@ -963,7 +962,9 @@
   defence-date     = \__ncu_warning:nnn {no-info} {defense-date} {答辩日期},
   tdc-chairman     = {},
   reviewer         = {},
-  completion-date  = 年\hspace{1.5em}月\hspace{1.5em}日
+  completion-date  = {年\hspace{1.5em}月\hspace{1.5em}日},
+  email            = {},
+  decautremark     = {}
 }
 %%
 \RenewDocumentCommand \maketitle {} {
@@ -995,7 +996,7 @@
   \str_set:Nn \l__rvr_str {评阅人：}
   \tl_new:N   \l__star_tl
   \tl_set:Nn  \l__star_tl {
-    \space\raisebox{0.6bp}{\fontspec{XITS-Regular.otf}★}
+    \space\raisebox{0.6bp}{\fontspec{XITS-Regular.otf}\char"2605}
   }
 %%
   \begin{titlepage}
@@ -1034,16 +1035,12 @@
       \skip_vertical:n {41.8bp minus8bp}
       \group_begin:
         \bfseries\LARGE
-        \begin{minipage}{.8\columnwidth}
-          \centering\l__info_cntitle_tl
-        \end{minipage}
+        \parbox{.8\columnwidth}{\centering\l__info_cntitle_tl}
       \group_end:
       \skip_vertical:n {16bp}
       \group_begin:
         \bfseries\large
-        \begin{minipage}{.8\columnwidth}
-          \centering\l__info_entitle_tl
-        \end{minipage}
+        \parbox{.8\columnwidth}{\centering\l__info_entitle_tl}
       \group_end:
       \skip_vertical:n {32bp minus10bp}
       \group_begin:
@@ -1174,25 +1171,30 @@
   \skip_vertical:n {24bp minus4bp}
   \group_begin:
     \parindent0bp
-    \begin{tabularx}{\textwidth}{|c|X|c|p{6em}|c|p{7.8em}|}
+    \begin{tabularx}{\textwidth}{|c|X|c|p{6em}|c|p{7em}|}
       \hline
-      论文题目 & \multicolumn{5}{c|}{} \\
+      论文题目 & \multicolumn{5}{l|}{\l__info_cntitle_tl} \\
       \hline
-      姓名 && 学号 && 论文级别
-        & 硕士\l__square_tl\quad{博士}\l__square_tl \\
+      姓名 & \centering{\l__info_author_tl} & 学号 & \l__info_studentid_tl &
+      论文级别 & \tl_if_eq:NnTF \l__info_degree_tl {硕士}
+        {硕士\l__square_star_tl\quad{博士}\l__square_tl}
+        {硕士\l__square_tl\quad{博士}\l__square_star_tl} \\
       \hline
-      院/系/所 & \multicolumn{2}{c|}{} & \centering{专业}
-        & \multicolumn{2}{c|}{} \\
+      院/系/所 & \multicolumn{2}{c|}{\l__info_department_tl} &
+      \centering{专业} & \multicolumn{2}{c|}{\l__info_major_tl} \\
       \hline
-      E\c_underscore_str{mail} & \multicolumn{5}{c|}{} \\
+      E\c_underscore_str{mail} &
+      \multicolumn{5}{l|}{\l__info_email_tl} \\
       \hline
-      \multicolumn{6}{|l|}{备注：} \\
+      \multicolumn{6}{|l|}{备注：\l__info_decautremark_tl} \\
       \hline
     \end{tabularx}
-    \skip_vertical:n {8bp minus2bp}\mode_leave_vertical:
     \nopagebreak
+    \skip_vertical:n {8bp minus2bp}
     \makebox [\textwidth] [l] {
-      \l__square_tl{公开} \hfill \l__square_tl{保密}
+      \bool_if:NTF \l__info_sll_star_bool
+        {\l__square_star_tl{公开}\hfill\l__square_tl{保密}}
+        {\l__square_tl{公开}\hfill\l__square_star_tl{保密}}
       （向校学位办申请获批准为“保密”，
       \__fixed_uline:nn{2.5\ccwd}{}年
       \__fixed_uline:nn{1.4\ccwd}{}月后公开）

@@ -3,12 +3,9 @@
 %% 为用户定制各种各样的命令
 %%
 %%
-%% 开启 l3 语法
-\ExplSyntaxOn
-%%
 %% 文件声明
 \ProvidesExplFile
-  {newcmd} {2024/06/08} {0.2a} {New~cmds~definitions}
+  {newcmd} {2025/02/22} {0.2b} {New~cmds~definitions}
 %%
 %% 类似于 \qedhere 效果的 \freeze
 \tl_new:N  \l__ncu_freeze_tl
@@ -46,8 +43,13 @@
     \fi:
   }
 }
+\NewDocumentCommand \lr {mmm} {
+  \tl_if_eq:enT {#1} {.} {\kern-\nulldelimiterspace}
+  \mathopen{} \mathclose{\left#1#3\right#2}
+  \tl_if_eq:enT {#2} {.} {\kern-\nulldelimiterspace}
+}
 %%
 %%
-\endinput
+\file_input_stop:
 %% `newcmd.def' 文件结束
 %%

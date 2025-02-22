@@ -5,11 +5,9 @@
 %% 本科生毕业论文相关设置
 %%
 %%
-%% 开启 l3 语法
-\ExplSyntaxOn
-%%
+%% 文件声明
 \ProvidesExplFile
-  {bachelor} {2024/06/08} {1.1b} {Bachelor~thesis~settings}
+  {bachelor} {2025/01/17} {1.1c} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -981,10 +979,7 @@
   \makebox [3\ccwd] [s] {题\hfil{目}}
   \__cn_uline:n {
     \makebox [1em] [l] {}
-    \begin{minipage}[b]{.77\textwidth}
-      \centering
-      \l__info_cntitle_tl
-    \end{minipage}
+    \parbox[b]{.77\textwidth}{\centering\l__info_cntitle_tl}
     \makebox [1em] [l] {}
   }
 }
@@ -1125,7 +1120,7 @@
   \tl_set:Nn \l__square_star_tl {
     \group_begin:
       \fontspec {XITS-Regular.otf}
-      \rlap{✓}\l__square_tl
+      \rlap{\char"2713}\l__square_tl
     \group_end:
   }
 %%
@@ -1160,12 +1155,12 @@
       行检索，可以采用影印、缩印或扫描等复制手段保存和汇编本学位论文。
       \skip_vertical:n {10bp}
       本学位论文属于\hspace{1\ccwd}
-      \begin{minipage}[c]{.6\textwidth}
+      \parbox [c] {.6\textwidth} {
         保密~\l__square_tl ，在\hspace{2\ccwd}年解密后适用本授权书。\\
         不保密~\l__square_tl 。
-      \end{minipage}
+      }
       \skip_vertical:n {10bp}
-      （请在以上相应方框内打“{\fontspec{XITS-Regular.otf}✓}”）
+      （请在以上相应方框内打“{\fontspec{XITS-Regular.otf}\char"2713}”）
       \skip_vertical:n {16bp}
       作者签名：\hspace{11\ccwd}日期：
       \skip_vertical:n {16bp}
@@ -1326,6 +1321,6 @@
 \bool_if:NT \g__ncu_newcmd_bool {\input{./resources/newcmd.def}}
 %%
 %%
-\endinput
+\file_input_stop:
 %% `bachelor.clo' 文件结束
 %%
