@@ -2,7 +2,9 @@
 %% File encoding: UTF-8
 %% 这是 `main.tex' 文件
 %%
+%%
 \documentclass[draft,newenv,newcmd]{ncuthesis}
+%%
 %%
 \ncusetup{
   info = {
@@ -23,34 +25,47 @@
     reviewer        = {评阅人 1, 评阅人 2},
     completion-date = {2022 年 12 月 31 日},
     email           = {yyyyyyhdd@outlook.com},
-    decautremark    = {这里填备注}
+    decautremark    = {}
   }
 }
 %%
+%% 其他设置
+% \usepackage{hyperref}
+%%
+%% 文档开始
 \begin{document}
+%%
+%% 封面
 \maketitle
 %%
+%% 前文
 \frontmatter
 %%
+%% 声明和授权书
 \makedecaut
 %%
+%% 中文摘要
 \begin{abstract}
-这是摘要内容. 
+这里写摘要.
 \keywords{关键词 1, 关键词 2, 关键词 3}
 \end{abstract}
 %%
+%% 英文摘要
 \begin{abstract*}
 This is abstract.
 \keywords{kw1, kw2, kw3}
 \end{abstract*}
 %%
+%% 目录
 \tableofcontents
 %%
+%% 正文
 \mainmatter
+%%
 %%
 \chapter{引言}
 \section{历史}
-我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献.\footnote{这是脚注测试.}
+我们知道 lshort\cite{lshortcn} 是入门 \LaTeX 的必读文献.\footnote{脚注.}
 
 \begin{theorem}
 若满足条件
@@ -66,23 +81,29 @@ This is abstract.
 即得易见平凡, 仿照上例显然. 留作习题答案略, 读者自证不难. 
 反之亦然同理, 推论自然成立. 略去过程 QED, 由上可知证毕. \freeze
 \end{proof}
+%%
+%% 附录
 \appendix
 \chapter{公式推导}
-\section{Einstein 场方程}
-%% 推导过程
+\section{场方程}
+附录内容.
 %%
+%% 后文
 \backmatter
 %%
+%% 参考文献
 \bibliography{references.bib}
 %%
+%% 致谢
 \begin{acknowledgements}
 感谢……
 \signoff{朱金宝}{2022 年 12 月 31 日}
 \end{acknowledgements}
 %%
+%% 研究成果
 \begin{researchresults}
 \begin{published}
-\item OETIKER T, PARTL H, HYNA I, et al. 一份 (不太) 简短的
+\item Oetiker T, Partl H, Hyna I, et al. 一份 (不太) 简短的
 \LaTeXe\ 介绍 [EB/OL]. 2021.
 \end{published}
 \begin{tobepublished}
@@ -92,7 +113,7 @@ This is abstract.
 \begin{reports}
 \item 研究报告
 \end{reports}
-\begin{others}[另外还有] % 标题作为可选参数
+\begin{others}[另外还有]
 \item 其他的内容
 \end{others}
 不论如何, 还可以在 \textsf{researchresults} 环境内使用
