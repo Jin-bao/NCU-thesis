@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {academic} {2025/02/22} {1.1c} {Academic~degree~thesis~settings}
+  {academic} {2025/03/02} {1.1d} {Academic~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包并写死参数
 \LoadClass [
@@ -16,7 +16,7 @@
   oneside,
   onecolumn,
   openany,
-  fontset    = none,
+  fontset = none,
   linespread = 1,
   sub3section
 ] {ctexbook}
@@ -82,7 +82,7 @@
     \hbox_set:Nn \l_tmpa_box {\l_tmpa_tl}
     \skip_set:Nn \l_tmpa_skip {\box_wd:N \l_tmpa_box - \l__ctex_ccglue_skip}
     \hbox:n {
-      \makebox [0bp] [l] {\rule[-0.252em]{\l_tmpa_skip}{0.4bp}}
+      \makebox [0bp] [l] {\rule[-0.15\baselineskip]{\l_tmpa_skip}{0.4bp}}
       \box_use:N \l_tmpa_box
     }
   \group_end:
@@ -90,7 +90,7 @@
 }
 \cs_new:Npn \__fixed_uline:nn #1#2 {
   \hbox:n {
-    \makebox [0bp] [l] {\rule[-0.252em]{#1}{0.4bp}}
+    \makebox [0bp] [l] {\rule[-0.15\baselineskip]{#1}{0.4bp}}
     \makebox [#1] [c] {#2}
   }
 }
@@ -249,7 +249,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
-    PunctuationSpace = 4
+    PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
 }
@@ -271,7 +271,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
-    PunctuationSpace = 4
+    PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
 }
@@ -298,7 +298,7 @@
     BoldFont         = *-Bold,
     ItalicFont       = *-BookItalic,
     BoldItalicFont   = *-BoldOblique,
-    PunctuationSpace = 4
+    PunctuationSpace = 0
   ] {NewCMMono10}
   \ncu__load_mathfont_NCMMath:
 }
@@ -927,7 +927,7 @@
     \tl_set:Nn \l__info_secretlevel_tl {#1}
   },
   secret-level*    .code:n   = {
-    \bool_set_true:N  \l__info_sll_star_bool
+    \bool_set_true:N \l__info_sll_star_bool
     \tl_set:Nn \l__info_secretlevel_tl {#1}
   },
   studentid        .tl_set:N = \l__info_studentid_tl,
@@ -936,12 +936,12 @@
   title*           .tl_set:N = \l__info_entitle_tl,
   author           .tl_set:N = \l__info_author_tl,
   department       .tl_set:N = \l__info_department_tl,
-  supervisor    .clist_set:N = \l__info_supervisor_tl,
+  supervisor    .clist_set:N = \l__info_supervisor_clist,
   degree-type      .tl_set:N = \l__info_degreetype_tl,
   field            .tl_set:N = \l__info_field_tl,
   defence-date     .tl_set:N = \l__info_defensedate_tl,
   tdc-chairman     .tl_set:N = \l__info_tdcchairman_tl,
-  reviewer      .clist_set:N = \l__info_reviewer_tl,
+  reviewer      .clist_set:N = \l__info_reviewer_clist,
   completion-date  .tl_set:N = \l__info_completiondate_tl,
   email            .tl_set:N = \l__info_email_tl,
   decautremark     .tl_set:N = \l__info_decautremark_tl
@@ -994,10 +994,6 @@
   \str_new:N  \l__rvr_str
   \str_set:Nn \l__dcc_str {答辩委员会主席：}
   \str_set:Nn \l__rvr_str {评阅人：}
-  \tl_new:N   \l__star_tl
-  \tl_set:Nn  \l__star_tl {
-    \space\raisebox{0.6bp}{\fontspec{XITS-Regular.otf}\char"2605}
-  }
 %%
   \begin{titlepage}
     \parindent0bp
@@ -1007,12 +1003,8 @@
       \makebox [.38\columnwidth] [l]
         {\hbox_to_wd:nn {3\ccwd} {\l__clc_tl}：\l__info_CLC_tl}
       \hfill
-      \makebox [.38\columnwidth] [l] {
-        \hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：
-        \bool_if:NTF \l__info_sll_star_bool
-          {\l__info_secretlevel_tl}
-          {保密\l__star_tl\l__info_secretlevel_tl 年}
-      }
+      \makebox [.38\columnwidth] [l]
+        {\hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：\l__info_secretlevel_tl}
       \par
       \makebox [.38\columnwidth] [l]
         {\hbox_to_wd:nn {3\ccwd} {\l__udc_tl}：\l__info_UDC_tl}
@@ -1060,10 +1052,10 @@
       \hbox:n {\l__info_department_tl}
       \skip_vertical:n {3bp}
       \str_map_inline:Nn \l__spv_str {\makebox [\ccwd] [l] {##1}}
-      \hbox:n {\clist_item:Nn \l__info_supervisor_tl {1}}
+      \hbox:n {\clist_item:Nn \l__info_supervisor_clist {1}}
       \skip_vertical:n {3bp}
       \str_map_inline:Nn \l__spv_str {\makebox [\ccwd] [l] {##1}}
-      \hbox:n {\clist_item:Nn \l__info_supervisor_tl {2}}
+      \hbox:n {\clist_item:Nn \l__info_supervisor_clist {2}}
       \skip_vertical:n {3bp}
       \str_map_inline:Nn \l__dgt_str {\makebox [\ccwd] [l] {##1}}
       \hbox:n {\l__info_degreetype_tl}
@@ -1082,12 +1074,12 @@
       }
       \skip_vertical:n {6bp}
       \rightline{
-        \str_map_inline:Nn \l__rvr_str {##1\hspace{.08em}}
-        \__fixed_uline:nn {7\ccwd} {\clist_item:Nn \l__info_reviewer_tl {1}}
+        \str_map_inline:Nn \l__rvr_str {\makebox [\ccwd] [l] {##1}}
+        \__fixed_uline:nn {7\ccwd} {\clist_item:Nn \l__info_reviewer_clist {1}}
       }
       \skip_vertical:n {6bp}
       \rightline{
-        \__fixed_uline:nn {7\ccwd} {\clist_item:Nn \l__info_reviewer_tl {2}}
+        \__fixed_uline:nn {7\ccwd} {\clist_item:Nn \l__info_reviewer_clist {2}}
       }
     \endgroup
     \vfill
@@ -1136,13 +1128,13 @@
   \tl_set:Nn \l__square_star_tl {
     \group_begin:
       \fontspec {XITS-Regular.otf}
-      \rlap{✓}\l__square_tl
+      \rlap{\char"2713}\l__square_tl
     \group_end:
   }
   \tl_set:Nn \l__asi_tl {学位论文作者签名（手写）：}
   \tl_set:Nn \l__ssi_tl {导师签名（手写）：}
   \tl_set:Nn \l__sdt_tl {
-    签字日期：\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
+    签字日期：\hbox:n{}\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
   }
   \skip_new:N  \l__mbl_skip
   \skip_set:Nn \l__mbl_skip {.45\columnwidth}
@@ -1174,22 +1166,34 @@
   \skip_vertical:n {24bp minus4bp}
   \group_begin:
     \parindent0bp
-    \begin{tabularx}{\textwidth}{|c|X|c|p{6em}|c|p{7em}|}
+    \nointerlineskip
+    \begin{tabularx}{\textwidth}{|c|X|c|c|c|m{6.7em}|}
       \hline
-      论文题目 & \multicolumn{5}{l|}{\l__info_cntitle_tl} \\
+      论文题目 & \multicolumn{5}{m{25\ccwd}!{\hfill}|}{
+        \raggedright\baselineskip\f@size bp
+        \l__info_cntitle_tl
+      } \\
       \hline
-      姓名 & \centering{\l__info_author_tl} & 学号 & \l__info_studentid_tl &
+      姓名 & \centering\l__info_author_tl & 学号 & \l__info_studentid_tl &
       论文级别 & \tl_if_eq:NnTF \l__info_degree_tl {硕士}
-        {硕士\l__square_star_tl\quad{博士}\l__square_tl}
-        {硕士\l__square_tl\quad{博士}\l__square_star_tl} \\
+        {硕士\l__square_star_tl\skip_horizontal:n{0.8em}{博士}\l__square_tl}
+        {硕士\l__square_tl\skip_horizontal:n{0.8em}{博士}\l__square_star_tl} \\
       \hline
-      院/系/所 & \multicolumn{2}{c|}{\l__info_department_tl} &
-      \centering{专业} & \multicolumn{2}{c|}{\l__info_field_tl} \\
+      院/系/所 & \multicolumn{2}{!{\hfill}m{7\ccwd}!{\hfill}|}{
+        \centering\baselineskip\f@size bp
+        \l__info_department_tl
+      } & 专业 & \multicolumn{2}{!{\hfill}m{10\ccwd}!{\hfill}|}{
+        \centering\baselineskip\f@size bp
+        \l__info_field_tl
+      } \\
       \hline
       E\c_underscore_str{mail} &
       \multicolumn{5}{l|}{\l__info_email_tl} \\
       \hline
-      \multicolumn{6}{|l|}{备注：\l__info_decautremark_tl} \\
+      \multicolumn{6}{|p{30\ccwd}|}{
+        \baselineskip\f@size bp
+        备注：\l__info_decautremark_tl
+      } \\
       \hline
     \end{tabularx}
     \nopagebreak
