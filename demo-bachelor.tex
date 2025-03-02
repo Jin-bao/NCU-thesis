@@ -2,14 +2,8 @@
 %% File encoding: UTF-8
 %% 这是 `demo-bachelor.tex' 文件
 %%
-\documentclass[bachelor,format=ncu,newenv]{ncuthesis}
-%%
+\documentclass[bachelor,ncu,newenv]{ncuthesis}
 \ncusetup{
-  % style = {
-  %   footnote-num = circled,
-  %   font         = times,
-  %   cjk-font     = windows
-  % },
   info = {
     secret-level     = {公开},
     studentid        = {402200220047},
@@ -27,31 +21,23 @@
     start-stop-date  = {2023 年 9 月—2027 年 6 月}
   }
 }
-%%
-% \usepackage{hyperref}
-%%
 \begin{document}
 \maketitle
-%%
 \frontmatter
 \makedecaut
-%%
 \begin{abstract}
-这是摘要内容。
+这里写摘要。
 \keywords{关键词 1, 关键词 2, 关键词 3}
 \end{abstract}
 \begin{abstract*}
 This is abstract.
 \keywords{kw1, kw2, kw3}
 \end{abstract*}
-%%
 \tableofcontents
-%%
 \mainmatter
 \chapter{引言}
 \section{历史}
-我们知道 lshort\cite{lshortcn} 是入门 \LaTeX\ 的必读文献。\footnote{test}
-
+我们知道 lshort\cite{lshortcn} 是入门 \LaTeX 的必读文献。\footnote{脚注。}
 \begin{figure}[htb]
 \centering
 \begin{subfigure}{.45\textwidth}
@@ -75,21 +61,19 @@ This is abstract.
 \caption{子图排版示例}
 \label{fig:subfig}
 \end{figure}
-
 \begin{law}[黑洞面积定律]
 黑洞事件视界的面积不可能随着时间的推移而减小。
 \end{law}
 \begin{proof}
-即得易见平凡，仿照上例显然。留作习题答案略，读者自证不难。反之亦然同理，推论自然成立。略去过程 QED，由上可知证毕。
+即得易见平凡，仿照上例显然。留作习题答案略，读者自证不难。
+反之亦然同理，推论自然成立。略去过程 QED，由上可知证毕。
 \end{proof}
 \appendix
 \chapter{公式推导}
-\section{Einstein 场方程}
-%% 推导过程
-%%
+\section{场方程}
+附录内容。
 \backmatter
 \bibliography{references.bib}
-%%
 \begin{acknowledgements}
 感谢……
 \signoff{朱金宝}{2022 年 12 月 31 日}
