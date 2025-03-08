@@ -994,6 +994,10 @@
   \str_new:N  \l__rvr_str
   \str_set:Nn \l__dcc_str {答辩委员会主席：}
   \str_set:Nn \l__rvr_str {评阅人：}
+  \tl_new:N   \l__star_tl
+  \tl_set:Nn  \l__star_tl {
+    \space\raisebox{0.6bp}{\fontspec{XITS-Regular.otf}\char"2605}
+  }
 %%
   \begin{titlepage}
     \parindent0bp
@@ -1003,8 +1007,12 @@
       \makebox [.38\columnwidth] [l]
         {\hbox_to_wd:nn {3\ccwd} {\l__clc_tl}：\l__info_CLC_tl}
       \hfill
-      \makebox [.38\columnwidth] [l]
-        {\hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：\l__info_secretlevel_tl}
+      \makebox [.38\columnwidth] [l] {
+        \hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：
+        \bool_if:NTF \l__info_sll_star_bool
+          {\l__info_secretlevel_tl}
+          {保密\l__star_tl\l__info_secretlevel_tl 年}
+      }
       \par
       \makebox [.38\columnwidth] [l]
         {\hbox_to_wd:nn {3\ccwd} {\l__udc_tl}：\l__info_UDC_tl}
