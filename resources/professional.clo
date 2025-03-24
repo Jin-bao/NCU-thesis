@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {academic} {2025/03/08} {1.1d} {Academic~degree~thesis~settings}
+  {academic} {2025/03/24} {1.1e} {Academic~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包并写死参数
 \LoadClass [
@@ -78,8 +78,7 @@
 \cs_new:Npn \__cn_uline:n #1 {
   \skip_horizontal:N \l__ctex_ccglue_skip
   \group_begin:
-    \tl_set:Nn \l_tmpa_tl {#1}
-    \hbox_set:Nn \l_tmpa_box {\l_tmpa_tl}
+    \hbox_set:Nn \l_tmpa_box {#1}
     \skip_set:Nn \l_tmpa_skip {\box_wd:N \l_tmpa_box - \l__ctex_ccglue_skip}
     \hbox:n {
       \makebox [0bp] [l] {\rule[-0.15\baselineskip]{\l_tmpa_skip}{0.4bp}}
@@ -112,7 +111,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16bp},
+      aftername = \par\vskip16bp,
       tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
     },
     chapter = {
@@ -156,7 +155,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16bp},
+      aftername = \par\vskip16bp,
       tocline   = \CTEXifname{\CTEXthepart\hspace{1em}}{}#2
     },
     chapter = {
@@ -241,6 +240,7 @@
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
+    Scale            = 0.9,
     PunctuationSpace = 4
   ] {FiraSans}
   \setmonofont [
@@ -249,6 +249,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
+    Scale            = 0.9,
     PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
@@ -263,6 +264,7 @@
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
+    Scale            = 0.9,
     PunctuationSpace = 4
   ] {FiraSans}
   \setmonofont [
@@ -271,6 +273,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
+    Scale            = 0.9,
     PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
@@ -418,7 +421,16 @@
     \__ncu_warning:nx
       {unknown-style-value}
       {cjk-font=\g__ncu_cjkfont_scheme_tl}
-  },
+  }
+}
+%%
+\cs_new:Nn \ncu__punct_spacing: {
+  \sfcode`\.3000
+  \sfcode`\?3000
+  \sfcode`\!3000
+  \sfcode`\;2750
+  \sfcode`\:2500
+  \sfcode`\,2250
 }
 %% 加载字体
 \BeforeBeginEnvironment {document} {
@@ -432,30 +444,31 @@
   } {
     \ncu__load_cjkfont:
   }
-}
-%% 字符间距微调
-\cs_new:Nn \ncu__punct_spacing: {
-  \sfcode`\.3000
-  \sfcode`\?3000
-  \sfcode`\!3000
-  \sfcode`\;2750
-  \sfcode`\:2500
-  \sfcode`\,2250
-}
-\BeforeBeginEnvironment {document} {
   \tl_if_eq:NnTF \g__ncu_cjkfont_tl {windows} {\ziju{0.04}} {\ziju{0.08}}
   \ncu__punct_spacing:
 }
 %% 符号调整
+\bool_new:N \g__ncu_rssyms_bool
+\keys_define:nn {ncu/style} {
+  reshapesymbols .choice:,
+  reshapesymbols/true .code:n  = {\bool_gset_true:N  \g__ncu_rssyms_bool},
+  reshapesymbols/false .code:n = {\bool_gset_false:N \g__ncu_rssyms_bool},
+  reshapesymbols .default:n = true,
+  reshapesymbols .initial:n = true,
+  reshapesymbols/unknown .code:n = {
+    \bool_gset_true:N \g__ncu_rssyms_bool
+    \__ncu_warning:nn {unknown-option-value} {reshapesymbols=true}
+  }
+}
 \AtBeginDocument {
-  \tl_set_eq:NN \nabla \mbfnabla
-  \tl_set_eq:NN \muppi \uppi
-  \tl_set:Nx    \pi    \uppi
-  \tl_set_eq:NN \itpi  \mitpi
-  \tl_set_eq:NN \leq   \leqslant
-  \tl_set_eq:NN \geq   \geqslant
-  \DeclareDocumentCommand \Re {} {\mathop{\symup{Re}}\nolimits}
-  \DeclareDocumentCommand \Im {} {\mathop{\symup{Im}}\nolimits}
+  \bool_if:NT \g__ncu_rssyms_bool {
+    \tl_set_eq:NN \nabla \mbfnabla
+    \tl_set:Nx    \pi    {\symup{\muppi}}
+    \tl_set_eq:NN \leq   \leqslant
+    \tl_set_eq:NN \geq   \geqslant
+    \DeclareDocumentCommand \Re {} {\mathop{\symup{Re}}\nolimits}
+    \DeclareDocumentCommand \Im {} {\mathop{\symup{Im}}\nolimits}
+  }
 }
 %%
 %% 页面布局
@@ -496,18 +509,18 @@
 %% 版式设置
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
   \cs_set:Npn \chaptermark #1 {
-    \markboth{\CTEXifname{\CTEXthechapter\hspace{.8em}}{}#1}{}
+    \markboth {\CTEXifname{\CTEXthechapter\hspace{.8em}}{}#1} {}
   }
   \cs_set:Npn \sectionmark #1 {
-    \markright{\CTEXthesection\hspace{.8em}#1}
+    \markright {\CTEXthesection\hspace{.8em}#1}
   }
 }
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
   \cs_set:Npn \chaptermark #1 {
-    \markboth{\CTEXifname{\CTEXthechapter\hspace{1em}}{}#1}{}
+    \markboth {\CTEXifname{\CTEXthechapter\hspace{1em}}{}#1} {}
   }
   \cs_set:Npn \sectionmark #1 {
-    \markright{\CTEXthesection\hspace{1em}#1}
+    \markright {\CTEXthesection\hspace{1em}#1}
   }
 }
 %%
@@ -972,10 +985,10 @@
   \tl_new:N   \l__sll_tl
   \tl_new:N   \l__udc_tl
   \tl_new:N   \l__sid_tl
-  \tl_set:Nn  \l__clc_tl {分\hss{}类\hss{}号}
-  \tl_set:Nn  \l__sll_tl {密\hss{}级}
-  \tl_set:Nn  \l__udc_tl {U\hss{}D\hss{}C\skip_horizontal:n {1bp}}
-  \tl_set:Nn  \l__sid_tl {学\hss{}号}
+  \tl_set:Nn  \l__clc_tl {分\hss{}类\hss{}号\makebox[1em][l]{：}}
+  \tl_set:Nn  \l__sll_tl {密\hss{}级\makebox[1em][l]{：}}
+  \tl_set:Nn  \l__udc_tl {U\hss{}D\hss{}C\hskip1bp\makebox[1em][l]{：}}
+  \tl_set:Nn  \l__sid_tl {学\hss{}号\makebox[1em][l]{：}}
   \tl_new:N   \l__cti_tl
   \tl_new:N   \l__ctii_tl
   \tl_set:Nx  \l__cti_tl {南昌大学专业学位\l__info_degree_tl 研究生}
@@ -1005,20 +1018,20 @@
     \group_begin:
       \tl_set_eq:NN \\ \c_empty_tl
       \makebox [.38\columnwidth] [l]
-        {\hbox_to_wd:nn {3\ccwd} {\l__clc_tl}：\l__info_CLC_tl}
+        {\hbox_to_wd:nn {3.9\ccwd} {\l__clc_tl}\l__info_CLC_tl}
       \hfill
       \makebox [.38\columnwidth] [l] {
-        \hbox_to_wd:nn {2\ccwd} {\l__sll_tl}：
+        \hbox_to_wd:nn {2.9\ccwd} {\l__sll_tl}
         \bool_if:NTF \l__info_sll_star_bool
           {\l__info_secretlevel_tl}
           {保密\l__star_tl\l__info_secretlevel_tl 年}
       }
       \par
       \makebox [.38\columnwidth] [l]
-        {\hbox_to_wd:nn {3\ccwd} {\l__udc_tl}：\l__info_UDC_tl}
+        {\hbox_to_wd:nn {3.9\ccwd} {\l__udc_tl}\l__info_UDC_tl}
       \hfill
       \makebox [.38\columnwidth] [l]
-        {\hbox_to_wd:nn {2\ccwd} {\l__sid_tl}：\l__info_studentid_tl}
+        {\hbox_to_wd:nn {2.9\ccwd} {\l__sid_tl}\l__info_studentid_tl}
     \group_end:
     \skip_vertical:n {32bp minus6bp}
     \begin{center}
@@ -1175,23 +1188,27 @@
   \group_begin:
     \parindent0bp
     \nointerlineskip
-    \begin{tabularx}{\textwidth}{|c|X|c|c|c|m{6.7em}|}
+    \begin{tabularx}{\textwidth}{|c|X|c|c|c|l|}
       \hline
       论文题目 & \multicolumn{5}{m{25\ccwd}!{\hfill}|}{
-        \raggedright\baselineskip\f@size bp
+        \raggedright\baselineskip0.7\baselineskip
         \l__info_cntitle_tl
       } \\
       \hline
       姓名 & \centering\l__info_author_tl & 学号 & \l__info_studentid_tl &
-      论文级别 & \tl_if_eq:NnTF \l__info_degree_tl {硕士}
-        {硕士\l__square_star_tl\skip_horizontal:n{0.8em}{博士}\l__square_tl}
-        {硕士\l__square_tl\skip_horizontal:n{0.8em}{博士}\l__square_star_tl} \\
+      论文级别 & \tl_if_eq:NnTF \l__info_degree_tl {硕士} {
+        硕士\l__square_star_tl\hspace{0.8em}
+        博士\l__square_tl\hspace{0.4em}\hbox{}
+      } {
+        硕士\l__square_tl\hspace{0.8em}
+        博士\l__square_star_tl\hspace{0.4em}\hbox{}
+      } \\
       \hline
       院/系/所 & \multicolumn{2}{!{\hfill}m{7\ccwd}!{\hfill}|}{
-        \centering\baselineskip\f@size bp
+        \centering\baselineskip0.7\baselineskip
         \l__info_department_tl
       } & 专业 & \multicolumn{2}{!{\hfill}m{10\ccwd}!{\hfill}|}{
-        \centering\baselineskip\f@size bp
+        \centering\baselineskip0.7\baselineskip
         \l__info_field_tl
       } \\
       \hline
@@ -1199,7 +1216,7 @@
       \multicolumn{5}{l|}{\l__info_email_tl} \\
       \hline
       \multicolumn{6}{|p{30\ccwd}|}{
-        \baselineskip\f@size bp
+        \baselineskip0.7\baselineskip
         备注：\l__info_decautremark_tl
       } \\
       \hline

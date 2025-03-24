@@ -1,11 +1,12 @@
 %%
+%% File encoding: UTF-8
 %% 这是 `newcmd.def' 文件
 %% 为用户定制各种各样的命令
 %%
 %%
 %% 文件声明
 \ProvidesExplFile
-  {newcmd} {2025/02/22} {0.2b} {New~cmds~definitions}
+  {newcmd} {2025/03/09} {0.2c} {New~cmds~definitions}
 %%
 %% 类似于 \qedhere 效果的 \freeze
 \tl_new:N  \l__ncu_freeze_tl
@@ -43,10 +44,32 @@
     \fi:
   }
 }
+%% 左右定界符配对命令
 \NewDocumentCommand \lr {mmm} {
   \tl_if_eq:enT {#1} {.} {\kern-\nulldelimiterspace}
   \mathopen{} \mathclose{\left#1#3\right#2}
   \tl_if_eq:enT {#2} {.} {\kern-\nulldelimiterspace}
+}
+%% 加粗表格横线
+\def\ncu@thickhline@[#1]{
+  \ifnum0=`{\fi}
+  \noalign{
+    \@tempskipa\arrayrulewidth\global\arrayrulewidth#1
+    \hrule\@height\arrayrulewidth
+    \global\arrayrulewidth\@tempskipa
+  }
+}
+\def\ncu@thickhline{
+  \ifnum0=`{\fi}
+  \noalign{
+    \@tempskipa\arrayrulewidth\global\arrayrulewidth1bp
+    \hrule\@height\arrayrulewidth
+    \global\arrayrulewidth\@tempskipa
+  }
+}
+\NewExpandableDocumentCommand \thickhline {} {
+  \noalign{\ifnum0=`}\fi
+  \@ifnextchar[{\ncu@thickhline@}{\ncu@thickhline}
 }
 %%
 %%

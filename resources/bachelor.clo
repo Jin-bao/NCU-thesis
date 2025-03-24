@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {bachelor} {2025/03/02} {1.1d} {Bachelor~thesis~settings}
+  {bachelor} {2025/03/24} {1.1e} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -77,11 +77,10 @@
 \cs_new:Npn \__cn_uline:n #1 {
   \skip_horizontal:N \l__ctex_ccglue_skip
   \group_begin:
-    \tl_set:Nn \l_tmpa_tl {#1}
-    \hbox_set:Nn \l_tmpa_box {\l_tmpa_tl}
+    \hbox_set:Nn \l_tmpa_box {#1}
     \skip_set:Nn \l_tmpa_skip {\box_wd:N \l_tmpa_box - \l__ctex_ccglue_skip}
     \hbox:n {
-      \makebox [0bp] [l] {\rule[-0.252em]{\l_tmpa_skip}{0.4bp}}
+      \makebox [0bp] [l] {\rule[-0.15\baselineskip]{\l_tmpa_skip}{0.4bp}}
       \box_use:N \l_tmpa_box
     }
   \group_end:
@@ -111,7 +110,7 @@
     part = {
       format    = \heiti\bfseries\LARGE\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16bp},
+      aftername = \par\vskip16bp,
       tocline   = \CTEXifname{\CTEXthepart\hspace{.8em}}{}#2
     },
     chapter = {
@@ -155,7 +154,7 @@
     part = {
       format    = \Large\centering,
       number    = \Roman{part},
-      aftername = \par\skip_vertical:n {16bp},
+      aftername = \par\vskip16bp,
       tocline   = \CTEXifname{\CTEXthepart\hspace{1em}}{}#2
     },
     chapter = {
@@ -237,6 +236,7 @@
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
+    Scale            = 0.9,
     PunctuationSpace = 4
   ] {FiraSans}
   \setmonofont [
@@ -245,6 +245,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
+    Scale            = 0.9,
     PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
@@ -259,6 +260,7 @@
     BoldFont         = *-SemiBold,
     ItalicFont       = *-Italic,
     BoldItalicFont   = *-SemiBoldItalic,
+    Scale            = 0.9,
     PunctuationSpace = 4
   ] {FiraSans}
   \setmonofont [
@@ -267,6 +269,7 @@
     BoldFont         = *-Medium,
     ItalicFont       = *-Oblique,
     BoldItalicFont   = *-MediumOblique,
+    Scale            = 0.9,
     PunctuationSpace = 0
   ] {FiraMono}
   \ncu__load_mathfont_XITSMath:
@@ -414,22 +417,9 @@
     \__ncu_warning:nx
       {unknown-style-value}
       {cjk-font=\g__ncu_cjkfont_scheme_tl}
-  },
-}
-%% 加载字体
-\BeforeBeginEnvironment {document} {
-  \tl_if_eq:NnF \g__ncu_font_tl {none} {
-    \ncu__load_font:
-  }
-  \tl_if_eq:NnTF \g__ncu_cjkfont_tl {none} {
-    \ProvideDocumentCommand {\kaiti} {}    {}
-    \ProvideDocumentCommand {\fangsong} {} {}
-    \ProvideDocumentCommand {\heiti} {}    {}
-  } {
-    \ncu__load_cjkfont:
   }
 }
-%% 字符间距微调
+%%
 \cs_new:Nn \ncu__punct_spacing: {
   \sfcode`\.3000
   \sfcode`\?3000
@@ -438,20 +428,43 @@
   \sfcode`\:2500
   \sfcode`\,2250
 }
+%% 加载字体
 \BeforeBeginEnvironment {document} {
+  \tl_if_eq:NnF \g__ncu_font_tl {none} {
+    \ncu__load_font:
+  }
+  \tl_if_eq:NnTF \g__ncu_cjkfont_tl {none} {
+    \ProvideDocumentCommand {\kaiti}    {} {}
+    \ProvideDocumentCommand {\fangsong} {} {}
+    \ProvideDocumentCommand {\heiti}    {} {}
+  } {
+    \ncu__load_cjkfont:
+  }
   \tl_if_eq:NnTF \g__ncu_cjkfont_tl {windows} {\ziju{0.04}} {\ziju{0.08}}
   \ncu__punct_spacing:
 }
 %% 符号调整
+\bool_new:N \g__ncu_rssyms_bool
+\keys_define:nn {ncu/style} {
+  reshapesymbols .choice:,
+  reshapesymbols/true .code:n  = {\bool_gset_true:N  \g__ncu_rssyms_bool},
+  reshapesymbols/false .code:n = {\bool_gset_false:N \g__ncu_rssyms_bool},
+  reshapesymbols .default:n = true,
+  reshapesymbols .initial:n = true,
+  reshapesymbols/unknown .code:n = {
+    \bool_gset_true:N \g__ncu_rssyms_bool
+    \__ncu_warning:nn {unknown-option-value} {reshapesymbols=true}
+  }
+}
 \AtBeginDocument {
-  \tl_set_eq:NN \nabla \mbfnabla
-  \tl_set_eq:NN \muppi \uppi
-  \tl_set:Nx    \pi    \uppi
-  \tl_set_eq:NN \itpi  \mitpi
-  \tl_set_eq:NN \leq   \leqslant
-  \tl_set_eq:NN \geq   \geqslant
-  \DeclareDocumentCommand \Re {} {\mathop{\rm Re}\nolimits}
-  \DeclareDocumentCommand \Im {} {\mathop{\rm Im}\nolimits}
+  \bool_if:NT \g__ncu_rssyms_bool {
+    \tl_set_eq:NN \nabla \mbfnabla
+    \tl_set:Nx    \pi    {\symup{\muppi}}
+    \tl_set_eq:NN \leq   \leqslant
+    \tl_set_eq:NN \geq   \geqslant
+    \DeclareDocumentCommand \Re {} {\mathop{\symup{Re}}\nolimits}
+    \DeclareDocumentCommand \Im {} {\mathop{\symup{Im}}\nolimits}
+  }
 }
 %%
 %% 页面布局
@@ -554,8 +567,6 @@
 }
 %%
 %% 目录格式
-\cftsetrmarg     {3em}
-\cftsetpnumwidth {2em}
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
   \cftsetrmarg     {2.6em}
   \cftsetpnumwidth {1.6em}
@@ -963,7 +974,7 @@
 \tl_new:N  \l__cover_info_tl
 \tl_set:Nn \l__cover_secretlevel_tl {
   \rightline{
-    密级：\__fixed_uline:nn {7\ccwd} {\l__info_secretlevel_tl}
+    密级\makebox[1em][l]{：}\__fixed_uline:nn{6\ccwd}{\l__info_secretlevel_tl}
   }
 }
 \tl_set:Nn \l__cover_logo_name_tl {NANCHANG \hfill UNIVERSITY}
@@ -976,7 +987,7 @@
     \hspace {0.278em}年）
 }
 \tl_set:Nn \l__cover_cntitle_tl {
-  \makebox [3\ccwd] [s] {题\hfil{目}}
+  \makebox [3\ccwd] [l] {题\hfill{目}}
   \__cn_uline:n {
     \makebox [1em] [l] {}
     \parbox[b]{.77\textwidth}{\centering\l__info_cntitle_tl}
@@ -984,24 +995,34 @@
   }
 }
 \tl_set:Nn \l__cover_info_tl {
-  \begin{minipage}{.8\textwidth}
-    \makebox [5\ccwd] [l] {学\hfill{}院：}
-    \__fixed_uline:nn {8\ccwd} {\l__info_college_tl}
+  \parbox {.8\textwidth} {
+    \makebox [4.9\ccwd] [l] {学\hfill{}院\makebox[1em][l]{：}}
+    \__fixed_uline:nn {8\ccwd} {
+      \parbox[b]{8\ccwd}{
+        \centering\baselineskip\f@size bp
+        \l__info_college_tl
+      }
+    }
     \makebox [\ccwd]  [c] {系}
-    \__fixed_uline:nn {8\ccwd} {\l__info_department_tl} \\[8bp]
-    \makebox [5\ccwd] [l] {专\hfill{}业\hfill{}班\hfill{}级：}
+    \__fixed_uline:nn {8\ccwd} {
+      \parbox[b]{8\ccwd}{
+        \centering\baselineskip\f@size bp
+        \l__info_department_tl
+      }
+    } \\[8bp]
+    \makebox [4.9\ccwd] [l] {专\hfill{}业\hfill{}班\hfill{}级\makebox[1em][l]{：}}
     \__fixed_uline:nn {17\ccwd} {\l__info_majorclass_tl} \\[8bp]
-    \makebox [5\ccwd] [l] {学\hfill{}生\hfill{}姓\hfill{}名：}
+    \makebox [4.9\ccwd] [l] {学\hfill{}生\hfill{}姓\hfill{}名\makebox[1em][l]{：}}
     \__fixed_uline:nn {7\ccwd} {\l__info_author_tl}
-    \makebox [3\ccwd] [l] {学\hfill{号：}}
+    \makebox [3\ccwd] [l] {\hfil{}学\hfil{}号\hfil\makebox[1em][l]{：}}
     \__fixed_uline:nn {7\ccwd} {\l__info_studentid_tl} \\[8bp]
-    \makebox [5\ccwd] [l] {指\hfill{}导\hfill{}教\hfill{}师：}
+    \makebox [4.9\ccwd] [l] {指\hfill{}导\hfill{}教\hfill{}师\makebox[1em][l]{：}}
     \__fixed_uline:nn {7\ccwd} {\l__info_supervisor_tl}
-    \makebox [3\ccwd] [l] {职\hfill{称：}}
+    \makebox [3\ccwd] [l] {\hfil{}职\hfil{}称\hfil\makebox[1em][l]{：}}
     \__fixed_uline:nn {7\ccwd} {\l__info_supervisortitle_tl} \\[8bp]
-    \makebox [5\ccwd] [l] {起\hfill{}讫\hfill{}日\hfill{}期：}
+    \makebox [4.9\ccwd] [l] {起\hfill{}讫\hfill{}日\hfill{}期\makebox[1em][l]{：}}
     \__fixed_uline:nn {17\ccwd} {\l__info_startstopdate_tl}
-  \end{minipage}
+  }
 }
 %%
 \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_adjusted_tl {
@@ -1195,13 +1216,14 @@
   \skip_vertical:n {3bp plus1bp minus1bp}
   \begin{center}
     \small
-    \begin{tabular}{llll}
-      \makebox [4.24em] [l] {专\hfill{}业}：\l__info_major_tl & & &
-      \makebox [4.24em] [l] {学\hfill{}号}：\l__info_studentid_tl \\
-      \makebox [4.24em] [l]
-        {学\hfill{}生\hfill{}姓\hfill{}名}：\l__info_author_tl & & &
-      \makebox [4.24em] [l]
-        {指\hfill{}导\hfill{}教\hfill{}师}：\l__info_supervisor_tl
+    \begin{tabular}{
+      l@{\makebox[1em][l]{：}}l@{\hspace{3\ccwd}}l@{\makebox[1em][l]{：}}l}
+      \makebox [4\ccwd] [l] {专\hfill{}业} & \l__info_major_tl &
+      \makebox [4\ccwd] [l] {学\hfill{}号} & \l__info_studentid_tl \\
+      \makebox [4\ccwd] [l]
+        {学\hfill{}生\hfill{}姓\hfill{}名} & \l__info_author_tl &
+      \makebox [4\ccwd] [l]
+        {指\hfill{}导\hfill{}教\hfill{}师} & \l__info_supervisor_tl
     \end{tabular}
   \end{center}
   \skip_vertical:n {3bp plus1bp minus1bp}
