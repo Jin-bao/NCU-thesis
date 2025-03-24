@@ -8,7 +8,7 @@
 %%
 \ncusetup{
   info = {
-    CLC             = {O},
+    CLC             = {},
     secret-level*   = {公开},
     UDC             = {},
     studentid       = {402200220047},
@@ -17,7 +17,7 @@
     title*          = {Demonstration\\of\\Nanchang University Thesis Template},
     author          = {朱金宝},
     department      = {物理与材料学院},
-    supervisor      = {舒富文教授},
+    supervisor      = {舒富文\quad 教授},
     field           = {理学},
     major           = {天体物理},
     defence-date    = {2022 年 12 月 31 日},
@@ -46,14 +46,16 @@
 %%
 %% 中文摘要
 \begin{abstract}
-这里写摘要.
-\keywords{关键词 1, 关键词 2, 关键词 3}
+本文展示了 NCU-thesis 模板的使用效果. 用户可以根据示例文件代码, 仿照着写出自己的
+毕业论文. 
+\keywords{南昌大学, 拉泰赫模板, 使用演示}
 \end{abstract}
 %%
 %% 英文摘要
 \begin{abstract*}
-This is abstract.
-\keywords{kw1, kw2, kw3}
+This article demonstrates the use of the NCU-thesis \LaTeX\ template.
+Users can write their own thesis based on the \verb|main.tex| file code.
+\keywords{Nanchang University, \LaTeX\ template, demonstration}
 \end{abstract*}
 %%
 %% 目录
@@ -63,19 +65,67 @@ This is abstract.
 \mainmatter
 %%
 %%
-\chapter{引言}
-\section{历史}
-我们知道 lshort\cite{lshortcn} 是入门 \LaTeX 的必读文献.\footnote{脚注.}
+\chapter{介绍}
+\section{一些 \LaTeX 书籍推荐}
+我们知道 lshort\cite{lshortcn} 是入门 \LaTeX 的必读文献.%
+\footnote{参见 \texttt{https://github.com/CTeX-org/lshort-zh-cn}}
+可以花上几个小时阅读一下, 能够避免被一些简单的问题耽误时间. 
 
-\begin{theorem}
-若满足条件
+除此之外, 还推荐刘海洋的《\LaTeX 入门》、胡伟的《\LaTeXe 完全学习手册》, 进阶
+用户还可以看胡伟的《\LaTeXe 文类和宏包学习手册》. 
+\section{图和表}
+图和表可以看作宽和高较大的文字,\footnote{严格来说称为 ``盒子''.} 当前页空间不够
+时, 图表自然就要去其他地方找位置.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=6cm]{example-image}
+\caption{示例图片, 在 \texttt{draft} 模式下不显示图片内容, 只显示图片轮廓.}
+\label{fig:example-fig}
+\end{figure}
+
+\begin{table}[htb]
+\centering
+\caption{把表注写在前面, 表注就会在表格上方.}
+\begin{tabular}{lccr}
+  \thickhline
+  左对齐表头 & 居中对齐表头 & 居中对齐表头 & 右对齐表头 \\
+  \hline
+  一行一列   & 一行二列     & 一行三列     & 一行四列 \\
+  二行一列   & 二行二列     & 二行三列     & 二行四列 \\
+  三行一列   & 三行二列     & 三行三列     & 三行四列 \\
+  四行一列   & 四行二列     & 四行三列     & 四行四列 \\
+  五行一列   & 五行二列     & 五行三列     & 五行四列 \\
+  六行一列   & 六行二列     & 六行三列     & 六行四列 \\
+  七行一列   & 七行二列     & 七行三列     & 七行四列 \\
+  八行一列   & 八行二列     & 八行三列     & 八行四列 \\
+  \thickhline
+\end{tabular}
+\label{tab:example-tab}
+\end{table}
+
+由于 \verb|figure| 和 \verb|table| 环境是浮动的, 文本流有时会提前排版出来, 
+比如表 \ref{tab:example-tab} 就排到了下一页. 
+
+\section{数学公式}
+对 Fourier 变换采用以下约定:
+\begin{equation}
+  (\symcal{F}\!f)(\xi) = \hat f(\xi) = \frac{1}{\sqrt{2\pi}}
+    \int_{-\infty}^{\infty}\symup{e}^{-ix\xi}f(x)\,\symup{d}x.
+\end{equation}
+根据这一标准定义, 有
 \[
-  \sum_{j=0}^S q_j = 1,\quad
-  \sum_{k\in\symbb{Z}} h_{k-2n}\bar{h}_k = \delta_{n0},\quad
-  \sup \lvert Q(z)\rvert < 2^{N-1},
+  \lVert\hat f\rVert_{L^2} = \lVert f\rVert_{L^2},\quad
+  \lvert\hat f(\xi)\rvert \leq (2\pi)^{-1/2}\lVert f\rVert_{L^1}.
 \]
-则双尺度方程 $\varphi(x) = \sqrt{2}\sum_{k=0}^L h_k\varphi(2x-k)$ 迭代可解, 
-且其解生成一个多分辨分析. 
+\begin{theorem}[Fubini 定理]
+若 $\int\symup{d}x\,\lr[]{\int\symup{d}y\,\lvert f(x,y)\rvert} < \infty$, 则
+\begin{equation}
+  \int\symup{d}x\int\symup{d}y\,f(x,y)
+    = \int\symup{d}x\,\lr[]{\int\symup{d}y\,f(x,y)}
+    = \int\symup{d}y\,\lr[]{\int\symup{d}x\,f(x,y)},
+\end{equation}
+即积分顺序可以互换.
 \end{theorem}
 \begin{proof}
 即得易见平凡, 仿照上例显然. 留作习题答案略, 读者自证不难. 
@@ -84,9 +134,10 @@ This is abstract.
 %%
 %% 附录
 \appendix
-\chapter{公式推导}
-\section{场方程}
-附录内容.
+\chapter{附加材料}
+\section{附录的章节标题}
+附录与正文的章节标题用法其实并没有什么区别, 它们的效果也仅仅是编号方式不一样
+而已. 
 %%
 %% 后文
 \backmatter
@@ -96,7 +147,7 @@ This is abstract.
 %%
 %% 致谢
 \begin{acknowledgements}
-感谢……
+感谢我的朋友们！
 \signoff{朱金宝}{2022 年 12 月 31 日}
 \end{acknowledgements}
 %%
@@ -107,20 +158,22 @@ This is abstract.
 \LaTeXe\ 介绍 [EB/OL]. 2021.
 \end{published}
 \begin{tobepublished}
-\item 即将发表内容
-\item 马上发表内容
+\item 待发表论文. 
 \end{tobepublished}
 \begin{reports}
-\item 研究报告
+\item 研究报告. 
 \end{reports}
 \begin{others}[另外还有]
-\item 其他的内容
+\item 其他内容. 
 \end{others}
-不论如何, 还可以在 \textsf{researchresults} 环境内使用
+不论如何, 还可以在 \textsf{researchresults} 环境内使用不带标题的
 \texttt{papers} 列表环境, 这个环境最多支持到第二级. 
 \begin{papers}
-\item 论文
-\item 报告
+\item 论文.
+\item 报告.
+  \begin{papers}
+    \item 专利. 
+  \end{papers}
 \end{papers}
 \end{researchresults}
 \end{document}
