@@ -3,6 +3,10 @@
 %% 这是 `demo-bachelor.tex' 文件
 %%
 \documentclass[bachelor,ncu,newenv]{ncuthesis}
+\usepackage[colorlinks,
+            linkcolor=black,   % 普通链接颜色
+            citecolor=black,   % 文献引用颜色 
+            urlcolor=blue]{hyperref}
 \ncusetup{
   info = {
     secret-level     = {公开},
@@ -25,10 +29,12 @@
 \maketitle
 \frontmatter
 \makedecaut
+\phantomsection
 \begin{abstract}
 这里写摘要。
 \keywords{关键词 1, 关键词 2, 关键词 3}
 \end{abstract}
+\phantomsection
 \begin{abstract*}
 This is abstract.
 \keywords{kw1, kw2, kw3}
