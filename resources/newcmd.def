@@ -6,7 +6,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {newcmd} {2025/03/09} {0.2c} {New~cmds~definitions}
+  {newcmd} {2025/03/24} {0.2d} {New~cmds~definitions}
 %%
 %% 类似于 \qedhere 效果的 \freeze
 \tl_new:N  \l__ncu_freeze_tl
@@ -62,7 +62,7 @@
 \def\ncu@thickhline{
   \ifnum0=`{\fi}
   \noalign{
-    \@tempskipa\arrayrulewidth\global\arrayrulewidth1bp
+    \@tempskipa\arrayrulewidth\global\arrayrulewidth1.5bp
     \hrule\@height\arrayrulewidth
     \global\arrayrulewidth\@tempskipa
   }
