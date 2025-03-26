@@ -19,7 +19,7 @@
 %%
 \NeedsTeXFormat {LaTeX2e}
 \ProvidesExplClass
-  {ncuthesis} {2025/03/24} {1.1e} {Nanchang~University~LaTeX~thesis~template}
+  {ncuthesis} {2025/03/26} {1.1f} {Nanchang~University~LaTeX~thesis~template}
 \RequirePackage {l3keys2e}
 %%
 %% 引擎判断
