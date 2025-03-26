@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {academic} {2025/03/24} {1.1e} {Academic~degree~thesis~settings}
+  {academic} {2025/03/26} {1.1f} {Academic~degree~thesis~settings}
 %%
 %% 导入基础文类和宏包并写死参数
 \LoadClass [
@@ -32,7 +32,7 @@
 }
 \normalsize
 \DeclareDocumentCommand \small {} {
-  \@setfontsize\small{10.5bp}{17.5bp}
+  \@setfontsize\small{10.5bp}{16bp}
   \abovedisplayskip      7 bp plus2bp minus3bp
   \abovedisplayshortskip 0 bp plus2bp
   \belowdisplayshortskip 10bp plus2bp minus3bp
@@ -1106,6 +1106,18 @@
 }
 %%
 %% 声明和授权书
+\bool_new:N \g__ncu_filltable_bool
+\keys_define:nn {ncu/style} {
+  filldecauttable .choice:,
+  filldecauttable/true .code:n  = {\bool_gset_true:N  \g__ncu_filltable_bool},
+  filldecauttable/false .code:n = {\bool_gset_false:N \g__ncu_filltable_bool},
+  filldecauttable .default:n = true,
+  filldecauttable .initial:n = true,
+  filldecauttable/unknown .code:n = {
+    \bool_gset_true:N \g__ncu_filltable_bool
+    \__ncu_warning:nn {unknown-option-value} {filldecauttable=true}
+  }
+}
 \NewDocumentCommand \makedecaut {} {
   \tl_new:N  \l__dec_tl
   \tl_new:N  \l__aut_tl
@@ -1154,37 +1166,24 @@
   \tl_set:Nn \l__sdt_tl {
     签字日期：\hbox:n{}\hspace{2em}年\hspace{1.5em}月\hspace{1.5em}日
   }
-  \skip_new:N  \l__mbl_skip
-  \skip_set:Nn \l__mbl_skip {.45\columnwidth}
-  \dim_set:Nn  \arrayrulewidth {.5bp}
-%%
-  \clearpage
-  \hrule height 0bp\nobreak
-  \chaptermark{声明和授权书}
-  \begin{center}
-    \fangsong\bfseries\LARGE{一、学位论文独创性声明}
-  \end{center}
-  \par
-  \l__dec_tl\\[12bp]
-  \makebox [\l__mbl_skip] [l] {\l__asi_tl}
-  \hfill
-  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
-  \skip_vertical:n {30bp minus18bp}
-  \begin{center}
-    \fangsong\bfseries\LARGE{二、学位论文版权使用授权书}
-  \end{center}
-  \par
-  \l__aut_tl\\[12bp]
-  \makebox [\l__mbl_skip] [l] {\l__asi_tl}
-  \hfill
-  \makebox [\l__mbl_skip] [l] {\l__ssi_tl}\\[12bp]
-  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
-  \hfill
-  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
-  \skip_vertical:n {24bp minus4bp}
-  \group_begin:
-    \parindent0bp
-    \nointerlineskip
+  \tl_set:Nn \l__table_tl {
+    \begin{tabularx}{\textwidth}{|c|X|c|X|c|l|}
+      \hline
+      论文题目 & \multicolumn{5}{l|}{} \\
+      \hline
+      姓名 & & 学号 & & 论文级别 &
+      硕士\l__square_tl\hspace{0.8em}博士\l__square_tl\hspace{0.4em}\hbox{}\\
+      \hline
+      院/系/所 & \multicolumn{2}{l|}{} &
+      \centering{专业} & \multicolumn{2}{l|}{} \\
+      \hline
+      E\c_underscore_str{mail} & \multicolumn{5}{l|}{} \\
+      \hline
+      \multicolumn{6}{|l|}{备注：} \\
+      \hline
+    \end{tabularx}
+  }
+  \tl_set:Nn \l__filled_table_tl {
     \begin{tabularx}{\textwidth}{|c|X|c|c|c|l|}
       \hline
       论文题目 & \multicolumn{5}{m{25\ccwd}!{\hfill}|}{
@@ -1218,6 +1217,39 @@
       } \\
       \hline
     \end{tabularx}
+  }
+  \skip_new:N  \l__mbl_skip
+  \skip_set:Nn \l__mbl_skip {.45\columnwidth}
+  \dim_set:Nn  \arrayrulewidth {.5bp}
+%%
+  \clearpage
+  \hrule height 0bp\nobreak
+  \chaptermark{声明和授权书}
+  \begin{center}
+    \fangsong\bfseries\LARGE{一、学位论文独创性声明}
+  \end{center}
+  \par
+  \l__dec_tl\\[12bp]
+  \makebox [\l__mbl_skip] [l] {\l__asi_tl}
+  \hfill
+  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
+  \skip_vertical:n {30bp minus18bp}
+  \begin{center}
+    \fangsong\bfseries\LARGE{二、学位论文版权使用授权书}
+  \end{center}
+  \par
+  \l__aut_tl\\[12bp]
+  \makebox [\l__mbl_skip] [l] {\l__asi_tl}
+  \hfill
+  \makebox [\l__mbl_skip] [l] {\l__ssi_tl}\\[12bp]
+  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
+  \hfill
+  \makebox [\l__mbl_skip] [l] {\l__sdt_tl}
+  \skip_vertical:n {24bp minus4bp}
+  \group_begin:
+    \parindent0bp
+    \nointerlineskip
+    \bool_if:NTF \g__ncu_filltable_bool {\l__filled_table_tl} {\l__table_tl}
     \nopagebreak
     \skip_vertical:n {8bp minus2bp}
     \makebox [\textwidth] [l] {
@@ -1302,7 +1334,7 @@
   \chapter*{\l__acks_tl}
   \chaptermark{\l__acks_tl}
   \addcontentsline{toc}{chapter}{\l__acks_tl}
-  \fangsong
+  \fangsong\baselineskip16bp\scan_stop:
 } {
   \clearpage
 }

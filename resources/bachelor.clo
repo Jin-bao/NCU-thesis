@@ -7,7 +7,7 @@
 %%
 %% 文件声明
 \ProvidesExplFile
-  {bachelor} {2025/03/24} {1.1e} {Bachelor~thesis~settings}
+  {bachelor} {2025/03/26} {1.1f} {Bachelor~thesis~settings}
 %%
 %% 导入基础文类和宏包, 写死参数
 \LoadClass [
@@ -1151,7 +1151,7 @@
     \par
     \group_begin:
       \bfseries\Large
-      \centerline{南昌大学}
+      \centerline{南\hspace{0.5\ccwd}昌\hspace{0.5\ccwd}大\hspace{0.5\ccwd}学}
       \centerline{学士学位论文原创性申明}
     \group_end:
     \skip_vertical:n {6bp}
@@ -1191,6 +1191,7 @@
 }
 %%
 %% 中英文摘要
+\ProvideDocumentCommand \phantomsection {} {}
 \NewDocumentEnvironment {abstract} {} {
   \str_new:N \l__cnkws_str
   \seq_new:N \l__cnkws_seq
@@ -1199,6 +1200,7 @@
     \seq_set_split:Nnn \l__cnkws_seq {,} {##1}
   }
 %%
+  \phantomsection
   \hrule height 0bp
   \par
   \group_begin:
@@ -1235,8 +1237,8 @@
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \centerline{摘要}
     }
-    \addcontentsline{toc}{chapter}{摘要}
     \chaptermark{摘要}
+    \addcontentsline{toc}{chapter}{摘要}
   \group_end:
   \par\skip_vertical:n {6bp plus2bp minus2bp}
 } {
@@ -1260,6 +1262,7 @@
     \seq_set_split:Nnn \l__enkws_seq {,} {##1}
   }
 %%
+  \phantomsection
   \hrule height 0bp
   \par
   \group_begin:
@@ -1283,8 +1286,8 @@
     \tl_if_eq:NNT \g__ncu_format_tl \g__ncu_format_ncu_tl {
       \centerline{Abstract}
     }
-    \addcontentsline{toc}{chapter}{Abstract}
     \chaptermark{Abstract}
+    \addcontentsline{toc}{chapter}{Abstract}
   \group_end:
   \par\skip_vertical:n {6bp plus2bp minus2bp}
 } {
@@ -1310,8 +1313,8 @@
     \rightline{##2}
   }
   \chapter*{\l__acks_tl}
-  \addcontentsline{toc}{chapter}{\l__acks_tl}
   \chaptermark{\l__acks_tl}
+  \addcontentsline{toc}{chapter}{\l__acks_tl}
 } {
   \clearpage
 }
