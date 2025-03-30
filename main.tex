@@ -3,7 +3,7 @@
 %% 这是 `main.tex' 文件
 %%
 %%
-\documentclass[draft,newenv,newcmd]{ncuthesis}
+\documentclass[newenv,newcmd]{ncuthesis}
 %%
 %%
 \ncusetup{
@@ -30,7 +30,9 @@
 }
 %%
 %% 其他设置
-% \usepackage{hyperref}
+\ExplSyntaxOn
+\xeCJK_pre_inter_class_toks:nnn {FullRight} {HalfRight} {\kern-0.5em}
+\ExplSyntaxOff
 %%
 %% 文档开始
 \begin{document}
@@ -72,7 +74,7 @@ Users can write their own thesis based on the \verb|main.tex| file code.
 可以花上几个小时阅读一下, 能够避免被一些简单的问题耽误时间. 
 
 除此之外, 还推荐刘海洋的《\LaTeX 入门》、胡伟的《\LaTeXe 完全学习手册》, 进阶
-用户还可以看胡伟的《\LaTeXe 文类和宏包学习手册》. 
+用户还可以看胡伟的《\LaTeXe 文类和宏包学习手册》.
 \section{图和表}
 图和表可以看作宽和高较大的文字,\footnote{严格来说称为 ``盒子''.} 当前页空间不够
 时, 图表自然就要去其他地方找位置.
@@ -147,7 +149,7 @@ Users can write their own thesis based on the \verb|main.tex| file code.
 %%
 %% 致谢
 \begin{acknowledgements}
-感谢我的朋友们！
+  感谢我的朋友们！
 \signoff{朱金宝}{2022 年 12 月 31 日}
 \end{acknowledgements}
 %%
