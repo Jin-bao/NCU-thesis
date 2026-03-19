@@ -1,3 +1,7 @@
+# 作者目前无法访问 GitHub
+
+__________
+
 # NCU-thesis
 <img src="https://img.shields.io/badge/latex-ncuthesis-green" alt="Author" /> <img src="https://img.shields.io/badge/release-v1.1f-orange" alt="Author" /> <img src="https://img.shields.io/badge/repo%20size-about%20160K-blue" alt="Author" /> <img src="https://img.shields.io/badge/licence-lppl1.3c-lightgray" alt="Author" />
 
